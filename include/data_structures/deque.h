@@ -12,12 +12,17 @@
 #include <stddef.h>
 #include "cdll.h"
 
+/*
+ * This is the API for a double ended queue.
+ *
+ * The deque is a key component of the LRU cache, enabling eviction of the least recently used message.
+ *
+ */
 
 typedef struct deque_t {
     cdll_t* list;
 } deque_t;
 
-/* Operation Prototypes */
 deque_t* deque_init(void);
 void deque_destroy(deque_t* deque, void (*free_data)(void*));
 int deque_push(deque_t* deque, void* data);

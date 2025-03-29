@@ -12,10 +12,10 @@
 #include <stdio.h>
 
 static int hash_function(long long key, int num_buckets) {
-    return key % num_buckets;
+    return llabs(key % num_buckets);
 }
 
-void free_hash_entry(void *data) {
+void hash_entry_free(void *data) {
     hash_entry_t* hash_entry = (hash_entry_t*)data;
     if (!hash_entry) return;
 
@@ -56,7 +56,7 @@ hash_table_t* hash_table_init(int num_buckets) {
         if (!hash_table->buckets[i]) {
             fprintf(stderr, "ERROR: failed to initialize bucket number '%d'.\n", i);
             for (int j = 0; j < i; j++) {
-                dll_destroy(hash_table->buckets[j], free_hash_entry);
+                dll_destroy(hash_table->buckets[j], hash_entry_free);
             }
             free(hash_table->buckets);
             free(hash_table);
@@ -74,7 +74,7 @@ void hash_table_destroy(hash_table_t* hash_table) {
     if (!hash_table) return;
 
     for (int i = 0; i < hash_table->num_buckets; i++) {
-        dll_destroy(hash_table->buckets[i], free_hash_entry);
+        dll_destroy(hash_table->buckets[i], hash_entry_free);
     }
 
     free(hash_table->buckets);
@@ -105,14 +105,14 @@ int hash_table_remove(hash_table_t* hash_table, long long key) {
     }
 
     int hash_key = hash_function(key, hash_table->num_buckets);
-    dll_t* bucket = hash_table->buckets[hash_key];
-    dll_node_t* target_node = dll_search(bucket, (void*)&key, message_cmp_id);
+    dll_t* bucket = hash_table->buckets[hash_key]; // find bucket
+    dll_node_t* target_node = dll_search(bucket, (void*)&key, message_cmp_id); // find node in list
     if (!target_node) {
         fprintf(stderr, "ERROR: key '%lld' not found in bucket[%d].\n", key, hash_key);
         return -1;
     }
 
-    if (dll_delete(bucket, target_node) != 0) {
+    if (dll_delete(bucket, target_node) != 0) { // delete node from list
         fprintf(stderr, "ERROR: failed to delete target node.\n");
         return -1;
     }
@@ -128,8 +128,8 @@ dll_node_t* hash_table_get(hash_table_t* hash_table, long long key) {
     }
 
     int hash_key = hash_function(key, hash_table->num_buckets);
-    dll_t* bucket = hash_table->buckets[hash_key];
-    dll_node_t* target_node = dll_search(bucket, (void*)&key, message_cmp_id);
+    dll_t* bucket = hash_table->buckets[hash_key]; // find bucket
+    dll_node_t* target_node = dll_search(bucket, (void*)&key, message_cmp_id); // find node in list
     if (!target_node) {
         return NULL;
     }
@@ -137,7 +137,7 @@ dll_node_t* hash_table_get(hash_table_t* hash_table, long long key) {
     return target_node;
 }
 
-void hash_table_print(hash_table_t* hash_table, char msg_or_idx) {
+void hash_table_print(hash_table_t* hash_table, char msg_or_idx) { // used for testing
     void (*dll_print_func)(dll_t*);
     dll_print_func = NULL;
     switch (msg_or_idx) {
@@ -167,7 +167,7 @@ void hash_table_print(hash_table_t* hash_table, char msg_or_idx) {
 
     for (int i = 0; i < hash_table->num_buckets; i++) {
         printf("Bucket[%d]: ", i);
-        dll_print_func(hash_table->buckets[i]);
+        dll_print_func(hash_table->buckets[i]); // print each list in hash table
     }
 
     printf("\n");

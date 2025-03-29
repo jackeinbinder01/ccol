@@ -34,6 +34,7 @@ void cdll_destroy(cdll_t* cdll, void (*free_data)(void*)) {
 
     dll_node_t* curr = cdll->head;
 
+    // free data in each node
     do {
         dll_node_t* next = curr->next;
         if (free_data) {
@@ -61,12 +62,12 @@ int cdll_prepend(cdll_t* cdll, void* data) {
 
     new_node->data = data;
 
-    if (cdll->head) {
+    if (cdll->head) { // cdll is not empty
         new_node->next = cdll->head;
         new_node->prev = cdll->tail;
         cdll->head->prev = new_node;
         cdll->tail->next = new_node;
-    } else {
+    } else { // cdll is empty
         new_node->next = new_node;
         new_node->prev = new_node;
         cdll->tail = new_node;
@@ -91,12 +92,12 @@ int cdll_append(cdll_t* cdll, void* data) {
 
     new_node->data = data;
 
-    if (cdll->tail) {
+    if (cdll->tail) { // cdll is not empty
         new_node->next = cdll->head;
         new_node->prev = cdll->tail;
         cdll->head->prev = new_node;
         cdll->tail->next = new_node;
-    } else {
+    } else { // cdll is empty
         new_node->next = new_node;
         new_node->prev = new_node;
         cdll->head = new_node;
@@ -124,17 +125,17 @@ int cdll_insert_after(cdll_t* cdll, dll_node_t* target_node, void* data) {
 
     new_node->data = data;
 
-    if (!cdll->head) {
+    if (!cdll->head) { // cdll is empty
         new_node->next = new_node;
         new_node->prev = new_node;
         cdll->head = new_node;
         cdll->tail = new_node;
-    } else {
+    } else { // cdll is not empty
         new_node->next = target_node->next;
         new_node->prev = target_node;
         target_node->next = new_node;
 
-        if (target_node == cdll->tail) {
+        if (target_node == cdll->tail) { // inserted node is new tail
             cdll->tail = new_node;
         } else {
             new_node->next->prev = new_node;
@@ -153,7 +154,7 @@ int cdll_insert_before(cdll_t* cdll, dll_node_t* target_node, void* data) {
         fprintf(stderr, "ERROR: target node is NULL.\n");
         return -1;
     }
-    // allocate new node
+
     dll_node_t* new_node = malloc(sizeof(dll_node_t));
     if (!new_node) {
         perror("ERROR: failed to create new doubly linked node");
@@ -200,7 +201,7 @@ int cdll_delete(cdll_t* cdll, dll_node_t* target_node) {
         return -1;
     }
 
-    if (cdll->size == 1) {
+    if (cdll->size == 1) { // delete only node
         cdll->head = NULL;
         cdll->tail = NULL;
     } else if (delete_node == cdll->head) { // delete head node
@@ -235,6 +236,7 @@ dll_node_t* cdll_search(const cdll_t* cdll, const void* data, int (*cmp)(const v
         return NULL;
     }
 
+    // search list for target node using passed comparator
     dll_node_t* curr = cdll->head;
     do {
         if (cmp(curr->data, data) == 0) {
@@ -257,9 +259,9 @@ dll_node_t* cdll_pop(cdll_t* cdll) {
         return NULL;
     }
 
-    dll_node_t* tail = cdll->tail;
+    dll_node_t* tail = cdll->tail; // pop tail node
 
-    if (cdll->size == 1) {
+    if (cdll->size == 1) { // if tail is only node, cdll becomes empty
         cdll->head = NULL;
         cdll->tail = NULL;
     } else {
@@ -282,9 +284,9 @@ dll_node_t* cdll_pop_left(cdll_t* cdll) {
         return NULL;
     }
 
-    dll_node_t* head = cdll->head;
+    dll_node_t* head = cdll->head; // pop head node
 
-    if (cdll->size == 1) {
+    if (cdll->size == 1) { // if head is only node, cdll becomes empty
         cdll->head = NULL;
         cdll->tail = NULL;
     } else {
@@ -315,7 +317,7 @@ int cdll_is_empty(const cdll_t* cdll) {
     return (cdll->size == 0);
 }
 
-void print_cdll(cdll_t* cdll) {
+void cdll_print(cdll_t* cdll) { // used for testing
     if (!cdll) {
         fprintf(stderr, "ERROR: circular doubly linked list is NULL.\n");
         return;

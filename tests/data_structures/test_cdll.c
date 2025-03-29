@@ -4,6 +4,8 @@
 * Jack Einbinder / CS5600 / Northeastern University
 * Spring 2025 / March 19, 2025
 *
+* This file contains unit tests for key functions of the cdll data structure.
+*
 */
 
 #include <stdio.h>
@@ -12,36 +14,13 @@
 #include "data_structures/cdll.h"
 #include "components/message.h"
 
-/*
-typedef struct cdll_t {
-    dll_node_t* head;
-    dll_node_t* tail;
-    size_t size;
-} cdll_t;
-*/
-
-cdll_t* cdll_init();
-void cdll_destroy(cdll_t* cdll, void (*free_data)(void*));
-int cdll_prepend(cdll_t* cdll, void* data);
-int cdll_append(cdll_t* cdll, void* data);
-int cdll_insert_after(cdll_t* cdll, dll_node_t* target_node, void* data);
-int cdll_insert_before(cdll_t* cdll, dll_node_t* target_node, void* data);
-int cdll_delete(cdll_t* cdll, dll_node_t* node);
-dll_node_t* cdll_pop(cdll_t* cdll);
-dll_node_t* cdll_pop_left(cdll_t* cdll);
-dll_node_t* cdll_search(const cdll_t* cdll, const void* data, int (*cmp)(const void*, const void*));
-size_t cdll_size(const cdll_t* cdll);
-int cdll_is_empty(const cdll_t* cdll);
-void print_cdll(const cdll_t* cdll);
-
-
 cdll_t* test_cdll_init() {
     cdll_t* cdll = cdll_init();
     if (!cdll) {
         fprintf(stderr, "FAIL: test_cdll_init failed to create cdll.\n");
         return NULL;
     }
-    print_cdll(cdll);
+    cdll_print(cdll);
     return cdll;
 }
 
@@ -75,7 +54,7 @@ int test_cdll_append(cdll_t* cdll) {
     cdll_append(cdll, message_2);
     cdll_append(cdll, message_3);
     cdll_append(cdll, message_4);
-    print_cdll(cdll);
+    cdll_print(cdll);
 
     return 0;
 }
@@ -88,7 +67,7 @@ int test_cdll_pop_left(cdll_t* cdll) {
 
     dll_node_t* head = cdll_pop_left(cdll);
     free(head);
-    print_cdll(cdll);
+    cdll_print(cdll);
     return 0;
 }
 
@@ -105,7 +84,7 @@ int test_cdll_delete(cdll_t* cdll) {
         return -1;
     }
     cdll_delete(cdll, node_id_3);
-    print_cdll(cdll);
+    cdll_print(cdll);
     return 0;
 }
 

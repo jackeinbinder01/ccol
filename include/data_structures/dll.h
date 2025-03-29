@@ -14,9 +14,12 @@
 #include <stdio.h>
 #include "components/message.h"
 
-/* Structs */
+/*
+ * This is the API for a doubly linked list.
+ */
+
 typedef struct dll_node_t {
-    void* data; // store the index in the node, not the message
+    void* data;
     struct dll_node_t* next;
     struct dll_node_t* prev;
 } dll_node_t;
@@ -27,7 +30,6 @@ typedef struct dll_t {
     size_t size;
 } dll_t;
 
-/* Function protoypes */
 dll_t* dll_init(void);
 void dll_destroy(dll_t* dll, void (*free_data)(void*));
 int dll_prepend(dll_t* dll, void* data);
@@ -41,6 +43,7 @@ dll_node_t* dll_search(const dll_t* dll, const void* data, int (*cmp)(const void
 size_t dll_size(const dll_t* dll);
 int dll_is_empty(const dll_t* dll);
 void dll_print_idx(dll_t* dll);
+void dll_print_node(dll_node_t* node);
 void dll_print(dll_t* dll);
 
 #endif //DLL_H

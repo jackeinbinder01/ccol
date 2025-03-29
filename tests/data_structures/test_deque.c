@@ -4,6 +4,8 @@
 * Jack Einbinder / CS5600 / Northeastern University
 * Spring 2025 / March 19, 2025
 *
+* This file contains unit tests for key functions of the deque data structure.
+*
 */
 
 #include <stdio.h>
@@ -12,25 +14,6 @@
 #include "data_structures/cdll.h"
 #include "data_structures/deque.h"
 #include "components/message.h"
-
-/*
-typedef struct deque_t {
-    cdll_t* list;
-} deque_t;
-*/
-
-/* Operation Prototypes */
-deque_t* deque_init();
-void deque_destroy(deque_t* deque, void (*free_data)(void*));
-int deque_push(deque_t* deque, void* data);
-int deque_push_left(deque_t* deque, void* data);
-void* deque_pop(deque_t* deque);
-void* deque_pop_left(deque_t* deque);
-int deque_delete(deque_t* deque, dll_node_t* node);
-dll_node_t* deque_search(const deque_t* deque, const void* data, int (*cmp)(const void*, const void*));
-int deque_is_empty(deque_t* deque);
-size_t deque_size(deque_t* deque);
-void deque_print(deque_t* deque);
 
 deque_t* test_deque_init() {
     deque_t* deque = deque_init();

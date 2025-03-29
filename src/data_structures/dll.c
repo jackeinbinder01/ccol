@@ -60,9 +60,9 @@ int dll_prepend(dll_t* dll, void* data) {
     new_node->next = dll->head;
     new_node->prev = NULL;
 
-    if (dll->head) {
+    if (dll->head) { // dll is not empty
       dll->head->prev = new_node;
-    } else {
+    } else { // dll is empty
       dll->tail = new_node;
     }
 
@@ -87,9 +87,9 @@ int dll_append(dll_t* dll, void* data) {
     new_node->next = NULL;
     new_node->prev = dll->tail;
 
-    if (dll->tail) {
+    if (dll->tail) { // dll is not empty
         dll->tail->next = new_node;
-    } else {
+    } else { // dll is empty
         dll->head = new_node;
     }
 
@@ -115,17 +115,17 @@ int dll_insert_after(dll_t* dll, dll_node_t* target_node, void* data) {
     }
 
     new_node->data = data;
-    if (!dll->head) {
+    if (!dll->head) { // dll is empty
         dll->head = new_node;
         dll->tail = new_node;
-    } else {
+    } else { // dll is not empty
         new_node->next = target_node->next;
         new_node->prev = target_node;
         target_node->next = new_node;
 
         if (new_node->next) {
             new_node->next->prev = new_node;
-        } else {
+        } else { // inserted node is new tail
             dll->tail = new_node;
         }
     }
@@ -204,6 +204,7 @@ dll_node_t* dll_search(const dll_t* dll, const void* data, int (*cmp)(const void
         return NULL;
     }
 
+    // search list for target node using passed comparator
     dll_node_t* curr = dll->head;
     while (curr) {
         if (cmp(curr->data, data) == 0) {
@@ -226,12 +227,12 @@ dll_node_t* dll_pop(dll_t* dll) {
         return NULL;
     }
 
-    dll_node_t* tail = dll->tail;
+    dll_node_t* tail = dll->tail; // pop tail node
 
     if (dll->tail->prev) {
         dll->tail->prev->next = NULL;
         dll->tail = dll->tail->prev;
-    } else {
+    } else { // if tail is only node, dll becomes empty
         dll->head = NULL;
         dll->tail = NULL;
     }
@@ -250,7 +251,7 @@ dll_node_t* dll_pop_left(dll_t* dll) {
         return NULL;
     }
 
-    dll_node_t* head = dll->head;
+    dll_node_t* head = dll->head; // pop head node
 
     if (dll->head->next) { // list contains more than 1 node
         dll->head->next->prev = NULL;
@@ -282,7 +283,7 @@ int dll_is_empty(const dll_t* dll) {
     return (dll->size == 0);
 }
 
-void print_dll_node(dll_node_t* node) {
+void dll_print_node(dll_node_t* node) { // used for testing
     if (!node) {
         fprintf(stderr, "ERROR: dll node is NULL.\n");
         return;
@@ -293,6 +294,7 @@ void print_dll_node(dll_node_t* node) {
         return;
     }
 
+    // print message in node
     printf("Message ID: %lld\n", message->id);
     printf("Message Sender: %s\n", message->sender);
     printf("Message Receiver: %s\n", message->receiver);
@@ -301,7 +303,7 @@ void print_dll_node(dll_node_t* node) {
 }
 
 
-void dll_print_idx(dll_t* dll) {
+void dll_print_idx(dll_t* dll) { // used for testing, indexes and prints dll nodes
     if (!dll) {
         fprintf(stderr, "ERROR: doubly linked list is NULL.\n");
         return;
@@ -334,7 +336,7 @@ void dll_print_idx(dll_t* dll) {
     return;
 }
 
-void dll_print(dll_t* dll) {
+void dll_print(dll_t* dll) { // used for testing
     if (!dll) {
         fprintf(stderr, "ERROR: doubly linked list is NULL.\n");
         return;

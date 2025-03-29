@@ -11,7 +11,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-deque_t* deque_init(void) {
+deque_t* deque_init(void) { // uses cdll functions to implement a double ended queue
     deque_t* deque = malloc(sizeof(deque_t));
     if (!deque) {
         perror("ERROR: failed to initialize deque");
@@ -108,7 +108,7 @@ size_t deque_size(deque_t* deque) {
     return cdll_size(deque->list);
 }
 
-void deque_print(deque_t* deque) {
+void deque_print(deque_t* deque) { // used for testing
     if (!deque) {
         fprintf(stderr, "ERROR: deque is NULL.\n");
         return;

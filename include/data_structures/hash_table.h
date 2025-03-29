@@ -12,6 +12,13 @@
 #include "dll.h"
 #include <stddef.h>
 
+/*
+ * This is the API for a hash table.
+ *
+ * The hash table is a key component of the cache, enabling quick lookup and retrieval of messages.
+ *
+ */
+
 typedef struct hash_entry_t {
     long long key;
     dll_node_t* node;
