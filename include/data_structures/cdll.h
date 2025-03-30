@@ -1,10 +1,11 @@
 /*
-* cdll.h / Practicum 1
-*
-* Jack Einbinder / CS5600 / Northeastern University
-* Spring 2025 / March 19, 2025
-*
-*/
+ * ccol/cdll.h
+ *
+ * Circular doubly linked list
+ *
+ * Created by Jack Einbinder
+ * Copyright (C) 2025 Jack Einbinder
+ */
 
 #ifndef CDLL_H
 #define CDLL_H

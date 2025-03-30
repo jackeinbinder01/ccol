@@ -1,11 +1,11 @@
 /*
-* deque.h / Practicum 1
-*
-* Jack Einbinder / CS5600 / Northeastern University
-* Spring 2025 / March 19, 2025
-*
-*/
-
+ * ccol/dll.h
+ *
+ * Double ended queue
+ *
+ * Created by Jack Einbinder
+ * Copyright (C) 2025 Jack Einbinder
+ */
 #ifndef DEQUE_H
 #define DEQUE_H
 

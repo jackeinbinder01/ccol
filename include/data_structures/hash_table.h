@@ -1,10 +1,11 @@
 /*
-* hash_table.h / Practicum 1
-*
-* Jack Einbinder / CS5600 / Northeastern University
-* Spring 2025 / March 19, 2025
-*
-*/
+ * ccol/hash_table.h
+ *
+ * Hash table
+ *
+ * Created by Jack Einbinder
+ * Copyright (C) 2025 Jack Einbinder
+ */
 
 #ifndef HASH_TABLE_H
 #define HASH_TABLE_H
