@@ -24,7 +24,6 @@ void vector_init(vector_t* vector, size_t capacity, size_t element_size);
 vector_t* vector_create(size_t capacity, size_t element_size);
 
 // Insertion
-void vector_prepend(vector_t* vector, void* data);
 void vector_append(vector_t* vector, void* data);
 void vector_insert(vector_t* vector, size_t index, void* data);
 
