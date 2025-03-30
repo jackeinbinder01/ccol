@@ -44,6 +44,8 @@ void* vector_peek_front(const vector_t* vector);
 size_t vector_size(const vector_t* vector);
 size_t vector_capacity(const vector_t* vector);
 int vector_is_empty(const vector_t* vector);
+int vector_is_full(const vector_t* vector);
+int vector_contains(const vector_t* vector, void* data);
 
 // Print
 void vector_print(const vector_t* vector);
