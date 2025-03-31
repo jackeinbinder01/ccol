@@ -15,7 +15,6 @@
         for (type* var = NULL;                                          \
             _it->has_next(_it) &&                                       \
             ((var = (type*)_it->next(_it)) || 1);)                      \
-            for (int done = (_it->destroy(_it), 0); !done; done = 1)
-
+            for (int _done = (_it->destroy(_it), 0); !_done; _done = 1)
 
 #endif //CCOL_MACROS_H
