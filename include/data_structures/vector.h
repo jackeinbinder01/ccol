@@ -56,6 +56,13 @@ void vector_free(vector_t* vec);
 void vector_destroy(vector_t* vec);
 void vector_clear(vector_t* vec);
 
+// Utilities
+vector_t* vector_clone(const vector_t* vec);
+void vector_set(vector_t* vec, size_t index, void* value);
+void vector_swap(vector_t* vec, size_t i, size_t j);
+void vector_reserve(vector_t* vec, size_t new_capacity);
+void vector_shrink_to_fit(vector_t* vec);
+
 // Iterator
 iterator_t* vector_iterator_create(const vector_t* vec);
 
