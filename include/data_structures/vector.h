@@ -11,6 +11,7 @@
 #define VECTOR_H
 
 #include <stddef.h>
+#include "iterator.h"
 
 typedef struct vector {
   void* data;
@@ -55,4 +56,7 @@ void vector_free(vector_t* vector);
 void vector_destroy(vector_t* vector);
 void vector_clear(vector_t* vector);
 
-#endif
+// Iterator
+iterator_t* vector_iterator_create(const vector_t* vector);
+
+#endif // VECTOR_H
