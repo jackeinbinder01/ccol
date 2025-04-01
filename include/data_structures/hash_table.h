@@ -38,4 +38,4 @@ int hash_table_remove(hash_table_t* hash_table, long long key);
 dll_node_t* hash_table_get(hash_table_t* hash_table, long long key);
 void hash_table_print(hash_table_t* hash_table, char msg_or_idx);
 
-#endif //HASH_TABLE_H
+#endif // HASH_TABLE_H

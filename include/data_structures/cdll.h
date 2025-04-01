@@ -10,30 +10,76 @@
 #ifndef CDLL_H
 #define CDLL_H
 
-#include "dll.h"
+#include <stddef.h>
+#include "iterator.h"
 
-/*
- * This is the API for a circular doubly linked list.
- */
+typedef struct cdll_node_t {
+    void* data;
+    struct cdll_node_t* next;
+    struct cdll_node_t* prev;
+} cdll_node_t;
 
 typedef struct cdll_t {
-    dll_node_t* head;
-    dll_node_t* tail;
+    cdll_node_t* head;
+    cdll_node_t* tail;
     size_t size;
 } cdll_t;
 
-cdll_t* cdll_init(void);
-void cdll_destroy(cdll_t* cdll, void (*free_data)(void*));
-int cdll_prepend(cdll_t* cdll, void* data);
-int cdll_append(cdll_t* cdll, void* data);
-int cdll_insert_after(cdll_t* cdll, dll_node_t* target_node, void* data);
-int cdll_insert_before(cdll_t* cdll, dll_node_t* target_node, void* data);
-int cdll_delete(cdll_t* cdll, dll_node_t* node);
-dll_node_t* cdll_pop(cdll_t* cdll);
-dll_node_t* cdll_pop_left(cdll_t* cdll);
-dll_node_t* cdll_search(const cdll_t* cdll, const void* data, int (*cmp)(const void*, const void*));
+// Constructors
+void cdll_init(cdll_t* cdll);
+cdll_t* cdll_create(void);
+
+// Insertion
+void cdll_push_back(cdll_t* cdll, void* data);
+void cdll_push_middle(cdll_t* cdll, void* data);
+void cdll_push_front(cdll_t* cdll, void* data);
+void cdll_insert_after(cdll_t* cdll, cdll_node_t* ref_node, void* data);
+void cdll_insert_before(cdll_t* cdll, cdll_node_t* ref_node, void* data);
+
+// Removal
+void* cdll_remove(cdll_t* cdll, void* data);
+void cdll_remove_node(cdll_t* cdll, cdll_node_t* node);
+void* cdll_pop(cdll_t* cdll);
+void* cdll_pop_middle(cdll_t* cdll);
+void* cdll_pop_front(cdll_t* cdll);
+
+// Access
+void* cdll_get(const cdll_t* cdll, size_t index);
+void* cdll_search(const cdll_t* cdll, const void* data, int (*cmp)(const void*, const void*));
+void* cdll_peek_back(const cdll_t* cdll);
+void* cdll_peek_middle(const cdll_t* cdll);
+void* cdll_peek_front(const cdll_t* cdll);
+cdll_node_t* cdll_next(const cdll_t* cdll, cdll_node_t* node);
+cdll_node_t* cdll_prev(const cdll_t* cdll, cdll_node_t* node);
+
+// Attributes
 size_t cdll_size(const cdll_t* cdll);
 int cdll_is_empty(const cdll_t* cdll);
+int cdll_contains(const cdll_t* cdll, void* data);
+
+// Print
 void cdll_print(cdll_t* cdll);
 
-#endif //CDLL_H
+// Cleanup
+void cdll_destroy(cdll_t* cdll, void (*free_data)(void*));
+void cdll_free(cdll_t* cdll);
+void cdll_clear(cdll_t* cdll);
+
+// Utilities
+void cdll_set(cdll_t* cdll, size_t index, void* data);
+cdll_t* cdll_clone(const cdll_t* cdll);
+void cdll_swap(cdll_t* cdll, size_t i, size_t j);
+size_t cdll_index_of(const cdll_t* cdll, void* data);
+void cdll_reverse(cdll_t* cdll);
+
+// Iterator
+iterator_t* cdll_iterator_create(const cdll_t* cdll);
+
+#define CDLL_FOR(type, var, cdll_ptr)                                             \
+    for (iterator_t* _it = cdll_iterator_create(cdll_ptr); _it; _it = NULL)       \
+        for (type* var = NULL;                                                    \
+            _it->has_next(_it) &&                                                 \
+            ((var = (type*)_it->next(_it)) || 1);)                                \
+            for (int _done = (_it->destroy(_it), 0); !_done; _done = 1)
+
+#endif // CDLL_H

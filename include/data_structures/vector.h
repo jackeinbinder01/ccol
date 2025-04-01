@@ -30,15 +30,18 @@ void vector_fill(vector_t* vec, void* value, size_t count);
 // Insertion
 void vector_append(vector_t* vec, void* data);
 void vector_insert(vector_t* vec, size_t index, void* data);
+void vector_insert_middle(vector_t* vec, size_t index, void* data);
 
 // Removal
 void* vector_remove(vector_t* vec, size_t index);
 void* vector_pop(vector_t* vec);
+void* vector_pop_middle(vector_t* vec);
 void* vector_pop_front(vector_t* vec);
 
 // Access
 void* vector_get(const vector_t* vec, size_t index);
 void* vector_peek_back(const vector_t* vec);
+void* vector_peek_middle(const vector_t* vec);
 void* vector_peek_front(const vector_t* vec);
 
 // Attributes
@@ -53,7 +56,7 @@ void vector_print(const vector_t* vec);
 
 // Cleanup
 void vector_free(vector_t* vec);
-void vector_destroy(vector_t* vec);
+void vector_destroy(vector_t* vec, void (*free_data)(void*));
 void vector_clear(vector_t* vec);
 
 // Utilities
