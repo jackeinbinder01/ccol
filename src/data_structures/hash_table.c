@@ -1,15 +1,21 @@
 /*
-* hash_table.c / Practicum 1
-*
-* Jack Einbinder / CS5600 / Northeastern University
-* Spring 2025 / March 19, 2025
-*
-*/
+ * ccol/hash_table.c
+ *
+ * Hash table
+ *
+ * Created by Jack Einbinder
+ * Copyright (C) 2025 Jack Einbinder
+ */
 
-#include "../../include/data_structures/hash_table.h"
-#include "../../include/components/message.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include "../../include/data_structures/hash_table.h"
+
+typedef struct hash_entry_t {
+    void *key;
+    void *value;
+    size_t key_size;
+} hash_entry_t;
 
 static int hash_function(long long key, int num_buckets) {
     return llabs(key % num_buckets);

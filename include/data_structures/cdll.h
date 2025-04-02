@@ -14,72 +14,72 @@
 #include "iterator.h"
 
 typedef struct cdll_node_t {
-    void* data;
-    struct cdll_node_t* next;
-    struct cdll_node_t* prev;
+    void *data;
+    struct cdll_node_t *next;
+    struct cdll_node_t *prev;
 } cdll_node_t;
 
 typedef struct cdll_t {
-    cdll_node_t* head;
-    cdll_node_t* tail;
+    cdll_node_t *head;
+    cdll_node_t *tail;
     size_t size;
 } cdll_t;
 
 // Constructors
-void cdll_init(cdll_t* cdll);
-cdll_t* cdll_create(void);
+void cdll_init(cdll_t *cdll);
+cdll_t *cdll_create(void);
 
 // Insertion
-void cdll_push_back(cdll_t* cdll, void* data);
-void cdll_push_middle(cdll_t* cdll, void* data);
-void cdll_push_front(cdll_t* cdll, void* data);
-void cdll_insert_after(cdll_t* cdll, cdll_node_t* ref_node, void* data);
-void cdll_insert_before(cdll_t* cdll, cdll_node_t* ref_node, void* data);
+void cdll_push_back(cdll_t *cdll, void *data);
+void cdll_push_middle(cdll_t *cdll, void *data);
+void cdll_push_front(cdll_t *cdll, void *data);
+void cdll_insert_after(cdll_t *cdll, cdll_node_t *ref_node, void *data);
+void cdll_insert_before(cdll_t *cdll, cdll_node_t *ref_node, void *data);
 
 // Removal
-void* cdll_remove(cdll_t* cdll, void* data);
-void cdll_remove_node(cdll_t* cdll, cdll_node_t* node);
-void* cdll_pop(cdll_t* cdll);
-void* cdll_pop_middle(cdll_t* cdll);
-void* cdll_pop_front(cdll_t* cdll);
+void *cdll_remove(cdll_t *cdll, void *data);
+void cdll_remove_node(cdll_t *cdll, cdll_node_t *node);
+void *cdll_pop(cdll_t *cdll);
+void *cdll_pop_middle(cdll_t *cdll);
+void *cdll_pop_front(cdll_t *cdll);
 
 // Access
-void* cdll_get(const cdll_t* cdll, size_t index);
-void* cdll_search(const cdll_t* cdll, const void* data, int (*cmp)(const void*, const void*));
-void* cdll_peek_back(const cdll_t* cdll);
-void* cdll_peek_middle(const cdll_t* cdll);
-void* cdll_peek_front(const cdll_t* cdll);
-cdll_node_t* cdll_next(const cdll_t* cdll, cdll_node_t* node);
-cdll_node_t* cdll_prev(const cdll_t* cdll, cdll_node_t* node);
+void *cdll_get(const cdll_t *cdll, size_t index);
+void *cdll_search(const cdll_t *cdll, const void *data, int (*cmp)(const void *, const void *));
+void *cdll_peek_back(const cdll_t *cdll);
+void *cdll_peek_middle(const cdll_t *cdll);
+void *cdll_peek_front(const cdll_t *cdll);
+cdll_node_t *cdll_next(const cdll_t *cdll, cdll_node_t *node);
+cdll_node_t *cdll_prev(const cdll_t *cdll, cdll_node_t *node);
 
 // Attributes
-size_t cdll_size(const cdll_t* cdll);
-int cdll_is_empty(const cdll_t* cdll);
-int cdll_contains(const cdll_t* cdll, void* data);
+size_t cdll_size(const cdll_t *cdll);
+int cdll_is_empty(const cdll_t *cdll);
+int cdll_contains(const cdll_t *cdll, void *data);
 
 // Print
-void cdll_print(cdll_t* cdll);
+void cdll_print(cdll_t *cdll);
 
 // Cleanup
-void cdll_destroy(cdll_t* cdll, void (*free_data)(void*));
-void cdll_free(cdll_t* cdll);
-void cdll_clear(cdll_t* cdll);
+void cdll_destroy(cdll_t *cdll, void (*free_data)(void *));
+void cdll_free(cdll_t *cdll);
+void cdll_clear(cdll_t *cdll);
 
 // Utilities
-void cdll_set(cdll_t* cdll, size_t index, void* data);
-cdll_t* cdll_clone(const cdll_t* cdll);
-void cdll_swap(cdll_t* cdll, size_t i, size_t j);
-size_t cdll_index_of(const cdll_t* cdll, void* data);
-void cdll_reverse(cdll_t* cdll);
+void cdll_set(cdll_t *cdll, size_t index, void *data);
+cdll_t *cdll_clone(const cdll_t *cdll);
+void cdll_swap(cdll_t *cdll, size_t i, size_t j);
+size_t cdll_index_of(const cdll_t *cdll, void *data);
+void cdll_reverse(cdll_t *cdll);
 
 // Iterator
-iterator_t* cdll_iterator_create(const cdll_t* cdll);
+iterator_t *cdll_iterator_create(const cdll_t *cdll);
 
 #define CDLL_FOR(type, var, cdll_ptr)                                             \
-    for (iterator_t* _it = cdll_iterator_create(cdll_ptr); _it; _it = NULL)       \
-        for (type* var = NULL;                                                    \
+    for (iterator_t *_it = cdll_iterator_create(cdll_ptr); _it; _it = NULL)       \
+        for (type *var = NULL;                                                    \
             _it->has_next(_it) &&                                                 \
-            ((var = (type*)_it->next(_it)) || 1);)                                \
+            ((var = (type *)_it->next(_it)) || 1);)                               \
             for (int _done = (_it->destroy(_it), 0); !_done; _done = 1)
 
 #endif // CDLL_H
