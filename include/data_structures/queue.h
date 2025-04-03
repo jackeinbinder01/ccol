@@ -42,7 +42,7 @@ void queue_print(const queue_t *queue);
 // Cleanup
 void queue_free(queue_t *queue);
 void queue_destroy(queue_t *queue, void (*free_data)(void *));
-void queue_clear(queue_t *queue);
+void queue_clear(queue_t *queue, void (*free_data)(void *));
 
 // Utilities
 void queue_set(queue_t *queue, size_t index, void *data);

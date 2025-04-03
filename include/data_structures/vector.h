@@ -57,7 +57,7 @@ void vector_print(const vector_t *vec);
 // Cleanup
 void vector_free(vector_t *vec);
 void vector_destroy(vector_t *vec, void (*free_data)(void *));
-void vector_clear(vector_t *vec);
+void vector_clear(vector_t *vec, void (*free_data)(void *));
 
 // Utilities
 vector_t *vector_clone(const vector_t *vec);

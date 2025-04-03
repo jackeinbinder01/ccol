@@ -57,7 +57,7 @@ void list_print(const list_t *list);
 // Cleanup
 void list_free(list_t *list);
 void list_destroy(list_t *list, void (*free_data)(void *));
-void list_clear(list_t *list);
+void list_clear(list_t *list, void (*free_data)(void *));
 
 // Utilities
 void list_set(list_t *list, size_t index, void *data);

@@ -61,7 +61,7 @@ void dll_print(dll_t *dll);
 // Cleanup
 void dll_destroy(dll_t *dll, void (*free_data)(void*));
 void dll_free(dll_t *dll);
-void dll_clear(dll_t *dll);
+void dll_clear(dll_t *dll, void (*free_data)(void *));
 
 // Utilities
 void dll_set(dll_t *dll, size_t index, void *data);

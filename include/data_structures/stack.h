@@ -42,7 +42,7 @@ void stack_print(const stack_t *stack);
 // Cleanup
 void stack_free(stack_t *stack);
 void stack_destroy(stack_t *stack, void (*free_data)(void *));
-void stack_clear(stack_t *stack);
+void stack_clear(stack_t *stack, void (*free_data)(void *));
 
 // Utilities
 void stack_set(stack_t *stack, size_t index, void *data);

@@ -27,7 +27,8 @@ typedef struct hash_table_t {
 
 // Constructors
 void hash_table_init(hash_table_t *hash_table);
-hash_table_t *hash_table_create(int num_buckets, size_t key_size, hash_func_t hash_func, comparator_t cmp);
+hash_table_t *hash_table_create(int num_buckets, size_t key_size, hash_policy_t hash_policy, comparator_t cmp);
+hash_table_t *hash_table_create_custom(int num_buckets, size_t key_size, hash_func_t hash_func, comparator_t cmp);
 
 // Insertion
 void hash_table_add(hash_table_t *hash_table, void *key, void *data);
@@ -38,19 +39,23 @@ void hash_table_remove(hash_table_t *hash_table, void *key);
 // Access
 void *hash_table_get(const hash_table_t *hash_table, void *key);
 
+// Attributes
+size_t hash_table_size(const hash_table_t *hash_table);
+int hash_table_is_empty(const hash_table_t *hash_table);
+int hash_table_contains(const hash_table_t *hash_table, void *data);
+
 // Print
 void hash_table_print(hash_table_t *hash_table);
 
 // Cleanup
 void hash_table_destroy(hash_table_t *hash_table, void (*free_data)(void *));
 void hash_table_free(hash_table_t *hash_table);
-void hash_table_clear(hash_table_t *hash_table);
+void hash_table_clear(hash_table_t *hash_table, void (*free_data)(void *));
 
 // Utilities
 void hash_table_swap(hash_table_t *hash_table, void *key1, void *key2);
 hash_table_t *hash_table_clone(const hash_table_t *hash_table);
-int hash_table_contains(const hash_table_t *hash_table, void *key);
-void hash_table_resize(hash_table_t *hash_table, int new_num_buckets);
+double hash_table_load_factor(const hash_table_t *hash_table);
 
 // Iterator
 iterator_t *hash_table_iterator_create(const hash_table_t *hash_table);

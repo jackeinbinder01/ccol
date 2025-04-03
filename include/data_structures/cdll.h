@@ -63,7 +63,7 @@ void cdll_print(cdll_t *cdll);
 // Cleanup
 void cdll_destroy(cdll_t *cdll, void (*free_data)(void *));
 void cdll_free(cdll_t *cdll);
-void cdll_clear(cdll_t *cdll);
+void cdll_clear(cdll_t *cdll, void (*free_data)(void *));
 
 // Utilities
 void cdll_set(cdll_t *cdll, size_t index, void *data);

@@ -51,7 +51,7 @@ void deque_print(deque_t *deque);
 // Cleanup
 void deque_destroy(deque_t *deque, void (*free_data)(void *));
 void deque_free(deque_t *deque);
-void deque_clear(deque_t *deque);
+void deque_clear(deque_t *deque, void (*free_data)(void *);
 
 // Utilities
 void deque_set(deque_t *deque, size_t index, void *data);
