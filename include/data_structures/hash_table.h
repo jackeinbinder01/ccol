@@ -11,6 +11,7 @@
 #define HASH_TABLE_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "dll.h"
 #include "hash.h"
 #include "iterator.h"
@@ -21,8 +22,11 @@ typedef struct hash_table_t {
     int num_buckets;
     size_t size;
     size_t key_size;
+
     hash_func_t hash_func;
     comparator_t cmp;
+
+    bool is_initialized;
 } hash_table_t;
 
 // Constructors
@@ -41,8 +45,8 @@ void *hash_table_get(const hash_table_t *hash_table, void *key);
 
 // Attributes
 size_t hash_table_size(const hash_table_t *hash_table);
-int hash_table_is_empty(const hash_table_t *hash_table);
-int hash_table_contains(const hash_table_t *hash_table, void *data);
+bool hash_table_is_empty(const hash_table_t *hash_table);
+bool hash_table_contains(const hash_table_t *hash_table, void *data);
 
 // Print
 void hash_table_print(hash_table_t *hash_table);
@@ -55,6 +59,7 @@ void hash_table_clear(hash_table_t *hash_table, void (*free_data)(void *));
 // Utilities
 void hash_table_swap(hash_table_t *hash_table, void *key1, void *key2);
 hash_table_t *hash_table_clone(const hash_table_t *hash_table);
+void hash_table_copy(hash_table_t *dest, const hash_table_t *src);
 double hash_table_load_factor(const hash_table_t *hash_table);
 
 // Iterator

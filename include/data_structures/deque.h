@@ -11,11 +11,13 @@
 #define DEQUE_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "iterator.h"
 #include "cdll.h"
 
 typedef struct deque_t {
     cdll_t list;
+    bool is_initialized;
 } deque_t;
 
 // Constructors
@@ -42,8 +44,8 @@ void *deque_peek_front(const deque_t *deque);
 
 // Attributes
 size_t deque_size(const deque_t *deque);
-int deque_is_empty(const deque_t *deque);
-int deque_contains(const deque_t *deque, void *data);
+bool deque_is_empty(const deque_t *deque);
+bool deque_contains(const deque_t *deque, void *data);
 
 // Print
 void deque_print(deque_t *deque);
@@ -56,6 +58,7 @@ void deque_clear(deque_t *deque, void (*free_data)(void *);
 // Utilities
 void deque_set(deque_t *deque, size_t index, void *data);
 deque_t *deque_clone(const deque_t *deque);
+void deque_copy(deque_t *dest, const deque_t *src);
 void deque_swap(deque_t *deque, size_t i, size_t j);
 size_t deque_index_of(const deque_t *deque, void *data);
 void deque_reverse(deque_t *deque);

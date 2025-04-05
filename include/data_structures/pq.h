@@ -10,11 +10,13 @@
 #ifndef PQ_H
 #define PQ_H
 
+#include <stdbool.h>
 #include "heap.h"
 #include "comparator.h"
 
 typedef struct pq_t {
     heap_t *heap;
+    bool is_initialized;
 } pq_t;
 
 // Constructors
@@ -34,11 +36,12 @@ void *pq_peek(const pq_t *pq);
 
 // Attributes
 size_t pq_size(const pq_t *pq);
-int pq_is_empty(const pq_t *pq);
-int pq_contains(const pq_t *pq, void *data);
+bool pq_is_empty(const pq_t *pq);
+bool pq_contains(const pq_t *pq, void *data);
 
 // Utilities
 pq_t *pq_clone(const pq_t *pq);
+void pq_copy(pq_t *dest, const pq_t *src);
 void pq_update_key(pq_t *pq, void *data, void *key);
 void pq_replace(pq_t *pq, void *data);
 

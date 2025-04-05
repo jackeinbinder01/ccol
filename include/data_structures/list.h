@@ -11,11 +11,14 @@
 #define LIST_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "iterator.h"
 
 typedef struct list_node_t {
   void *data;
   struct list_node_t *next;
+
+  bool is_initialized;
 } list_node_t;
 
 typedef struct list_t {
@@ -48,8 +51,8 @@ void *list_peek_front(const list_t *list);
 
 // Attributes
 size_t list_size(const list_t *list);
-int list_is_empty(const list_t *list);
-int list_contains(const list_t *list, void *data);
+bool list_is_empty(const list_t *list);
+bool list_contains(const list_t *list, void *data);
 
 // Print
 void list_print(const list_t *list);
@@ -62,6 +65,7 @@ void list_clear(list_t *list, void (*free_data)(void *));
 // Utilities
 void list_set(list_t *list, size_t index, void *data);
 list_t *list_clone(const list_t *list);
+void list_copy(list_t *dest, const list_t *src);
 void list_swap(list_t *list, size_t i, size_t j);
 size_t list_index_of(const list_t *list, void *data);
 void list_reverse(list_t *list);

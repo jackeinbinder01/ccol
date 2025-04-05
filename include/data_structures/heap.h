@@ -11,6 +11,7 @@
 #define HEAP_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "vector.h"
 #include "comparator.h"
 
@@ -20,9 +21,11 @@ typedef enum {
 } heap_type_t;
 
 typedef struct heap_t {
-    heap_type_t type;
     vector_t data;
+    heap_type_t type;
     comparator_t cmp;
+
+    bool is_initialized;
 } heap_t;
 
 // Constructors
@@ -42,11 +45,12 @@ void *heap_peek(const heap_t *heap);
 
 // Attributes
 size_t heap_size(const heap_t *heap);
-int heap_is_empty(const heap_t *heap);
-int heap_contains(const heap_t *heap, void *data);
+bool heap_is_empty(const heap_t *heap);
+bool heap_contains(const heap_t *heap, void *data);
 
 // Utilities
 heap_t *heap_clone(const heap_t *heap);
+void heap_copy(heap_t *dest, const heap_t *src);
 void heap_update_key(heap_t *heap, void *data, void *key);
 void heap_replace(heap_t *heap, void *data);
 

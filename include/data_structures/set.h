@@ -10,12 +10,14 @@
 #ifndef SET_H
 #define SET_H
 
+#include <stdbool.h>
 #include "hash_table.h"
 #include "iterator.h"
 #include "comparator.h"
 
 typedef struct set_t {
     hash_table_t hash_table;
+    bool is_initialized;
 } set_t;
 
 // Constructors
@@ -34,12 +36,13 @@ void *set_get(const set_t *set, void *key);
 
 // Attributes
 size_t set_size(const set_t *set);
-int set_is_empty(const set_t *set);
-int set_contains(const set_t *set, void *key);
+bool set_is_empty(const set_t *set);
+bool set_contains(const set_t *set, void *key);
 
 // Utilities
 void set_swap(set_t *set, void *key1, void *key2);
 set_t *set_clone(const set_t *set);
+void set_copy(set_t *dest, const set_t *src);
 double set_load_factor(const set_t *set);
 
 // Print

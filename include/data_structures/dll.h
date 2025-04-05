@@ -11,6 +11,7 @@
 #define DLL_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "iterator.h"
 
 typedef struct dll_node_t {
@@ -23,6 +24,8 @@ typedef struct dll_t {
     dll_node_t *head;
     dll_node_t *tail;
     size_t size;
+
+    bool is_initialized;
 } dll_t;
 
 // Constructors
@@ -52,8 +55,8 @@ void *dll_peek_front(const dll_t *dll);
 
 // Attributes
 size_t dll_size(const dll_t *dll);
-int dll_is_empty(const dll_t *dll);
-int dll_contains(const dll_t *dll, void *data);
+bool dll_is_empty(const dll_t *dll);
+bool dll_contains(const dll_t *dll, void *data);
 
 // Print
 void dll_print(dll_t *dll);
@@ -66,6 +69,7 @@ void dll_clear(dll_t *dll, void (*free_data)(void *));
 // Utilities
 void dll_set(dll_t *dll, size_t index, void *data);
 dll_t *dll_clone(const dll_t *dll);
+void dll_copy(dll_t *dest, const dll_t *src);
 void dll_swap(dll_t *dll, size_t i, size_t j);
 size_t dll_index_of(const dll_t *dll, void *data);
 void dll_reverse(dll_t *dll);

@@ -11,21 +11,26 @@
 #define RB_TREE_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "vector.h"
 #include "iterator.h"
 #include "comparator.h"
 
 typedef enum {
-    RED,
-    BLACK,
+    COLOR_RED,
+    COLOR_BLACK,
 } color_t;
 
 typedef struct rb_tree_node_t {
     void *data;
+
     struct rb_tree_node_t *left;
     struct rb_tree_node_t *right;
     struct rb_tree_node_t *parent;
+
     color_t color;
+
+    bool is_initialized;
 } rb_tree_node_t;
 
 typedef struct rb_tree_t {
@@ -59,10 +64,10 @@ void rb_tree_bfs_walk(const rb_tree_t *rb_tree, void (*func)(void *));
 // Attributes
 size_t rb_tree_size(const rb_tree_t *rb_tree);
 size_t rb_tree_height(const rb_tree_t *rb_tree);
-int rb_tree_is_empty(const rb_tree_t *rb_tree);
-int rb_tree_is_balanced(const rb_tree_t *rb_tree);
-int rb_tree_diameter(const rb_tree_t *rb_tree);
-int rb_tree_contains(const rb_tree_t *rb_tree, void *data);
+bool rb_tree_is_empty(const rb_tree_t *rb_tree);
+bool rb_tree_is_balanced(const rb_tree_t *rb_tree);
+size_t rb_tree_diameter(const rb_tree_t *rb_tree);
+bool rb_tree_contains(const rb_tree_t *rb_tree, void *data);
 void *rb_tree_min(const rb_tree_t *rb_tree);
 void *rb_tree_max(const rb_tree_t *rb_tree);
 void *rb_tree_successor(const rb_tree_t *rb_tree, void *data);
@@ -78,6 +83,7 @@ void rb_tree_clear(rb_tree_t *rb_tree, void (*free_data)(void *));
 
 // Utilities
 rb_tree_t *rb_tree_clone(const rb_tree_t *rb_tree);
+void rb_tree_copy(rb_tree_t *dest, const rb_tree_t *src);
 void rb_tree_reverse(rb_tree_t *rb_tree);
 
 // Iterator

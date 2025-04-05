@@ -11,11 +11,13 @@
 #define STACK_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "iterator.h"
-#include "list.h"
+#include "deque.h"
 
 typedef struct stack_t {
-    list_t list;
+    deque_t deque;
+    bool is_initialized;
 } stack_t;
 
 // Constructors
@@ -33,8 +35,8 @@ void* stack_peek(const stack_t *stack);
 
 // Attributes
 size_t stack_size(const stack_t *stack);
-int stack_is_empty(const stack_t *stack);
-int stack_contains(const stack_t *stack, void *data);
+bool stack_is_empty(const stack_t *stack);
+bool stack_contains(const stack_t *stack, void *data);
 
 // Print
 void stack_print(const stack_t *stack);
@@ -47,6 +49,7 @@ void stack_clear(stack_t *stack, void (*free_data)(void *));
 // Utilities
 void stack_set(stack_t *stack, size_t index, void *data);
 stack_t *stack_clone(const stack_t *stack);
+void stack_copy(stack_t *dest, const stack_t *src);
 void stack_swap(stack_t *stack, size_t i, size_t j);
 size_t stack_index_of(const stack_t *stack, void *data);
 void stack_reverse(stack_t *stack);

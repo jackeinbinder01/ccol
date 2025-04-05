@@ -11,6 +11,7 @@
 #define BST_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "vector.h"
 #include "iterator.h"
 #include "comparator.h"
@@ -25,6 +26,8 @@ typedef struct bst_t {
     bst_node_t *root;
     size_t size;
     comparator_t cmp;
+
+    bool is_initialized;
 } bst_t;
 
 // Constructors
@@ -52,10 +55,10 @@ void bst_bfs_walk(const bst_t *bst, void (*func)(void *));
 // Attributes
 size_t bst_size(const bst_t *bst);
 size_t bst_height(const bst_t *bst);
-int bst_is_empty(const bst_t *bst);
-int bst_is_balanced(const bst_t *bst);
-int bst_diameter(const bst_t *bst);
-int bst_contains(const bst_t *bst, void *data);
+bool bst_is_empty(const bst_t *bst);
+bool bst_is_balanced(const bst_t *bst);
+size_t bst_diameter(const bst_t *bst);
+bool bst_contains(const bst_t *bst, void *data);
 void *bst_min(const bst_t *bst);
 void *bst_max(const bst_t *bst);
 void *bst_successor(const bst_t *bst, void *data);
@@ -71,6 +74,7 @@ void bst_clear(bst_t *bst, void (*free_data)(void *));
 
 // Utilities
 bst_t *bst_clone(const bst_t *bst);
+void bst_copy(bst_t *dest, const bst_t *src);
 void bst_reverse(bst_t *bst);
 
 // Iterator

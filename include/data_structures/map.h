@@ -10,12 +10,14 @@
 #ifndef MAP_H
 #define MAP_H
 
+#include <stdbool.h>
 #include "hash_table.h"
 #include "iterator.h"
 #include "comparator.h"
 
 typedef struct map_t {
     hash_table_t hash_table;
+    bool is_initialized;
 } map_t;
 
 // Constructors
@@ -35,8 +37,8 @@ void *map_get_or_default(const map_t *map, void *key, void *default_value);
 
 // Attributes
 size_t map_size(const map_t *map);
-int map_is_empty(const map_t *map);
-int map_contains(const map_t *map, void *key);
+bool map_is_empty(const map_t *map);
+bool map_contains(const map_t *map, void *key);
 
 // Print
 void map_print(map_t *map);
@@ -50,6 +52,7 @@ void map_clear(map_t *map, void (*free_data)(void *));
 void map_swap(map_t *map, void *key1, void *key2);
 void map_replace(map_t *map, void *key, void *new_value);
 map_t *map_clone(const map_t *map);
+void map_copy(map_t *dest, const map_t *src);
 double map_load_factor(const map_t *map);
 
 // Iterator

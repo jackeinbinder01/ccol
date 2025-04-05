@@ -11,6 +11,7 @@
 #define AVL_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "vector.h"
 #include "iterator.h"
 #include "comparator.h"
@@ -19,6 +20,7 @@ typedef struct avl_node_t {
     void *data;
     struct avl_node_t *left;
     struct avl_node_t *right;
+
     int height;
 } avl_node_t;
 
@@ -26,6 +28,8 @@ typedef struct avl_t {
     avl_node_t *root;
     size_t size;
     comparator_t cmp;
+
+    bool is_initialized;
 } avl_t;
 
 // Constructors
@@ -53,10 +57,10 @@ void avl_bfs_walk(const avl_t *avl, void (*func)(void *));
 // Attributes
 size_t avl_size(const avl_t *avl);
 size_t avl_height(const avl_t *avl);
-int avl_is_empty(const avl_t *avl);
-int avl_is_balanced(const avl_t *avl);
-int avl_diameter(const avl_t *avl);
-int avl_contains(const avl_t *avl, void *data);
+bool avl_is_empty(const avl_t *avl);
+bool avl_is_balanced(const avl_t *avl);
+size_t avl_diameter(const avl_t *avl);
+bool avl_contains(const avl_t *avl, void *data);
 void *avl_min(const avl_t *avl);
 void *avl_max(const avl_t *avl);
 void *avl_successor(const avl_t *avl, void *data);
@@ -72,6 +76,7 @@ void avl_clear(avl_t *avl, void (*free_data)(void *));
 
 // Utilities
 avl_t *avl_clone(const avl_t *avl);
+void avl_copy(avl_t *dest, const avl_t *src);
 void avl_reverse(avl_t *avl);
 
 // Iterator

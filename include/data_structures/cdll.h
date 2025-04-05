@@ -11,6 +11,7 @@
 #define CDLL_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "iterator.h"
 
 typedef struct cdll_node_t {
@@ -23,6 +24,8 @@ typedef struct cdll_t {
     cdll_node_t *head;
     cdll_node_t *tail;
     size_t size;
+
+    bool is_initialized;
 } cdll_t;
 
 // Constructors
@@ -54,8 +57,8 @@ cdll_node_t *cdll_prev(const cdll_t *cdll, cdll_node_t *node);
 
 // Attributes
 size_t cdll_size(const cdll_t *cdll);
-int cdll_is_empty(const cdll_t *cdll);
-int cdll_contains(const cdll_t *cdll, void *data);
+bool cdll_is_empty(const cdll_t *cdll);
+bool cdll_contains(const cdll_t *cdll, void *data);
 
 // Print
 void cdll_print(cdll_t *cdll);
@@ -68,6 +71,7 @@ void cdll_clear(cdll_t *cdll, void (*free_data)(void *));
 // Utilities
 void cdll_set(cdll_t *cdll, size_t index, void *data);
 cdll_t *cdll_clone(const cdll_t *cdll);
+void cdll_copy(cdll_t *dest, const cdll_t *src);
 void cdll_swap(cdll_t *cdll, size_t i, size_t j);
 size_t cdll_index_of(const cdll_t *cdll, void *data);
 void cdll_reverse(cdll_t *cdll);

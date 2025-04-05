@@ -11,13 +11,17 @@
 #define VECTOR_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "iterator.h"
 
 typedef struct vector {
-  void *data;
-  size_t size;
-  size_t capacity;
-  size_t element_size;
+    void *data;
+
+    size_t size;
+    size_t capacity;
+    size_t element_size;
+
+    bool is_initialized;
 } vector_t;
 
 // Constructors
@@ -47,9 +51,9 @@ void *vector_peek_front(const vector_t *vec);
 // Attributes
 size_t vector_size(const vector_t *vec);
 size_t vector_capacity(const vector_t *vec);
-int vector_is_empty(const vector_t *vec);
-int vector_is_full(const vector_t *vec);
-int vector_contains(const vector_t *vec, void *data);
+bool vector_is_empty(const vector_t *vec);
+bool vector_is_full(const vector_t *vec);
+bool vector_contains(const vector_t *vec, void *data);
 
 // Print
 void vector_print(const vector_t *vec);
@@ -61,6 +65,7 @@ void vector_clear(vector_t *vec, void (*free_data)(void *));
 
 // Utilities
 vector_t *vector_clone(const vector_t *vec);
+void vector_copy(vector_t *dest, const vector_t *src);
 void vector_set(vector_t *vec, size_t index, void *value);
 void vector_swap(vector_t *vec, size_t i, size_t j);
 void vector_reserve(vector_t *vec, size_t new_capacity);

@@ -11,11 +11,13 @@
 #define QUEUE_H
 
 #include <stddef.h>
+#include <stdbool.h>
 #include "iterator.h"
-#include "list.h"
+#include "deque.h"
 
 typedef struct queue_t {
-    list_t list;
+    deque_t deque;
+    bool is_initialized;
 } queue_t;
 
 // Constructors
@@ -23,18 +25,18 @@ void queue_init(queue_t *queue);
 queue_t *queue_create(void);
 
 // Insertion
-void enqueue(queue_t *queue, void *data);
+void queue_enqueue(queue_t *queue, void *data);
 
 // Removal
-void *dequeue(queue_t *queue);
+void *queue_dequeue(queue_t *queue);
 
 // Access
 void *queue_peek(const queue_t *queue);
 
 // Attributes
 size_t queue_size(const queue_t *queue);
-int queue_is_empty(const queue_t *queue);
-int queue_contains(const queue_t *queue, void *data);
+bool queue_is_empty(const queue_t *queue);
+bool queue_contains(const queue_t *queue, void *data);
 
 // Print
 void queue_print(const queue_t *queue);
@@ -47,6 +49,7 @@ void queue_clear(queue_t *queue, void (*free_data)(void *));
 // Utilities
 void queue_set(queue_t *queue, size_t index, void *data);
 queue_t *queue_clone(const queue_t *queue);
+void queue_copy(queue_t *dest, const queue_t *src);
 void queue_swap(queue_t *queue, size_t i, size_t j);
 size_t queue_index_of(const queue_t *queue, void *data);
 void queue_reverse(queue_t *queue);
