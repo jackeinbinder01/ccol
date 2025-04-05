@@ -40,6 +40,7 @@ void bitmap_union_inplace(bitmap_t *dest, const bitmap_t *src);
 void bitmap_intersection_inplace(bitmap_t *dest, const bitmap_t *src);
 void bitmap_difference_inplace(bitmap_t *dest, const bitmap_t *src);
 void bitmap_complement_inplace(bitmap_t *bitmap);
+
 void bitmap_toggle(bitmap_t *bitmap, size_t index);
 void bitmap_flip_all(bitmap_t *bitmap);
 
@@ -47,6 +48,7 @@ void bitmap_flip_all(bitmap_t *bitmap);
 bitmap_t *bitmap_and(const bitmap_t *b1, const bitmap_t *b2);
 bitmap_t *bitmap_or(const bitmap_t *b1, const bitmap_t *b2);
 bitmap_t *bitmap_xor(const bitmap_t *b1, const bitmap_t *b2);
+
 void bitmap_and_inplace(bitmap_t *dest, const bitmap_t *src);
 void bitmap_or_inplace(bitmap_t *dest, const bitmap_t *src);
 void bitmap_xor_inplace(bitmap_t *dest, const bitmap_t *src);

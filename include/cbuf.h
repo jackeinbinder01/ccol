@@ -1,7 +1,7 @@
 /*
  * ccol/cbuf.h
  *
- * Circular buffer (ring buffer)
+ * Circular/ring buffer
  *
  * Created by jackeinbinder
  * Copyright (C) 2025 jackeinbinder
