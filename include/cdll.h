@@ -42,14 +42,14 @@ ccol_status_t cdll_insert_before(cdll_t *cdll, cdll_node_t *ref_node, void *data
 
 // Removal
 ccol_status_t cdll_remove(cdll_t *cdll, void *data);
-void cdll_remove_node(cdll_t *cdll, cdll_node_t *node);
+ccol_status_t cdll_remove_node(cdll_t *cdll, cdll_node_t *node);
 void *cdll_pop(cdll_t *cdll);
 void *cdll_pop_middle(cdll_t *cdll);
 void *cdll_pop_front(cdll_t *cdll);
 
 // Access
 void *cdll_get(const cdll_t *cdll, size_t index);
-void *cdll_search(const cdll_t *cdll, const void *data, int (*cmp)(const void *, const void *));
+dll_node_t *cdll_search(const cdll_t *cdll, const void *data, int (*cmp)(const void *, const void *));
 void *cdll_peek_back(const cdll_t *cdll);
 void *cdll_peek_middle(const cdll_t *cdll);
 void *cdll_peek_front(const cdll_t *cdll);
@@ -59,7 +59,7 @@ cdll_node_t *cdll_prev(const cdll_t *cdll, cdll_node_t *node);
 // Attributes
 size_t cdll_size(const cdll_t *cdll);
 bool cdll_is_empty(const cdll_t *cdll);
-bool cdll_contains(const cdll_t *cdll, void *data);
+bool cdll_contains(const cdll_t *cdll, void *data, int (*cmp)(const void *, const void *));
 
 // Print
 void cdll_print(const cdll_t *cdll);

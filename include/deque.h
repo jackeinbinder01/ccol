@@ -39,7 +39,7 @@ void *deque_pop_back(deque_t *deque);
 
 // Access
 void *deque_get(const deque_t *deque, size_t index);
-void *deque_search(const deque_t *deque, const void *data, int (*cmp)(const void *, const void *));
+dll_node_t *deque_search(const deque_t *deque, const void *data, int (*cmp)(const void *, const void *));
 void *deque_peek_back(const deque_t *deque);
 void *deque_peek_middle(const deque_t *deque);
 void *deque_peek_front(const deque_t *deque);
@@ -47,7 +47,7 @@ void *deque_peek_front(const deque_t *deque);
 // Attributes
 size_t deque_size(const deque_t *deque);
 bool deque_is_empty(const deque_t *deque);
-bool deque_contains(const deque_t *deque, void *data);
+bool deque_contains(const deque_t *deque, void *data, int (*cmp)(const void *, const void *));
 
 // Print
 void deque_print(const deque_t *deque);
