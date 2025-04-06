@@ -12,6 +12,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+#include "ccol_status.h"
 #include "iterator.h"
 #include "cdll.h"
 
@@ -21,19 +22,20 @@ typedef struct deque_t {
 } deque_t;
 
 // Constructors
-void deque_init(deque_t *deque);
-deque_t *deque_create(void);
+ccol_status_t deque_init(deque_t *deque);
+ccol_status_t deque_create(deque_t **deque_out);
 
 // Insertion
-void deque_push_back(deque_t *deque, void *data);
-void deque_push_middle(deque_t *deque, void *data);
-void deque_push_front(deque_t *deque, void *data);
+ccol_status_t deque_push_back(deque_t *deque, void *data);
+ccol_status_t deque_push_middle(deque_t *deque, void *data);
+ccol_status_t deque_push_front(deque_t *deque, void *data);
 
 // Removal
+ccol_status_t deque_remove(deque_t *deque, void *data);
 void *deque_pop_front(deque_t *deque);
 void *deque_pop_middle(deque_t *deque);
 void *deque_pop_back(deque_t *deque);
-void *deque_remove(deque_t *deque, void *data);
+
 
 // Access
 void *deque_get(const deque_t *deque, size_t index);
@@ -48,20 +50,20 @@ bool deque_is_empty(const deque_t *deque);
 bool deque_contains(const deque_t *deque, void *data);
 
 // Print
-void deque_print(deque_t *deque);
+void deque_print(const deque_t *deque);
 
 // Cleanup
 void deque_destroy(deque_t *deque, void (*free_data)(void *));
 void deque_free(deque_t *deque);
-void deque_clear(deque_t *deque, void (*free_data)(void *);
+void deque_clear(deque_t *deque, void (*free_data)(void *));
 
 // Utilities
-void deque_set(deque_t *deque, size_t index, void *data);
-deque_t *deque_clone(const deque_t *deque);
-void deque_copy(deque_t *dest, const deque_t *src);
-void deque_swap(deque_t *deque, size_t i, size_t j);
+ccol_status_t deque_set(deque_t *deque, size_t index, void *data);
+ccol_status_t deque_clone(const deque_t *src, deque_t **deque_out);
+ccol_status_t deque_copy(deque_t *dest, const deque_t *src);
+ccol_status_t deque_swap(deque_t *deque, size_t i, size_t j);
 size_t deque_index_of(const deque_t *deque, void *data);
-void deque_reverse(deque_t *deque);
+ccol_status_t deque_reverse(deque_t *deque);
 
 // Iterator
 iterator_t *deque_iterator_create(const deque_t *deque);

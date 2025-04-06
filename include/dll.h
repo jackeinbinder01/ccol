@@ -12,6 +12,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+#include "ccol_status.h"
 #include "iterator.h"
 
 typedef struct dll_node_t {
@@ -29,18 +30,18 @@ typedef struct dll_t {
 } dll_t;
 
 // Constructors
-void dll_init(dll_t *dll);
-dll_t *dll_create(void);
+ccol_status_t dll_init(dll_t *dll);
+ccol_status_t dll_create(dll_t **dll_out);
 
 // Insertion
-void dll_push_back(dll_t *dll, void *data);
-void dll_push_middle(dll_t *dll, void *data);
-void dll_push_front(dll_t *dll, void *data);
-void dll_insert_after(dll_t *dll, dll_node_t* ref_node, void *data);
-void dll_insert_before(dll_t *dll, dll_node_t* ref_node, void *data);
+ccol_status_t dll_push_back(dll_t *dll, void *data);
+ccol_status_t dll_push_middle(dll_t *dll, void *data);
+ccol_status_t dll_push_front(dll_t *dll, void *data);
+ccol_status_t dll_insert_after(dll_t *dll, dll_node_t* ref_node, void *data);
+ccol_status_t dll_insert_before(dll_t *dll, dll_node_t* ref_node, void *data);
 
 // Removal
-void *dll_remove(dll_t *dll, void *data);
+ccol_status_t dll_remove(dll_t *dll, void *data);
 void dll_remove_node(dll_t *dll, dll_node_t* node);
 void *dll_pop(dll_t *dll);
 void *dll_pop_middle(dll_t *dll);
@@ -59,7 +60,7 @@ bool dll_is_empty(const dll_t *dll);
 bool dll_contains(const dll_t *dll, void *data);
 
 // Print
-void dll_print(dll_t *dll);
+void dll_print(const dll_t *dll);
 
 // Cleanup
 void dll_destroy(dll_t *dll, void (*free_data)(void*));
@@ -67,12 +68,12 @@ void dll_free(dll_t *dll);
 void dll_clear(dll_t *dll, void (*free_data)(void *));
 
 // Utilities
-void dll_set(dll_t *dll, size_t index, void *data);
-dll_t *dll_clone(const dll_t *dll);
-void dll_copy(dll_t *dest, const dll_t *src);
-void dll_swap(dll_t *dll, size_t i, size_t j);
+ccol_status_t dll_set(dll_t *dll, size_t index, void *data);
+ccol_status_t dll_clone(const dll_t *src, dll_t **dll_out);
+ccol_status_t dll_copy(dll_t *dest, const dll_t *src);
+ccol_status_t dll_swap(dll_t *dll, size_t i, size_t j);
 size_t dll_index_of(const dll_t *dll, void *data);
-void dll_reverse(dll_t *dll);
+ccol_status_t dll_reverse(dll_t *dll);
 
 // Iterator
 iterator_t *dll_iterator_create(const dll_t *dll);
