@@ -3,8 +3,8 @@
  *
  * Doubly-linked list
  *
- * Created by jackeinbinder
- * Copyright (C) 2025 jackeinbinder
+ * Created by Jack Einbinder
+ * Copyright (C) 2025 Jack Einbinder
  */
 
 #include <stddef.h>
