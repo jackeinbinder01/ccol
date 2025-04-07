@@ -19,7 +19,24 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="dll implementation" />
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="dll implementation">
+      <change afterPath="$PROJECT_DIR$/include/cdll_internal.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/cdll_iterator.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/cdll_old.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/dll_internal.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/dll_iterator.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cdll_internal.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cdll_iterator.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/cdll_legacy.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dll_internal.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dll_iterator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/cdll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cdll.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/dll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dll.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cdll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dll_legacy.c" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -104,7 +121,7 @@
       <workItem from="1743912846480" duration="42000" />
       <workItem from="1743912956132" duration="8007000" />
       <workItem from="1743982753682" duration="1943000" />
-      <workItem from="1744042542700" duration="7972000" />
+      <workItem from="1744042542700" duration="18362000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -162,7 +179,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744050676888</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="dll implementation">
+      <option name="closed" value="true" />
+      <created>1744050882464</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1744050882464</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

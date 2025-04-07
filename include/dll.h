@@ -94,20 +94,8 @@ ccol_status_t dll_deep_copy(dll_t *dest, const dll_t *src, void (*free_data)(voi
 void dll_clear(dll_t *dll, void (*free_data)(void *));
 void dll_destroy(dll_t *dll, void (*free_data)(void*));
 void dll_free(dll_t *dll);
-void dll_free_node(dll_node_t *node);
-void dll_dispose_node(dll_node_t *node, void (*free_data)(void *));
-
-// Iterate
-iterator_t *dll_iterator_create(const dll_t *dll);
 
 // Print / Debug
 ccol_status_t dll_print(const dll_t *dll, void (*print_data)(const void *));
-
-#define DLL_FOR(type, var, dll_ptr)                                               \
-    for (iterator_t *_it = dll_iterator_create(dll_ptr); _it; _it = NULL)         \
-        for (type *var = NULL;                                                    \
-            _it->has_next(_it) &&                                                 \
-            ((var = (type *)_it->next(_it)) || 1);)                               \
-            for (int _done = (_it->destroy(_it), 0); !_done; _done = 1)
 
 #endif // DLL_H
