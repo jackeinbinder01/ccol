@@ -27,4 +27,8 @@
         if (!(ptr->is_initialized)) return CCOL_STATUS_UNINITIALIZED;   \
     } while (0)
 
+#define COPY_DEFAULT copy_identity
+
+#define SWAP_PTR(x, y) swap((void *)&(x), (void *)&(y), sizeof(x));
+
 #endif // CCOL_MACROS_H
