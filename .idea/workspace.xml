@@ -8,6 +8,7 @@
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppFormatterOtherPage" type="string" />
+    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
   </component>
   <component name="CMakeProjectFlavorService">
     <option name="flavorId" value="CMakePlainProjectFlavor" />
@@ -18,11 +19,9 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="dll implementation">
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="dir structure updated">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/ccol_macros.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ccol_macros.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/cdll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cdll.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/deque.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/deque.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ccol_err.h" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/include/dll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dll.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll.c" afterDir="false" />
     </list>
@@ -43,12 +42,12 @@
     &quot;assignee&quot;: &quot;jackeinbinder01&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/jackeinbinder01/ccol.git&quot;,
-    &quot;accountId&quot;: &quot;0026f97a-d077-47b4-a1aa-64debce7dcf6&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/jackeinbinder01/ccol.git",
+    "accountId": "78929b9b-adba-4497-94a1-6cdcc5a96269"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/include/dll.h" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -109,6 +108,7 @@
       <workItem from="1743544147454" duration="616000" />
       <workItem from="1743912846480" duration="42000" />
       <workItem from="1743912956132" duration="8007000" />
+      <workItem from="1743982753682" duration="1943000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -169,6 +169,7 @@
     <MESSAGE value="iter updated" />
     <MESSAGE value="APIs updated" />
     <MESSAGE value="dll implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="dll implementation" />
+    <MESSAGE value="dir structure updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="dir structure updated" />
   </component>
 </project>

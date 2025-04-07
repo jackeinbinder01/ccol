@@ -41,18 +41,18 @@ ccol_status_t dll_insert_after(dll_t *dll, dll_node_t* ref_node, void *data);
 ccol_status_t dll_insert_before(dll_t *dll, dll_node_t* ref_node, void *data);
 
 // Removal
-ccol_status_t dll_remove(dll_t *dll, void *data);
+ccol_status_t dll_remove(dll_t *dll, void *data, int (*cmp)(const void *, const void *));
 ccol_status_t dll_remove_node(dll_t *dll, dll_node_t* node);
-void *dll_pop(dll_t *dll);
-void *dll_pop_middle(dll_t *dll);
-void *dll_pop_front(dll_t *dll);
+ccol_status_t dll_pop(dll_t *dll, void **data_out);
+ccol_status_t dll_pop_middle(dll_t *dll, void **data_out);
+ccol_status_t dll_pop_front(dll_t *dll, void **data_out);
 
 // Access
-void *dll_get(const dll_t *dll, size_t index);
+ccol_status_t dll_get(const dll_t *dll, size_t index, void **data_out);
 dll_node_t *dll_search(const dll_t *dll, const void *data, int (*cmp)(const void *, const void *));
-void *dll_peek_back(const dll_t *dll);
-void *dll_peek_middle(const dll_t *dll);
-void *dll_peek_front(const dll_t *dll);
+ccol_status_t dll_peek_back(const dll_t *dll, void **data_out);
+ccol_status_t dll_peek_middle(const dll_t *dll, void **data_out);
+ccol_status_t dll_peek_front(const dll_t *dll, void **data_out);
 
 // Attributes
 size_t dll_size(const dll_t *dll);

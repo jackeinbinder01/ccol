@@ -14,6 +14,28 @@
 #include "ccol_status.h"
 #include "ccol_macros.h"
 
+// Private
+static dll_node_t *dll_get_middle_node(const dll_t *dll) {
+    if (!dll || !dll->is_initialized || dll->size == 0) return NULL;
+
+    size_t middle_index = dll->size / 2;
+    dll_node_t * middle_node = NULL;
+
+    if (middle_index < dll->size - middle_index) {
+        middle_node = dll->head;
+        for (size_t i = 0; i < middle_index; i++) {
+            middle_node = middle_node->next;
+        }
+    } else {
+        middle_node = dll->tail;
+        for (size_t i = dll->size - 1; i > middle_index; i--) {
+            middle_node = middle_node->prev;
+        }
+    }
+
+    return middle_node;
+}
+
 // Constructors
 ccol_status_t dll_create(dll_t **dll_out) {
     if (!dll_out) return CCOL_STATUS_INVALID_ARG;
@@ -23,7 +45,7 @@ ccol_status_t dll_create(dll_t **dll_out) {
 
     dll_init(dll);
     *dll_out = dll;
-    return CCOL_STATUS_SUCCESS;
+    return CCOL_STATUS_OK;
 }
 
 ccol_status_t dll_init(dll_t *dll) {
@@ -34,7 +56,7 @@ ccol_status_t dll_init(dll_t *dll) {
     dll->size = 0;
     dll->is_initialized = true;
 
-    return CCOL_STATUS_SUCCESS;
+    return CCOL_STATUS_OK;
 }
 
 // Insertion
@@ -56,7 +78,7 @@ ccol_status_t dll_push_back(dll_t *dll, void *data) {
 
     dll->tail = new_node;
     dll->size++;
-    return CCOL_STATUS_SUCCESS;
+    return CCOL_STATUS_OK;
 }
 
 ccol_status_t dll_push_middle(dll_t *dll, void *data) {
@@ -88,7 +110,7 @@ ccol_status_t dll_push_front(dll_t *dll, void *data) {
 
     dll->head = new_node;
     dll->size++;
-    return CCOL_STATUS_SUCCESS;
+    return CCOL_STATUS_OK;
 }
 
 ccol_status_t dll_insert_after(dll_t *dll, dll_node_t* ref_node, void *data) {
@@ -111,7 +133,7 @@ ccol_status_t dll_insert_after(dll_t *dll, dll_node_t* ref_node, void *data) {
     }
 
     dll->size++;
-    return CCOL_STATUS_SUCCESS;
+    return CCOL_STATUS_OK;
 }
 
 ccol_status_t dll_insert_before(dll_t *dll, dll_node_t* ref_node, void *data) {
@@ -134,7 +156,7 @@ ccol_status_t dll_insert_before(dll_t *dll, dll_node_t* ref_node, void *data) {
     ref_node->prev = new_node;
 
     dll->size++;
-    return CCOL_STATUS_SUCCESS;
+    return CCOL_STATUS_OK;
 }
 
 // Removal
@@ -145,7 +167,7 @@ ccol_status_t dll_remove(dll_t *dll, void *data, int (*cmp)(const void *, const 
     if (!node) return CCOL_STATUS_NOT_FOUND;
 
     dll_remove_node(dll, node);
-    return CCOL_STATUS_SUCCESS;
+    return CCOL_STATUS_OK;
 }
 
 ccol_status_t dll_remove_node(dll_t *dll, dll_node_t* node) {
@@ -166,23 +188,22 @@ ccol_status_t dll_remove_node(dll_t *dll, dll_node_t* node) {
 
     free(node);
     dll->size--;
-    return CCOL_STATUS_SUCCESS;
+    return CCOL_STATUS_OK;
 }
 
-void *dll_pop(dll_t *dll) {
+ccol_status_t dll_pop(dll_t *dll, void **data_out) {
     CCOL_CHECK_INIT(dll);
-    if (!dll->tail) return NULL;
+    if (!dll->tail) return CCOL_STATUS_EMPTY;
+    if (!data_out) return CCOL_STATUS_INVALID_ARG;
 
     dll_node_t *tail = dll->tail;
-    void *data = tail->data;
-    dll_remove_node(dll, tail);
+    *data_out = tail->data;
 
-    return data;
+    return dll_remove_node(dll, tail);
 }
 
 void *dll_pop_middle(dll_t *dll) {
-    CCOL_CHECK_INIT(dll);
-    if (!dll->head) return NULL;
+    if (!dll || !dll->is_initialized || dll->size == 0) return NULL;
 
     if (dll->size == 1) {
         return dll_pop(dll);
@@ -196,8 +217,7 @@ void *dll_pop_middle(dll_t *dll) {
 }
 
 void *dll_pop_front(dll_t *dll) {
-    CCOL_CHECK_INIT(dll);
-    if (!dll->head) return NULL;
+    if (!dll || !dll->is_initialized || !dll->head) return NULL;
 
     dll_node_t *head = dll->head;
     void *data = head->data;
@@ -262,26 +282,5 @@ ccol_status_t dll_reverse(dll_t *dll);
 // Iterator
 iterator_t *dll_iterator_create(const dll_t *dll);
 
-// Private
-static dll_node_t *dll_get_middle_node(const dll_t *dll) {
-    if (!dll || !dll->is_initialized || dll->size == 0) return NULL;
-
-    size_t middle_index = dll->size / 2;
-    dll_node_t * middle_node = NULL;
-
-    if (middle_index < dll->size - middle_index) {
-        middle_node = dll->head;
-        for (size_t i = 0; i < middle_index; i++) {
-            middle_node = middle_node->next;
-        }
-    } else {
-        middle_node = dll->tail;
-        for (size_t i = dll->size - 1; i > middle_index; i--) {
-            middle_node = middle_node->prev;
-        }
-    }
-
-    return middle_node;
-}
 
 
