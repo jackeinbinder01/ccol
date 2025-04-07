@@ -10,10 +10,12 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
+#include <stdbool>
+
 typedef struct iterator_t {
     void *container;
     void *state;
-    int (*has_next)(struct iterator_t *iter); // 1 if true, 0 if false
+    bool (*has_next)(struct iterator_t *iter); // 1 if true, 0 if false
     void *(*next)(struct iterator_t *iter); // returns next element
     void (*destroy)(struct iterator_t *iter); // frees memory
 } iterator_t;

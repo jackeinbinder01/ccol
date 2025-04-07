@@ -1,7 +1,7 @@
 /*
  * ccol/swap.c
  *
- *
+ * Swap implementations
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
@@ -27,6 +27,7 @@ ccol_status_t swap_long_double(long double *x, long double *y);
 ccol_status_t swap_char(char *x, char *y);
 ccol_status_t swap_uchar(unsigned char *x, unsigned char *y);
 ccol_status_t swap_string(char **s1, char **s2);
+
 ccol_status_t swap(void *x, void *y, size_t size) {
     if (!x || !y || size == 0) return CCOL_STATUS_INVALID_ARG;
 

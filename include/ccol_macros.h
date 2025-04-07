@@ -11,6 +11,9 @@
 #define CCOL_MACROS_H
 
 #include "ccol_status.h"
+#include "copy.h"
+#include "swap.h"
+#include "print.h"
 
 // Iterator pattern
 #define CCOL_ITER_FOR(type, var, iter_ptr)                              \
