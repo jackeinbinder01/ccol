@@ -284,7 +284,7 @@ ccol_status_t dll_get_node(const dll_t *dll, size_t index, dll_node_t **node_out
     CCOL_CHECK_INIT(dll);
     if (!node_out) return CCOL_STATUS_INVALID_ARG;
     if (dll->size == 0) return CCOL_STATUS_EMPTY;
-    if (index >= dll->size) return CCOL_STATUS_OUT_OF_BOUNDS;
+    if (index > dll->size - 1) return CCOL_STATUS_OUT_OF_BOUNDS;
 
     dll_node_t *target;
     if (index < dll->size / 2) {
@@ -402,7 +402,7 @@ size_t dll_index_of(const dll_t *dll, void *data, int (*cmp)(const void *, const
 ccol_status_t dll_set(dll_t *dll, size_t index, void *data) {
     CCOL_CHECK_INIT(dll);
     if (dll->size == 0) return CCOL_STATUS_EMPTY;
-    if (index >= dll->size) return CCOL_STATUS_OUT_OF_BOUNDS;
+    if (index > dll->size - 1) return CCOL_STATUS_OUT_OF_BOUNDS;
 
     dll_node_t *target;
     if (index < dll->size / 2) {
@@ -424,7 +424,7 @@ ccol_status_t dll_set(dll_t *dll, size_t index, void *data) {
 ccol_status_t dll_swap_data(dll_t *dll, size_t i, size_t j) {
     CCOL_CHECK_INIT(dll);
     if (dll->size == 0) return CCOL_STATUS_EMPTY;
-    if (i >= dll->size || j >= dll->size) return CCOL_STATUS_OUT_OF_BOUNDS;
+    if (i > dll->size - 1 || j > dll->size -1) return CCOL_STATUS_OUT_OF_BOUNDS;
 
     if (i == j) return CCOL_STATUS_OK;
 

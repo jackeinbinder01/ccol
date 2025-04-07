@@ -19,16 +19,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="dll implementation">
-      <change afterPath="$PROJECT_DIR$/include/print.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/print.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/ccol_macros.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ccol_macros.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/dll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dll.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/iterator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/iterator.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/swap.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/swap.c" afterDir="false" />
-    </list>
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="dll implementation" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -113,7 +104,7 @@
       <workItem from="1743912846480" duration="42000" />
       <workItem from="1743912956132" duration="8007000" />
       <workItem from="1743982753682" duration="1943000" />
-      <workItem from="1744042542700" duration="7644000" />
+      <workItem from="1744042542700" duration="7972000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -163,7 +154,15 @@
       <option name="project" value="LOCAL" />
       <updated>1743912833100</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="dll implementation">
+      <option name="closed" value="true" />
+      <created>1744050676888</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1744050676888</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -173,8 +172,8 @@
     <MESSAGE value="initial push" />
     <MESSAGE value="iter updated" />
     <MESSAGE value="APIs updated" />
-    <MESSAGE value="dll implementation" />
     <MESSAGE value="dir structure updated" />
-    <option name="LAST_COMMIT_MESSAGE" value="dir structure updated" />
+    <MESSAGE value="dll implementation" />
+    <option name="LAST_COMMIT_MESSAGE" value="dll implementation" />
   </component>
 </project>
