@@ -7,7 +7,6 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
-
 #include <stdlib.h>
 #include "dll.h"
 #include "dll_iterator.h"
