@@ -19,24 +19,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="cdll/dll good for now">
-      <change afterPath="$PROJECT_DIR$/include/deque_internal.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/deque_iterator.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/deque/deque.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/deque/deque_internal.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/deque/deque_iterator.c" afterDir="false" />
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="deque staging">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/deque.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/deque.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ccol_status.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/ccol_status.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cdll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cdll_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll_internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cdll_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll_iterator.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/deque.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque_legacy.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll_internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll_iterator.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +110,7 @@
       <workItem from="1743912846480" duration="42000" />
       <workItem from="1743912956132" duration="8007000" />
       <workItem from="1743982753682" duration="1943000" />
-      <workItem from="1744042542700" duration="25166000" />
+      <workItem from="1744042542700" duration="26780000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -240,7 +224,15 @@
       <option name="project" value="LOCAL" />
       <updated>1744073389495</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="deque staging">
+      <option name="closed" value="true" />
+      <created>1744078199781</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1744078199781</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -255,6 +247,7 @@
     <MESSAGE value="cdll implementation draft" />
     <MESSAGE value="cdll/dll v1.0" />
     <MESSAGE value="cdll/dll good for now" />
-    <option name="LAST_COMMIT_MESSAGE" value="cdll/dll good for now" />
+    <MESSAGE value="deque staging" />
+    <option name="LAST_COMMIT_MESSAGE" value="deque staging" />
   </component>
 </project>
