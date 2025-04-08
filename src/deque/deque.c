@@ -1,5 +1,5 @@
 /*
- * ccol/deque.h
+ * ccol/deque.c
  *
  * Double ended queue
  *
@@ -7,19 +7,17 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
-#ifndef DEQUE_H
-#define DEQUE_H
-
 #include <stddef.h>
+#include <stdlib.h>
 #include <stdbool.h>
-#include "ccol_status.h"
-#include "iterator.h"
+#include <stdio.h>
+#include "dll_internal.h"
 #include "cdll.h"
-
-typedef struct deque_t {
-    cdll_t list;
-    bool is_initialized;
-} deque_t;
+#include "cdll_internal.h"
+#include "deque.h"
+#include "deque_internal.h"
+#include "ccol_status.h"
+#include "ccol_macros.h"
 
 // Create / Initialize
 ccol_status_t deque_init(deque_t *deque);
@@ -86,5 +84,3 @@ void deque_free(deque_t *deque);
 
 // Print / Debug
 ccol_status_t deque_print(const deque_t *deque, void (*print_data)(const void *));
-
-#endif // DEQUE_H
