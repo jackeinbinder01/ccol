@@ -12,13 +12,12 @@
 
 #include "iterator.h"
 #include "deque.h"
-#include "cdll.h"
 
 typedef struct {
-    const cdll_t *cdll;
+    const deque_t *deque;
     dll_node_t *current;
     size_t step;
-} cdll_iterator_state_t;
+} deque_iterator_state_t;
 
 // Iterator
 iterator_t *deque_iterator_create(const deque_t *deque);
@@ -30,4 +29,4 @@ iterator_t *deque_iterator_create(const deque_t *deque);
             ((var = (type *)_it->next(_it)) || 1);)                               \
             for (int _done = (_it->destroy(_it), 0); !_done; _done = 1)
 
-#endif //DEQUE_ITERATOR_H
+#endif // DEQUE_ITERATOR_H

@@ -8,6 +8,7 @@
  */
 
 #include <stdlib.h>
+#include <stdbool.h>
 #include "cdll.h"
 #include "cdll_iterator.h"
 #include "iterator.h"
@@ -20,7 +21,7 @@ static bool cdll_has_next(iterator_t *iter) {
 }
 
 static void *cdll_next(iterator_t *iter) {
-    if (!iter || !iter->state) return false;
+    if (!iter || !iter->state) return NULL;
     cdll_iterator_state_t *state = iter->state;
 
     if (!state->current || state->step >= state->cdll->size) return NULL;

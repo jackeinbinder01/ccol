@@ -8,28 +8,31 @@
  */
 
 #include <stdlib.h>
-#include "dll.h"
-#include "dll_iterator.h"
+#include <stdbool.h>
+#include "deque.h"
+#include "deque_iterator.h"
 #include "iterator.h"
 
 // Private
-static bool dll_has_next(iterator_t *iter) {
+static bool deque_has_next(iterator_t *iter) {
     if (!iter || !iter->state) return false;
-    dll_iterator_state_t *state = iter->state;
-    return state->current != NULL;
+    deque_iterator_state_t *state = iter->state;
+    return state->step < state->deque->list.size;
 }
 
-static void *dll_next(iterator_t *iter) {
+static void *deque_next(iterator_t *iter) {
     if (!iter || !iter->state) return NULL;
-    dll_iterator_state_t *state = iter->state;
-    if (!state->current) return NULL;
+    deque_iterator_state_t *state = iter->state;
+
+    if (!state->current || state->step >= state->deque->list.size) return NULL;
 
     void *data = state->current->data;
     state->current = state->current->next;
+    state->step++;
     return data;
 }
 
-static void dll_iterator_destroy(iterator_t *iter) {
+static void deque_iterator_destroy(iterator_t *iter) {
     if (iter) {
         free(iter->state);
         free(iter);
@@ -37,10 +40,10 @@ static void dll_iterator_destroy(iterator_t *iter) {
 }
 
 // Create
-iterator_t *dll_iterator_create(const dll_t *dll) {
-    if (!dll || !dll->is_initialized) return NULL;
+iterator_t *deque_iterator_create(const deque_t *deque) {
+    if (!deque || !deque->is_initialized) return NULL;
 
-    dll_iterator_state_t *state = calloc(1, sizeof(dll_iterator_state_t));
+    deque_iterator_state_t *state = calloc(1, sizeof(deque_iterator_state_t));
     if (!state) return NULL;
 
     iterator_t *iter = calloc(1, sizeof(iterator_t));
@@ -49,14 +52,14 @@ iterator_t *dll_iterator_create(const dll_t *dll) {
         return NULL;
     }
 
-    state->dll = dll;
-    state->current = dll->head;
+    state->deque = deque;
+    state->current = deque->list.head;
 
-    iter->container = (void *)dll;
+    iter->container = (void *)deque;
     iter->state = state;
-    iter->has_next = dll_has_next;
-    iter->next = dll_next;
-    iter->destroy = dll_iterator_destroy;
+    iter->has_next = deque_has_next;
+    iter->next = deque_next;
+    iter->destroy = deque_iterator_destroy;
 
     return iter;
 }

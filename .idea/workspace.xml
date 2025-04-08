@@ -8,7 +8,6 @@
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppFormatterOtherPage" type="string" />
-    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
   </component>
   <component name="CMakeProjectFlavorService">
     <option name="flavorId" value="CMakePlainProjectFlavor" />
@@ -19,8 +18,20 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="deque staging">
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="dll updated">
+      <change afterPath="$PROJECT_DIR$/include/ccol_constants.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/cdll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cdll.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/deque.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/deque.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/deque_iterator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/deque_iterator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/dll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dll.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cdll/cdll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cdll/cdll_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll_iterator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deque/deque.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deque/deque_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque_internal.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deque/deque_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque_iterator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dll/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dll/dll_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll_internal.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -248,6 +259,7 @@
     <MESSAGE value="cdll/dll v1.0" />
     <MESSAGE value="cdll/dll good for now" />
     <MESSAGE value="deque staging" />
-    <option name="LAST_COMMIT_MESSAGE" value="deque staging" />
+    <MESSAGE value="dll updated" />
+    <option name="LAST_COMMIT_MESSAGE" value="dll updated" />
   </component>
 </project>

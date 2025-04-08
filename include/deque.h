@@ -12,6 +12,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+#include "ccol_constants.h"
 #include "ccol_status.h"
 #include "iterator.h"
 #include "cdll.h"
@@ -82,7 +83,7 @@ ccol_status_t deque_deep_copy(deque_t *dest, const deque_t *src, void (*free_dat
 // Cleanup
 void deque_clear(deque_t *deque, void (*free_data)(void *));
 void deque_destroy(deque_t *deque, void (*free_data)(void*));
-void deque_free(deque_t *deque);
+void deque_free(deque_t *deque, void (*free_data)(void*));
 
 // Print / Debug
 ccol_status_t deque_print(const deque_t *deque, void (*print_data)(const void *));

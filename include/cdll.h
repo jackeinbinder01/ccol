@@ -13,11 +13,9 @@
 #include <stddef.h>
 #include <stdbool.h>
 #include "ccol_status.h"
+#include "ccol_constants.h"
 #include "iterator.h"
 #include "dll.h"
-
-// Sentinal value for index not found
-#define CDLL_NOT_FOUND SIZE_MAX
 
 typedef struct cdll_t {
     dll_node_t *head;
@@ -88,7 +86,7 @@ ccol_status_t cdll_deep_copy(cdll_t *dest, const cdll_t *src, void (*free_data)(
 // Cleanup
 void cdll_clear(cdll_t *cdll, void (*free_data)(void *));
 void cdll_destroy(cdll_t *cdll, void (*free_data)(void*));
-void cdll_free(cdll_t *cdll);
+void cdll_free(cdll_t *cdll, void (*free_data)(void*));
 
 // Print / Debug
 ccol_status_t cdll_print(const cdll_t *cdll, void (*print_data)(const void *));

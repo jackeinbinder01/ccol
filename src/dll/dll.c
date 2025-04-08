@@ -15,6 +15,7 @@
 #include "dll_internal.h"
 #include "ccol_status.h"
 #include "ccol_macros.h"
+#include "ccol_constants.h"
 
 // Create / Initialize
 ccol_status_t dll_init(dll_t *dll) {
@@ -325,7 +326,7 @@ ccol_status_t dll_safe_index_of(const dll_t *dll, void *data, int (*cmp)(const v
 size_t dll_index_of(const dll_t *dll, void *data, int (*cmp)(const void *, const void *)) {
     size_t index;
     ccol_status_t status = dll_safe_index_of(dll, data, cmp, &index);
-    if (status != CCOL_STATUS_OK) return DLL_NOT_FOUND; // Return sentinal value if not found
+    if (status != CCOL_STATUS_OK) return DLL_INDEX_NOT_FOUND;
     return index;
 }
 
@@ -513,13 +514,14 @@ void dll_destroy(dll_t *dll, void (*free_data)(void*)) {
         dll_dispose_node(curr, free_data);
         curr = next;
     }
-    free(dll);
-}
-
-void dll_free(dll_t *dll) {
-    if (!dll || !dll->is_initialized) return;
 
     dll_uninit(dll);
+}
+
+void dll_free(dll_t *dll, void (*free_data)(void*)) {
+    if (!dll || !dll->is_initialized) return;
+
+    dll_destroy(dll, free_data);
     free(dll);
 }
 

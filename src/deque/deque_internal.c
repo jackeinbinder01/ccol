@@ -7,7 +7,7 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
-
+#include <stdbool.h>
 #include "dll.h"
 #include "dll_internal.h"
 #include "cdll.h"

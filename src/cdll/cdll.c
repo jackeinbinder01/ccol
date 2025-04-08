@@ -167,9 +167,7 @@ ccol_status_t cdll_pop_middle(cdll_t *cdll, void **data_out) {
     if (cdll->size == 0) return CCOL_STATUS_EMPTY;
     if (!data_out) return CCOL_STATUS_INVALID_ARG;
 
-    if (cdll->size == 1) {
-        return cdll_pop(cdll, data_out);
-    }
+    if (cdll->size == 1) return cdll_pop(cdll, data_out);
 
     const dll_node_t *head = cdll->head;
     dll_node_t *middle = dll_get_middle_node(head, cdll->size);
@@ -338,7 +336,7 @@ ccol_status_t cdll_safe_index_of(const cdll_t *cdll, void *data, int (*cmp)(cons
 size_t cdll_index_of(const cdll_t *cdll, void *data, int (*cmp)(const void *, const void *)) {
     size_t index;
     ccol_status_t status = cdll_safe_index_of(cdll, data, cmp, &index);
-    if (status != CCOL_STATUS_OK) return CDLL_NOT_FOUND; // Return sentinal value if not found
+    if (status != CCOL_STATUS_OK) return CDLL_INDEX_NOT_FOUND;
     return index;
 }
 
@@ -530,13 +528,14 @@ void cdll_destroy(cdll_t *cdll, void (*free_data)(void*)) {
         dll_dispose_node(curr, free_data);
         curr = next;
     }
-    free(cdll);
-}
-
-void cdll_free(cdll_t *cdll) {
-    if (!cdll || !cdll->is_initialized) return;
 
     cdll_uninit(cdll);
+}
+
+void cdll_free(cdll_t *cdll, void (*free_data)(void*)) {
+    if (!cdll || !cdll->is_initialized) return;
+
+    cdll_destroy(cdll, free_data);
     free(cdll);
 }
 
