@@ -26,16 +26,18 @@ ccol_status_t deque_init(deque_t *deque);
 ccol_status_t deque_create(deque_t **deque_out);
 
 // Insertion
-ccol_status_t deque_push_back(deque_t *deque, void *data);
-ccol_status_t deque_push_middle(deque_t *deque, void *data);
+ccol_status_t deque_push(deque_t *deque, void *data);
 ccol_status_t deque_push_front(deque_t *deque, void *data);
+ccol_status_t deque_push_middle(deque_t *deque, void *data);
+ccol_status_t deque_push_back(deque_t *deque, void *data);
 
 // Removal
-ccol_status_t deque_remove(deque_t *deque, void *data);
+void *deque_pop(deque_t *deque);
 void *deque_pop_front(deque_t *deque);
 void *deque_pop_middle(deque_t *deque);
 void *deque_pop_back(deque_t *deque);
 
+ccol_status_t deque_remove(deque_t *deque, void *data);
 
 // Access
 void *deque_get(const deque_t *deque, size_t index);

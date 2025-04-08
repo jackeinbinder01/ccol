@@ -20,7 +20,7 @@ static bool dll_has_next(iterator_t *iter) {
 }
 
 static void *dll_next(iterator_t *iter) {
-    if (!iter || !iter->state) return false;
+    if (!iter || !iter->state) return NULL;
     dll_iterator_state_t *state = iter->state;
     if (!state->current) return NULL;
 

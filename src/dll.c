@@ -296,7 +296,9 @@ bool dll_contains(const dll_t *dll, const void *data, int (*cmp)(const void *, c
 
 bool dll_contains_node(const dll_t *dll, const dll_node_t *node) {
     if (!dll || !node) return false;
-    for (dll_node_t *curr = dll->head; curr; curr = curr->next) {
+
+    dll_node_t *curr = dll->head;
+    for (size_t i = 0; i < dll->size; i++, curr = curr->next) {
         if (curr == node) return true;
     }
     return false;
@@ -532,12 +534,12 @@ ccol_status_t dll_print(const dll_t *dll, void (*print_data)(const void *)) {
 
     dll_node_t *curr = dll->head;
 
-    printf("HEAD → [");
+    printf("HEAD → [ ");
     for (size_t i = 0; i < dll->size; i++) {
     	print_data(curr->data);
-        if (i != dll->size - 1) printf("] ⇄ [");
+        if (i != dll->size - 1) printf(" ] ⇄ [ ");
         curr = curr->next;
     }
-    printf("] ← TAIL\n");
+    printf(" ] ← TAIL\n");
     return CCOL_STATUS_OK;
 }

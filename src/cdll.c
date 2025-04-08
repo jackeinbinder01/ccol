@@ -121,9 +121,6 @@ ccol_status_t cdll_insert_before(cdll_t *cdll, dll_node_t* ref_node, void *data)
     ref_node->prev->next = new_node;
     ref_node->prev = new_node;
 
-    cdll->head->prev = cdll->tail;
-    cdll->tail->next = cdll->head;
-
     cdll->size++;
     return CCOL_STATUS_OK;
 }
@@ -144,8 +141,6 @@ ccol_status_t cdll_insert_after(cdll_t *cdll, dll_node_t* ref_node, void *data) 
     ref_node->next->prev = new_node;
     ref_node->next = new_node;
 
-    cdll->head->prev = cdll->tail;
-    cdll->tail->next = cdll->head;
 
     cdll->size++;
     return CCOL_STATUS_OK;
@@ -315,7 +310,9 @@ bool cdll_contains(const cdll_t *cdll, const void *data, int (*cmp)(const void *
 
 bool cdll_contains_node(const cdll_t *cdll, const dll_node_t *node) {
     if (!cdll || !node) return false;
-    for (dll_node_t *curr = cdll->head; curr; curr = curr->next) {
+
+    dll_node_t *curr = cdll->head;
+    for (size_t i = 0; i < cdll->size; i++, curr = curr->next) {
         if (curr == node) return true;
     }
     return false;
@@ -328,13 +325,11 @@ ccol_status_t cdll_safe_index_of(const cdll_t *cdll, void *data, int (*cmp)(cons
 
     size_t index = 0;
     dll_node_t *curr = cdll->head;
-    while (curr) {
+    for (size_t i = 0; i < cdll->size; i++, curr = curr->next) {
         if (cmp(curr->data, data) == 0) {
-            *out_index = index;
+            *out_index = i;
             return CCOL_STATUS_OK;
         }
-        curr = curr->next;
-        index++;
     }
 
     return CCOL_STATUS_NOT_FOUND;
@@ -399,7 +394,7 @@ ccol_status_t cdll_swap_nodes(cdll_t *cdll, dll_node_t *x, dll_node_t *y) {
 
     // Handle adjacent nodes
     if (x->next == y || y->next == x) {
-        if (y->next == x) { // makes sure x comes first
+        if (y->next == x) { // Ensure x precedes y so we handle them left-to-right
             dll_node_t *tmp = x;
             x = y;
             y = tmp;
@@ -435,6 +430,9 @@ ccol_status_t cdll_swap_nodes(cdll_t *cdll, dll_node_t *x, dll_node_t *y) {
 
     if (cdll->tail == x) cdll->tail = y;
     else if (cdll->tail == y) cdll->tail = x;
+
+    cdll->head->prev = cdll->tail;
+    cdll->tail->next = cdll->head;
 
     return CCOL_STATUS_OK;
 }
@@ -553,12 +551,12 @@ ccol_status_t cdll_print(const cdll_t *cdll, void (*print_data)(const void *)) {
 
     dll_node_t *curr = cdll->head;
 
-    printf("HEAD → [");
+    printf("HEAD → [ ");
     for (size_t i = 0; i < cdll->size; i++) {
     	print_data(curr->data);
-        if (i != cdll->size - 1) printf("] ⇄ [");
+        if (i != cdll->size - 1) printf(" ] ⇄ [ ");
         curr = curr->next;
     }
-    printf("] ← TAIL\n");
+    printf(" ] ← TAIL\n");
     return CCOL_STATUS_OK;
 }

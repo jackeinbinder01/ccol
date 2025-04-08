@@ -19,23 +19,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="dll implementation">
-      <change afterPath="$PROJECT_DIR$/include/cdll_internal.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/cdll_iterator.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/cdll_old.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/dll_internal.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/include/dll_iterator.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cdll_internal.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cdll_iterator.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/cdll_legacy.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dll_internal.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/dll_iterator.c" afterDir="false" />
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="cdll implementation draft">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/cdll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cdll.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/dll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dll.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/deque.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/deque.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cdll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll_legacy.c" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -121,7 +109,7 @@
       <workItem from="1743912846480" duration="42000" />
       <workItem from="1743912956132" duration="8007000" />
       <workItem from="1743982753682" duration="1943000" />
-      <workItem from="1744042542700" duration="18362000" />
+      <workItem from="1744042542700" duration="22830000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -187,7 +175,31 @@
       <option name="project" value="LOCAL" />
       <updated>1744050882464</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="cdll implementation draft">
+      <option name="closed" value="true" />
+      <created>1744061698010</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1744061698010</updated>
+    </task>
+    <task id="LOCAL-00010" summary="cdll implementation draft">
+      <option name="closed" value="true" />
+      <created>1744061782218</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1744061782218</updated>
+    </task>
+    <task id="LOCAL-00011" summary="cdll implementation draft">
+      <option name="closed" value="true" />
+      <created>1744061861122</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1744061861122</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -199,6 +211,7 @@
     <MESSAGE value="APIs updated" />
     <MESSAGE value="dir structure updated" />
     <MESSAGE value="dll implementation" />
-    <option name="LAST_COMMIT_MESSAGE" value="dll implementation" />
+    <MESSAGE value="cdll implementation draft" />
+    <option name="LAST_COMMIT_MESSAGE" value="cdll implementation draft" />
   </component>
 </project>
