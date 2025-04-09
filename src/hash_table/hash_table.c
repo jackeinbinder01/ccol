@@ -26,8 +26,8 @@ ccol_status_t hash_table_insert(hash_table_t *hash_table, void *key, void *data)
 ccol_status_t hash_table_remove(hash_table_t *hash_table, void *key);
 
 // Access
-ccol_status_t hash_table_get(const hash_table_t *hash_table, void *key, **data_out);
-ccol_status_t hash_table_get_node(const hash_table_t *hash_table, void *key, **node_out);
+ccol_status_t hash_table_get(const hash_table_t *hash_table, void *key, void **data_out);
+ccol_status_t hash_table_get_node(const hash_table_t *hash_table, void *key, dll_node_t **node_out);
 ccol_status_t hash_table_get_all_keys(const hash_table_t *hash_table, void ***keys_out, size_t *key_count);
 
 // Attributes

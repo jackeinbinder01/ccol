@@ -28,7 +28,7 @@ unsigned int hash_uint8(const void *key, hash_policy_t policy);
 unsigned int hash_uint16(const void *key, hash_policy_t policy);
 unsigned int hash_uint32(const void *key, hash_policy_t policy);
 unsigned int hash_uint64(const void *key, hash_policy_t policy);
-unsigned int hash_string(const void *key, hash_policy_t policy);
+unsigned int hash_str(const void *key, hash_policy_t policy);
 unsigned int hash_ptr(const void *key, hash_policy_t policy);
 
 #endif // HASH_H

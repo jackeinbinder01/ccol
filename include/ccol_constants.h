@@ -15,4 +15,7 @@
 #define CDLL_INDEX_NOT_FOUND SIZE_MAX
 #define DEQUE_INDEX_NOT_FOUND SIZE_MAX
 
+// Special key_size value: treat key as null-terminated string in hash tables
+#define HASH_KEY_STRING 0
+
 #endif // CCOL_CONSTANTS_H

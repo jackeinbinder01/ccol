@@ -19,5 +19,5 @@ unsigned int hash_robust_uint8(const void *key);
 unsigned int hash_robust_uint16(const void *key);
 unsigned int hash_robust_uint32(const void *key);
 unsigned int hash_robust_uint64(const void *key);
-unsigned int hash_robust_string(const void *key);
+unsigned int hash_robust_str(const void *key);
 unsigned int hash_robust_ptr(const void *key);

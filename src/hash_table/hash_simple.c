@@ -51,7 +51,7 @@ unsigned int hash_simple_uint64(const void *key) {
     return x ^ (x >> 32);
 }
 
-unsigned int hash_simple_string(const void *key) {
+unsigned int hash_simple_str(const void *key) {
     const char *str = *(const char **)key;
     unsigned int hash = 5381;
     int c;

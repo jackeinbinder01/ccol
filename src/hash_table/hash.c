@@ -76,11 +76,11 @@ unsigned int hash_uint64(const void *key, hash_policy_t policy) {
     }
 }
 
-unsigned int hash_string(const void *key, hash_policy_t policy) {
+unsigned int hash_str(const void *key, hash_policy_t policy) {
     switch (policy) {
-      case HASH_SIMPLE: return hash_simple_string(key);
-      case HASH_ROBUST: return hash_robust_string(key);
-      case HASH_SECURE: return hash_secure_string(key);
+      case HASH_SIMPLE: return hash_simple_str(key);
+      case HASH_ROBUST: return hash_robust_str(key);
+      case HASH_SECURE: return hash_secure_str(key);
     }
 }
 
