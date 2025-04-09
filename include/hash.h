@@ -18,7 +18,7 @@ typedef enum {
     HASH_SECURE,
 } hash_policy_t;
 
-typedef unsigned int (*hash_func_t)(const void *key);
+typedef unsigned int (*hash_func_t)(const void *key, hash_policy_t policy);
 
 unsigned int hash_int8(const void *key, hash_policy_t policy);
 unsigned int hash_int16(const void *key, hash_policy_t policy);
