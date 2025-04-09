@@ -20,17 +20,15 @@ typedef enum {
 
 typedef unsigned int (*hash_func_t)(const void *key);
 
-unsigned int hash_int(const void *key);
-unsigned int hash_uint(const void *key);
-unsigned int hash_long(const void *key);
-unsigned int hash_long_long(const void *key);
-unsigned int hash_ulong(const void *key);
-unsigned int hash_ulong_long(const void *key);
-unsigned int hash_short(const void *key);
-unsigned int hash_ushort(const void *key);
-unsigned int hash_char(const void *key);
-unsigned int hash_uchar(const void *key);
-unsigned int hash_string(const void *key);
-unsigned int hash_ptr(const void *key);
+unsigned int hash_int8(const void *key, hash_policy_t policy);
+unsigned int hash_int16(const void *key, hash_policy_t policy);
+unsigned int hash_int32(const void *key, hash_policy_t policy);
+unsigned int hash_int64(const void *key, hash_policy_t policy);
+unsigned int hash_uint8(const void *key, hash_policy_t policy);
+unsigned int hash_uint16(const void *key, hash_policy_t policy);
+unsigned int hash_uint32(const void *key, hash_policy_t policy);
+unsigned int hash_uint64(const void *key, hash_policy_t policy);
+unsigned int hash_string(const void *key, hash_policy_t policy);
+unsigned int hash_ptr(const void *key, hash_policy_t policy);
 
 #endif // HASH_H
