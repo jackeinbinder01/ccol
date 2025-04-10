@@ -13,12 +13,13 @@
 #include <stddef.h>
 
 typedef enum {
-    HASH_SIMPLE,
-    HASH_ROBUST,
-    HASH_SECURE,
+    HASH_SIMPLE = 1,
+    HASH_ROBUST = 2,
+    HASH_SECURE = 3,
+    HASH_CUSTOM = 4,
 } hash_policy_t;
 
-typedef unsigned int (*hash_func_t)(const void *key, hash_policy_t policy);
+typedef unsigned int (*hash_func_t)(const void *key);
 
 unsigned int hash_int8(const void *key, hash_policy_t policy);
 unsigned int hash_int16(const void *key, hash_policy_t policy);

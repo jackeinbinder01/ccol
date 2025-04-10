@@ -10,8 +10,18 @@
 #ifndef HASH_TABLE_INTERNAL_H
 #define HASH_TABLE_INTERNAL_H
 
-#include "hash_table.h"
+#include <stddef.h>
+#include "hash.h"
+#include "hash_table_iterator.h"
+#include "comparator.h"
 
-void hash_table_resize_if_needed(hash_table_t *hash_table);
+ccol_status_t hash_table_create_internal(
+    int num_buckets,
+    size_t key_size,
+    hash_policy_t policy,
+    hash_func_t hash_func,
+    comparator_t cmp,
+    hash_table_t **hash_table_out
+);
 
-#endif //HASH_TABLE_INTERNAL_H
+#endif // HASH_TABLE_INTERNAL_H

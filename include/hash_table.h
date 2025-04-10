@@ -19,10 +19,11 @@
 
 typedef struct hash_table_t {
     dll_t **buckets;
-    int num_buckets;
+    size_t num_buckets;
     size_t size;
     size_t key_size;
 
+    hash_policy_t policy;
     hash_func_t hash_func;
     comparator_t cmp;
 
@@ -31,8 +32,8 @@ typedef struct hash_table_t {
 
 // Create / Initialize
 ccol_status_t hash_table_init(hash_table_t *hash_table);
-ccol_status_t hash_table_create(int num_buckets, size_t key_size, hash_policy_t hash_policy, comparator_t cmp, hash_table_t **hash_table_out);
-ccol_status_t hash_table_create_custom(int num_buckets, size_t key_size, hash_func_t hash_func, comparator_t cmp, hash_table_t **hash_table_out);
+ccol_status_t hash_table_create(size_t num_buckets, size_t key_size, hash_policy_t policy, comparator_t cmp, hash_table_t **hash_table_out);
+ccol_status_t hash_table_create_custom(size_t num_buckets, size_t key_size, hash_func_t hash_func, comparator_t cmp, hash_table_t **hash_table_out);
 
 // Insertion
 ccol_status_t hash_table_insert(hash_table_t *hash_table, void *key, void *data);
