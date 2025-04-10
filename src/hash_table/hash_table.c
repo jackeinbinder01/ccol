@@ -148,8 +148,32 @@ size_t hash_table_num_buckets(const hash_table_t *hash_table) {
     return hash_table->num_buckets;
 }
 
-bool hash_table_contains(const hash_table_t *hash_table, const void *key);
-bool hash_table_contains_key(const hash_table_t *hash_table, void *key);
+bool hash_table_contains(const hash_table_t *hash_table, const void *key) {
+    return hash_table_contains_key(hash_table, key);
+}
+
+bool hash_table_contains_key(const hash_table_t *hash_table, void *key) {
+    CCOL_CHECK_INIT(hash_table);
+
+    size_t hash_key = hash_table->hash_func(key) % hash_table->num_buckets;
+    dll_t *bucket = hash_table->buckets[hash_key];
+    if (!bucket) return false;
+
+    return dll_contains(bucket, key, hash_table->cmp);
+}
+
+bool hash_table_contains_value(const hash_table_t *hash_table, void *key, void *value) {
+    CCOL_CHECK_INIT(hash_table);
+
+    size_t hash_key = hash_table->hash_func(key) % hash_table->num_buckets;
+    dll_t *bucket = hash_table->buckets[hash_key];
+    if (!bucket) return false;
+
+    return dll_contains(bucket, value, hash_table->cmp);
+}
+
+
+
 double hash_table_load_factor(const hash_table_t *hash_table);
 
 // Utilities
