@@ -7,8 +7,8 @@
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
     <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
-    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
     <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppFormatterOtherPage" type="string" />
+    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
   </component>
   <component name="CMakeProjectFlavorService">
     <option name="flavorId" value="CMakePlainProjectFlavor" />
@@ -19,7 +19,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="hash table WIP">
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="hash table staging">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/hash_table_internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table_internal.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -283,9 +286,9 @@
     <MESSAGE value="dll updated" />
     <MESSAGE value="deque draft" />
     <MESSAGE value="deque staging" />
-    <MESSAGE value="hash table staging" />
     <MESSAGE value="simple hash funcs" />
     <MESSAGE value="hash table WIP" />
-    <option name="LAST_COMMIT_MESSAGE" value="hash table WIP" />
+    <MESSAGE value="hash table staging" />
+    <option name="LAST_COMMIT_MESSAGE" value="hash table staging" />
   </component>
 </project>
