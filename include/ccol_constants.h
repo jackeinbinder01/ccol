@@ -19,4 +19,10 @@
 // Special key_size value: treat key as null-terminated string in hash tables
 #define HASH_KEY_STRING 0
 
+// Function types
+typedef int (*comparator_t)(const void *, const void *, void *);
+typedef void *(*copy_func_t)(const void *, void *);
+typedef void (*free_func_t)(void *, void *);
+typedef void (*print_func_t)(const void *, void *);
+
 #endif // CCOL_CONSTANTS_H

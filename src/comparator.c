@@ -13,93 +13,113 @@
  */
 
 #include <string.h>
-#include "data_structures/comparator.h"
+#include <strings.h>
+#include <stdint.h>
 
-int cmp_int(const void *a, const void *b) {
-    const int x = *(const int *)a;
-    const int y = *(const int *)b;
+#include "comparator.h"
+
+int cmp_int8(const void *a, const void *b, void *ctx) {
+	(void)ctx;
+    int8_t x = *(const int8_t *)a;
+    int8_t y = *(const int8_t *)b;
     return (x > y) - (x < y);
 }
 
-int cmp_uint(const void *a, const void *b) {
-    const unsigned int x = *(const unsigned int *)a;
-    const unsigned int y = *(const unsigned int *)b;
+int cmp_int16(const void *a, const void *b, void *ctx) {
+    (void)ctx;
+    int16_t x = *(const int16_t *)a;
+    int16_t y = *(const int16_t *)b;
     return (x > y) - (x < y);
 }
 
-int cmp_long(const void *a, const void *b) {
-    const long x = *(const long *)a;
-    const long y = *(const long *)b;
+int cmp_int32(const void *a, const void *b, void *ctx) {
+    (void)ctx;
+    int32_t x = *(const int32_t *)a;
+    int32_t y = *(const int32_t *)b;
     return (x > y) - (x < y);
 }
 
-int cmp_long_long(const void *a, const void *b) {
-    const long long x = *(const long long *)a;
-    const long long y = *(const long long *)b;
+int cmp_int64(const void *a, const void *b, void *ctx) {
+    (void)ctx;
+    int64_t x = *(const int64_t *)a;
+    int64_t y = *(const int64_t *)b;
     return (x > y) - (x < y);
 }
 
-int cmp_ulong(const void *a, const void *b) {
-    const unsigned long x = *(const unsigned long *)a;
-    const unsigned long y = *(const unsigned long *)b;
+int cmp_uint8(const void *a, const void *b, void *ctx) {
+	(void)ctx;
+    uint8_t x = *(const uint8_t *)a;
+    uint8_t y = *(const uint8_t *)b;
     return (x > y) - (x < y);
 }
 
-int cmp_ulong_long(const void *a, const void *b) {
-    const unsigned long long x = *(const unsigned long long *)a;
-    const unsigned long long y = *(const unsigned long long *)b;
+int cmp_uint16(const void *a, const void *b, void *ctx) {
+    (void)ctx;
+    uint16_t x = *(const uint16_t *)a;
+    uint16_t y = *(const uint16_t *)b;
     return (x > y) - (x < y);
 }
 
-int cmp_short(const void *a, const void *b) {
-    const short x = *(const short *)a;
-    const short y = *(const short *)b;
+int cmp_uint32(const void *a, const void *b, void *ctx) {
+    (void)ctx;
+    uint32_t x = *(const uint32_t *)a;
+    uint32_t y = *(const uint32_t *)b;
     return (x > y) - (x < y);
 }
 
-int cmp_ushort(const void *a, const void *b) {
-    const unsigned short x = *(const unsigned short *)a;
-    const unsigned short y = *(const unsigned short *)b;
+int cmp_uint64(const void *a, const void *b, void *ctx) {
+    (void)ctx;
+    uint64_t x = *(const uint64_t *)a;
+    uint64_t y = *(const uint64_t *)b;
     return (x > y) - (x < y);
 }
 
-int cmp_float(const void *a, const void *b) {
-    const float x = *(const float *)a;
-    const float y = *(const float *)b;
-    return (x > y) - (x < y);
+int cmp_float(const void *a, const void *b, void *ctx) {
+	(void)ctx;
+    float x = *(const float *)a;
+    float y = *(const float *)b;
+
+    if (x < y) return -1;
+    if (x > y || x != y) return 1;
+    return 0;
 }
 
-int cmp_double(const void *a, const void *b) {
-    const double x = *(const double *)a;
-    const double y = *(const double *)b;
-    return (x > y) - (x < y);
+int cmp_double(const void *a, const void *b, void *ctx) {
+	(void)ctx;
+    double x = *(const double *)a;
+    double y = *(const double *)b;
+
+    if (x < y) return -1;
+    if (x > y || x != y) return 1;
+    return 0;
 }
 
-int cmp_long_double(const void *a, const void *b) {
-    const long double x = *(const long double *)a;
-    const long double y = *(const long double *)b;
-    return (x > y) - (x < y);
+int cmp_long_double(const void *a, const void *b, void *ctx) {
+	(void)ctx;
+    long double x = *(const long double *)a;
+    long double y = *(const long double *)b;
+
+    if (x < y) return -1;
+    if (x > y || x != y) return 1;
+    return 0;
 }
 
-int cmp_char(const void *a, const void *b) {
-    const char x = *(const char *)a;
-    const char y = *(const char *)b;
-    return (x > y) - (x < y);
-}
-
-int cmp_uchar(const void *a, const void *b) {
-    const unsigned char x = *(const unsigned char *)a;
-    const unsigned char y = *(const unsigned char *)b;
-    return (x > y) - (x < y);
-}
-
-int cmp_string(const void *a, const void *b) {
+int cmp_str(const void *a, const void *b, void *ctx) {
+	(void)ctx;
     const char *s1 = *(const char **)a;
     const char *s2 = *(const char **)b;
     return strcmp(s1, s2);
 }
 
-int cmp_ptr(const void *a, const void *b) {
+int cmp_str_case_insensitive(const void *a, const void *b, void *ctx) {
+	(void)ctx;
+    const char *s1 = *(const char **)a;
+    const char *s2 = *(const char **)b;
+    return strcasecmp(s1, s2);
+}
+
+int cmp_ptr(const void *a, const void *b, void *ctx) {
+	(void)ctx;
     const void *x = *(const void **)a;
     const void *y = *(const void **)b;
     return (x > y) - (x < y);

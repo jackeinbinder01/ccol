@@ -10,6 +10,7 @@
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdbool.h>
+
 #include "dll.h"
 #include "dll_internal.h"
 #include "ccol_status.h"
@@ -41,18 +42,18 @@ void dll_free_node(dll_node_t *node) {
     free(node);
 }
 
-void dll_dispose_node(dll_node_t *node, void (*free_data)(void *)) {
+void dll_dispose_node(dll_node_t *node, free_func_t free_data, void *ctx) {
     if (!node) return;
-    if (free_data && node->data) free_data(node->data);
+    if (free_data && node->data) free_data(node->data, ctx);
     dll_free_node(node);
 }
 
-dll_node_t *dll_search_bounded(const dll_node_t *head, size_t size, const void *data, int (*cmp)(const void *, const void *)) {
+dll_node_t *dll_search_bounded(const dll_node_t *head, size_t size, const void *data, comparator_t cmp, void *ctx) {
     if (!head || size == 0 || !data || !cmp) return NULL;
 
     dll_node_t *curr = (dll_node_t *)head;
     for (size_t i = 0; i < size; i++) {
-        if (cmp(curr->data, data) == 0) return curr;
+        if (cmp(curr->data, data, ctx) == 0) return curr;
         curr = curr->next;
     }
 

@@ -15,9 +15,10 @@
 // DLL & CDLL
 dll_node_t *dll_get_middle_node(const dll_node_t *head, size_t size);
 void dll_free_node(dll_node_t *node);
-void dll_dispose_node(dll_node_t *node, void (*free_data)(void *));
+void dll_dispose_node(dll_node_t *node, void (*free_data)(void *, void *), void *ctx);
 
-dll_node_t *dll_search_bounded(const dll_node_t *head, size_t size, const void *data, int (*cmp)(const void *, const void *));
+dll_node_t *dll_search_bounded(const dll_node_t *head, size_t size, const void *data, int (*cmp)(const void *, const void *, void *), void *ctx);
+
 ccol_status_t dll_get_node_bounded(const dll_node_t *head, const dll_node_t *tail, size_t size, size_t index, dll_node_t **node_out);
 
 // DLL specific

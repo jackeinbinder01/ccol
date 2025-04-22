@@ -52,7 +52,7 @@ size_t hash_table_size(const hash_table_t *hash_table);
 size_t hash_table_num_buckets(const hash_table_t *hash_table);
 
 bool hash_table_contains(const hash_table_t *hash_table, const void *key); // default wrapper over contains key
-bool hash_table_contains_key(const hash_table_t *hash_table, void *key);
+bool hash_table_contains_key(const hash_table_t *hash_table, const void *key);
 bool hash_table_contains_value(const hash_table_t *hash_table, void *value);
 double hash_table_load_factor(const hash_table_t *hash_table);
 

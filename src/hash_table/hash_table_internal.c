@@ -86,7 +86,8 @@ ccol_status_t hash_table_create_internal(
     comparator_t cmp,
     hash_table_t **hash_table_out
 ) {
-    if (num_buckets < 1 || key_size < 1 || !hash_func || !cmp || !hash_table_out) return CCOL_STATUS_INVALID_ARG;
+    if (num_buckets < 1 || key_size < 1 || !hash_func || !cmp || !hash_table_out)
+    	return CCOL_STATUS_INVALID_ARG;
 
     hash_table_t *hash_table = calloc(1, sizeof(hash_table_t));
     if (!hash_table) return CCOL_STATUS_ALLOC;
@@ -111,5 +112,5 @@ ccol_status_t hash_table_create_internal(
 
     *hash_table_out = hash_table;
 
-    return CCOL_STATUS_OK
+    return CCOL_STATUS_OK;
 }

@@ -50,8 +50,8 @@ ccol_status_t dll_pop_front(dll_t *dll, void **data_out);
 ccol_status_t dll_pop_middle(dll_t *dll, void **data_out);
 ccol_status_t dll_pop_back(dll_t *dll, void **data_out);
 
-ccol_status_t dll_remove_node(dll_t *dll, dll_node_t* node);
-ccol_status_t dll_remove(dll_t *dll, void *data, int (*cmp)(const void *, const void *));
+ccol_status_t dll_remove_node(dll_t *dll, dll_node_t* node, free_func_t free_data, void *ctx);
+ccol_status_t dll_remove(dll_t *dll, void *data, comparator_t cmp, void *ctx);
 
 // Access
 ccol_status_t dll_get(const dll_t *dll, size_t index, void **data_out);
@@ -62,18 +62,18 @@ ccol_status_t dll_peek_front(const dll_t *dll, void **data_out);
 ccol_status_t dll_peek_middle(const dll_t *dll, void **data_out);
 ccol_status_t dll_peek_back(const dll_t *dll, void **data_out);
 
-dll_node_t *dll_search(const dll_t *dll, const void *data, int (*cmp)(const void *, const void *));
+dll_node_t *dll_search(const dll_t *dll, const void *data, comparator_t cmp, void *ctx);
 
 // Attributes
 bool dll_is_empty(const dll_t *dll);
 size_t dll_size(const dll_t *dll);
 
-bool dll_contains(const dll_t *dll, const void *data, int (*cmp)(const void *, const void *));
+bool dll_contains(const dll_t *dll, const void *data, comparator_t cmp, void *ctx);
 bool dll_contains_node(const dll_t *dll, const dll_node_t *node);
 
 // Indexing
-ccol_status_t dll_safe_index_of(const dll_t *dll, void *data, int (*cmp)(const void *, const void *), size_t *out_index);
-size_t dll_index_of(const dll_t *dll, void *data, int (*cmp)(const void *, const void *));
+ccol_status_t dll_safe_index_of(const dll_t *dll, void *data, comparator_t cmp, void *ctx, size_t *out_index);
+size_t dll_index_of(const dll_t *dll, void *data, comparator_t cmp, void *ctx);
 
 // Utilities
 ccol_status_t dll_set(dll_t *dll, size_t index, void *data);
@@ -84,17 +84,17 @@ ccol_status_t dll_swap_nodes(dll_t *dll, dll_node_t *x, dll_node_t *y);
 ccol_status_t dll_reverse(dll_t *dll);
 
 // Copy / Clone
-ccol_status_t dll_clone(const dll_t *src, dll_t **dll_out, void *(*copy_data)(const void *));
-ccol_status_t dll_deep_clone(const dll_t *src, dll_t **dll_out);
-ccol_status_t dll_copy(dll_t *dest, const dll_t *src, void (*free_data)(void *), void *(*copy_data)(const void *));
-ccol_status_t dll_deep_copy(dll_t *dest, const dll_t *src, void (*free_data)(void *));
+ccol_status_t dll_clone(const dll_t *src, dll_t **dll_out, copy_func_t copy_data, void *ctx);
+ccol_status_t dll_deep_clone(const dll_t *src, dll_t **dll_out, void *ctx);
+ccol_status_t dll_copy(dll_t *dest, const dll_t *src, free_func_t free_data, copy_func_t copy_data, void *ctx);
+ccol_status_t dll_deep_copy(dll_t *dest, const dll_t *src, free_func_t free_data, void *ctx);
 
 // Cleanup
-void dll_clear(dll_t *dll, void (*free_data)(void *));
-void dll_destroy(dll_t *dll, void (*free_data)(void*));
-void dll_free(dll_t *dll, void (*free_data)(void*));
+void dll_clear(dll_t *dll, free_func_t free_data, void *ctx);
+void dll_destroy(dll_t *dll, free_func_t free_data, void *ctx);
+void dll_free(dll_t *dll, free_func_t free_data, void *ctx);
 
 // Print / Debug
-ccol_status_t dll_print(const dll_t *dll, void (*print_data)(const void *));
+ccol_status_t dll_print(const dll_t *dll, print_func_t print_data, void *ctx);
 
 #endif // DLL_H

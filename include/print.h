@@ -10,6 +10,8 @@
 #ifndef PRINT_H
 #define PRINT_H
 
+#include "ccol_constants.h"
+
 void print_int(const void *x);
 void print_uint(const void *x);
 void print_long(const void *x);

@@ -15,22 +15,23 @@
 #ifndef COMPARATOR_H
 #define COMPARATOR_H
 
-typedef int (*comparator_t)(const void *, const void *);
+#include "ccol_constants.h"
 
-int cmp_int(const void *a, const void *b);
-int cmp_uint(const void *a, const void *b);
-int cmp_long(const void *a, const void *b);
-int cmp_long_long(const void *a, const void *b);
-int cmp_ulong(const void *a, const void *b);
-int cmp_ulong_long(const void *a, const void *b);
-int cmp_short(const void *a, const void *b);
-int cmp_ushort(const void *a, const void *b);
-int cmp_float(const void *a, const void *b);
-int cmp_double(const void *a, const void *b);
-int cmp_long_double(const void *a, const void *b);
-int cmp_char(const void *a, const void *b);
-int cmp_uchar(const void *a, const void *b);
-int cmp_string(const void *a, const void *b);
-int cmp_ptr(const void *a, const void *b);
+int cmp_int8(const void *a, const void *b, void *ctx);
+int cmp_int16(const void *a, const void *b, void *ctx);
+int cmp_int32(const void *a, const void *b, void *ctx);
+int cmp_int64(const void *a, const void *b, void *ctx);
+int cmp_uint8(const void *a, const void *b, void *ctx);
+int cmp_uint16(const void *a, const void *b, void *ctx);
+int cmp_uint32(const void *a, const void *b, void *ctx);
+int cmp_uint64(const void *a, const void *b, void *ctx);
+
+int cmp_float(const void *a, const void *b, void *ctx);
+int cmp_double(const void *a, const void *b, void *ctx);
+int cmp_long_double(const void *a, const void *b, void *ctx);
+
+int cmp_str(const void *a, const void *b, void *ctx);
+int cmp_str_case_insensitive(const void *a, const void *b, void *ctx);
+int cmp_ptr(const void *a, const void *b, void *ctx);
 
 #endif // COMPARATOR_H

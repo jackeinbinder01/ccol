@@ -141,7 +141,6 @@ ccol_status_t cdll_insert_after(cdll_t *cdll, dll_node_t* ref_node, void *data) 
     ref_node->next->prev = new_node;
     ref_node->next = new_node;
 
-
     cdll->size++;
     return CCOL_STATUS_OK;
 }
@@ -159,7 +158,7 @@ ccol_status_t cdll_pop_front(cdll_t *cdll, void **data_out) {
     dll_node_t *head = cdll->head;
     *data_out = head->data;
 
-    return cdll_remove_node(cdll, head);
+    return cdll_remove_node(cdll, head, NULL, NULL);
 }
 
 ccol_status_t cdll_pop_middle(cdll_t *cdll, void **data_out) {
@@ -173,7 +172,7 @@ ccol_status_t cdll_pop_middle(cdll_t *cdll, void **data_out) {
     dll_node_t *middle = dll_get_middle_node(head, cdll->size);
     *data_out = middle->data;
 
-    return cdll_remove_node(cdll, middle);
+    return cdll_remove_node(cdll, middle, NULL, NULL);
 }
 
 ccol_status_t cdll_pop_back(cdll_t *cdll, void **data_out) {
@@ -184,10 +183,10 @@ ccol_status_t cdll_pop_back(cdll_t *cdll, void **data_out) {
     dll_node_t *tail = cdll->tail;
     *data_out = tail->data;
 
-    return cdll_remove_node(cdll, tail);
+    return cdll_remove_node(cdll, tail, NULL, NULL);
 }
 
-ccol_status_t cdll_remove_node(cdll_t *cdll, dll_node_t* node) {
+ccol_status_t cdll_remove_node(cdll_t *cdll, dll_node_t* node, free_func_t free_data, void *ctx) {
     CCOL_CHECK_INIT(cdll);
     if (cdll->size == 0) return CCOL_STATUS_EMPTY;
     if (!node) return CCOL_STATUS_INVALID_ARG;
@@ -203,18 +202,18 @@ ccol_status_t cdll_remove_node(cdll_t *cdll, dll_node_t* node) {
         if (node == cdll->tail) cdll->tail = node->prev;
     }
 
-    free(node);
+    dll_dispose_node(node, free_data, ctx);
     cdll->size--;
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t cdll_remove(cdll_t *cdll, void *data, int (*cmp)(const void *, const void *)) {
+ccol_status_t cdll_remove(cdll_t *cdll, void *data, comparator_t cmp, void *ctx) {
     CCOL_CHECK_INIT(cdll);
 
-    dll_node_t *node = cdll_search(cdll, data, cmp);
+    dll_node_t *node = cdll_search(cdll, data, cmp, ctx);
     if (!node) return CCOL_STATUS_NOT_FOUND;
 
-    return cdll_remove_node(cdll, node);
+    return cdll_remove_node(cdll, node, NULL, NULL);
 }
 
 // Access
@@ -245,9 +244,8 @@ ccol_status_t cdll_get_node(const cdll_t *cdll, size_t index, dll_node_t **node_
     CCOL_CHECK_INIT(cdll);
     if (index > cdll->size - 1) return CCOL_STATUS_OUT_OF_BOUNDS;
     if (!node_out) return CCOL_STATUS_INVALID_ARG;
-    const dll_node_t *head = cdll->head;
-    const dll_node_t *tail = cdll->tail;
-    return dll_get_node_bounded(head, tail, cdll->size, index, node_out);
+
+    return dll_get_node_bounded(cdll->head, cdll->tail, cdll->size, index, node_out);
 }
 
 ccol_status_t cdll_peek(const cdll_t *cdll, void **data_out) {
@@ -286,10 +284,9 @@ ccol_status_t cdll_peek_back(const cdll_t *cdll, void **data_out) {
     return CCOL_STATUS_OK;
 }
 
-dll_node_t *cdll_search(const cdll_t *cdll, const void *data, int (*cmp)(const void *, const void *)) {
+dll_node_t *cdll_search(const cdll_t *cdll, const void *data, comparator_t cmp, void *ctx) {
     if (!cdll || !cdll->is_initialized || cdll->size == 0 || !data || !cmp) return NULL;
-    const dll_node_t *head = cdll->head;
-    return dll_search_bounded(head, cdll->size, data, cmp);
+    return dll_search_bounded(cdll->head, cdll->size, data, cmp, ctx);
 }
 
 // Attributes
@@ -302,8 +299,8 @@ size_t cdll_size(const cdll_t *cdll) {
     return cdll->size;
 }
 
-bool cdll_contains(const cdll_t *cdll, const void *data, int (*cmp)(const void *, const void *)) {
-    return cdll_search(cdll, data, cmp) != NULL;
+bool cdll_contains(const cdll_t *cdll, const void *data, comparator_t cmp, void *ctx) {
+    return cdll_search(cdll, data, cmp, ctx) != NULL;
 }
 
 bool cdll_contains_node(const cdll_t *cdll, const dll_node_t *node) {
@@ -317,14 +314,13 @@ bool cdll_contains_node(const cdll_t *cdll, const dll_node_t *node) {
 }
 
 // Indexing
-ccol_status_t cdll_safe_index_of(const cdll_t *cdll, void *data, int (*cmp)(const void *, const void *), size_t *out_index) {
+ccol_status_t cdll_safe_index_of(const cdll_t *cdll, void *data, comparator_t cmp, void *ctx, size_t *out_index) {
     CCOL_CHECK_INIT(cdll);
     if (!cmp || !out_index) return CCOL_STATUS_INVALID_ARG;
 
-    size_t index = 0;
     dll_node_t *curr = cdll->head;
     for (size_t i = 0; i < cdll->size; i++, curr = curr->next) {
-        if (cmp(curr->data, data) == 0) {
+        if (cmp(curr->data, data, ctx) == 0) {
             *out_index = i;
             return CCOL_STATUS_OK;
         }
@@ -333,9 +329,9 @@ ccol_status_t cdll_safe_index_of(const cdll_t *cdll, void *data, int (*cmp)(cons
     return CCOL_STATUS_NOT_FOUND;
 }
 
-size_t cdll_index_of(const cdll_t *cdll, void *data, int (*cmp)(const void *, const void *)) {
+size_t cdll_index_of(const cdll_t *cdll, void *data, comparator_t cmp, void *ctx) {
     size_t index;
-    ccol_status_t status = cdll_safe_index_of(cdll, data, cmp, &index);
+    ccol_status_t status = cdll_safe_index_of(cdll, data, cmp, ctx, &index);
     if (status != CCOL_STATUS_OK) return CDLL_INDEX_NOT_FOUND;
     return index;
 }
@@ -388,7 +384,7 @@ ccol_status_t cdll_swap_nodes(cdll_t *cdll, dll_node_t *x, dll_node_t *y) {
     CCOL_CHECK_INIT(cdll);
     if (!x || !y) return CCOL_STATUS_INVALID_ARG;
     if (!cdll_contains_node(cdll, x) || !cdll_contains_node(cdll, y)) return CCOL_STATUS_INVALID_ARG;
-    if (x == y) return CCOL_STATUS_OK;
+    if (x == y || cdll->size < 2) return CCOL_STATUS_OK;
 
     // Handle adjacent nodes
     if (x->next == y || y->next == x) {
@@ -446,11 +442,14 @@ ccol_status_t cdll_reverse(cdll_t *cdll) {
         curr = curr->prev;
     }
 
-    return SWAP_PTR(cdll->head, cdll->tail);
+    cdll->head->prev = cdll->tail;
+	cdll->tail->next = cdll->head;
+
+    return CCOL_STATUS_OK;
 }
 
 // Copy / Clone
-ccol_status_t cdll_clone(const cdll_t *src, cdll_t **cdll_out, void *(*copy_data)(const void *)) {
+ccol_status_t cdll_clone(const cdll_t *src, cdll_t **cdll_out, copy_func_t copy_data, void *ctx) {
     CCOL_CHECK_INIT(src);
     if (!cdll_out || !copy_data) return CCOL_STATUS_INVALID_ARG;
 
@@ -459,10 +458,10 @@ ccol_status_t cdll_clone(const cdll_t *src, cdll_t **cdll_out, void *(*copy_data
 
     dll_node_t *curr = src->head;
     for (size_t i = 0; i < src->size; i++) {
-        void *data_copy = copy_data(curr->data);
+        void *data_copy = copy_data(curr->data, ctx);
         status = cdll_push_back(*cdll_out, data_copy);
         if (status != CCOL_STATUS_OK) {
-            cdll_destroy(*cdll_out, NULL);
+            cdll_destroy(*cdll_out, NULL, NULL);
             *cdll_out = NULL;
             return status;
         }
@@ -472,37 +471,40 @@ ccol_status_t cdll_clone(const cdll_t *src, cdll_t **cdll_out, void *(*copy_data
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t cdll_deep_clone(const cdll_t *src, cdll_t **cdll_out) {
+ccol_status_t cdll_deep_clone(const cdll_t *src, cdll_t **cdll_out, void *ctx) {
     CCOL_CHECK_INIT(src);
     if (!cdll_out) return CCOL_STATUS_INVALID_ARG;
 
-    return cdll_clone(src, cdll_out, COPY_DEFAULT);
+    return cdll_clone(src, cdll_out, COPY_DEFAULT, ctx);
 }
 
-ccol_status_t cdll_copy(cdll_t *dest, const cdll_t *src, void (*free_data)(void *), void *(*copy_data)(const void *)) {
+ccol_status_t cdll_copy(cdll_t *dest, const cdll_t *src, free_func_t free_data, copy_func_t copy_data, void *ctx) {
     CCOL_CHECK_INIT(src);
     CCOL_CHECK_INIT(dest);
     if (!copy_data) return CCOL_STATUS_INVALID_ARG;
 
-    cdll_clear(dest, free_data);
+    cdll_clear(dest, free_data, ctx);
 
     dll_node_t *curr = src->head;
     for (size_t i = 0; i < src->size; i++) {
-        void *data_copy = copy_data(curr->data);
+        void *data_copy = copy_data(curr->data, ctx);
         ccol_status_t status = cdll_push_back(dest, data_copy);
-        if (status != CCOL_STATUS_OK) return status;
+        if (status != CCOL_STATUS_OK) {
+        	cdll_clear(dest, free_data, ctx);
+            return status;
+        }
         curr = curr->next;
     }
 
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t cdll_deep_copy(cdll_t *dest, const cdll_t *src, void (*free_data)(void *)) {
-    return cdll_copy(dest, src, free_data, COPY_DEFAULT);
+ccol_status_t cdll_deep_copy(cdll_t *dest, const cdll_t *src, free_func_t free_data, void *ctx) {
+    return cdll_copy(dest, src, free_data, COPY_DEFAULT, ctx);
 }
 
 // Cleanup
-void cdll_clear(cdll_t *cdll, void (*free_data)(void *)) {
+void cdll_clear(cdll_t *cdll, free_func_t free_data, void *ctx) {
     if (!cdll || !cdll->is_initialized) return;
     if (cdll->size == 0) return;
 
@@ -510,7 +512,7 @@ void cdll_clear(cdll_t *cdll, void (*free_data)(void *)) {
 
     for (size_t i = 0; i < cdll->size; i++) {
         dll_node_t *next = curr->next;
-        dll_dispose_node(curr, free_data);
+        dll_dispose_node(curr, free_data, ctx);
         curr = next;
     }
 
@@ -519,28 +521,28 @@ void cdll_clear(cdll_t *cdll, void (*free_data)(void *)) {
     cdll->size = 0;
 }
 
-void cdll_destroy(cdll_t *cdll, void (*free_data)(void*)) {
+void cdll_destroy(cdll_t *cdll, free_func_t free_data, void *ctx) {
     if (!cdll || !cdll->is_initialized) return;
 
     dll_node_t *curr = cdll->head;
     for (size_t i = 0; i < cdll->size; i++) {
         dll_node_t *next = curr->next;
-        dll_dispose_node(curr, free_data);
+        dll_dispose_node(curr, free_data, ctx);
         curr = next;
     }
 
     cdll_uninit(cdll);
 }
 
-void cdll_free(cdll_t *cdll, void (*free_data)(void*)) {
+void cdll_free(cdll_t *cdll, free_func_t free_data, void *ctx) {
     if (!cdll || !cdll->is_initialized) return;
 
-    cdll_destroy(cdll, free_data);
+    cdll_destroy(cdll, free_data, ctx);
     free(cdll);
 }
 
 // Print / Debug
-ccol_status_t cdll_print(const cdll_t *cdll, void (*print_data)(const void *)) {
+ccol_status_t cdll_print(const cdll_t *cdll, print_func_t print_data, void *ctx) {
 	CCOL_CHECK_INIT(cdll);
     if (!print_data) return CCOL_STATUS_INVALID_ARG;
     if (cdll->size == 0) {
@@ -552,7 +554,7 @@ ccol_status_t cdll_print(const cdll_t *cdll, void (*print_data)(const void *)) {
 
     printf("HEAD → [ ");
     for (size_t i = 0; i < cdll->size; i++) {
-    	print_data(curr->data);
+    	print_data(curr->data, ctx);
         if (i != cdll->size - 1) printf(" ] ⇄ [ ");
         curr = curr->next;
     }
