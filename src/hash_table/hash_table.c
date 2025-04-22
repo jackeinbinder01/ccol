@@ -79,21 +79,26 @@ ccol_status_t hash_table_create_custom(
 }
 
 // Insertion
-ccol_status_t hash_table_insert(hash_table_t *hash_table, void *key, void *data) {
+ccol_status_t hash_table_insert(hash_table_t *hash_table, void *key, void *data, void *ctx) {
     CCOL_CHECK_INIT(hash_table);
+    if (!key) return CCOL_STATUS_INVALID_ARG;
 
     size_t hash_key = hash_table->hash_func(key) % hash_table->num_buckets;
+    ccol_status_t status;
     if (!(hash_table->buckets[hash_key])) {
-        ccol_status_t status = dll_create(&hash_table->buckets[hash_key]);
+        status = dll_create(&hash_table->buckets[hash_key]);
         if (status != CCOL_STATUS_OK) return status;
     }
+
+    dll_node_t *duplicate = dll_search(hash_table->buckets[hash_key], key, hash_table->cmp, ctx);
+    if (duplicate) return CCOL_STATUS_ALREADY_EXISTS;
 
     hash_entry_t *entry = malloc(sizeof(hash_entry_t));
     if (!entry) return CCOL_STATUS_ALLOC;
     entry->key = key;
     entry->value = data;
 
-    ccol_status_t status = dll_push(hash_table->buckets[hash_key], entry);
+    status = dll_push(hash_table->buckets[hash_key], entry);
     if (status != CCOL_STATUS_OK) {
         free(entry);
         return status;
@@ -104,14 +109,14 @@ ccol_status_t hash_table_insert(hash_table_t *hash_table, void *key, void *data)
 }
 
 // Removal
-ccol_status_t hash_table_remove(hash_table_t *hash_table, void *key) {
+ccol_status_t hash_table_remove(hash_table_t *hash_table, void *key, void *ctx) {
     CCOL_CHECK_INIT(hash_table);
 
     size_t hash_key = hash_table->hash_func(key) % hash_table->num_buckets;
     dll_t *bucket = hash_table->buckets[hash_key];
     if (!bucket) return CCOL_STATUS_NOT_FOUND;
 
-    ccol_status_t status = dll_remove(bucket, key, hash_table->cmp);
+    ccol_status_t status = dll_remove(bucket, key, hash_table->cmp, ctx);
     if (status != CCOL_STATUS_OK) return status;
 
     hash_table->size--;
@@ -166,14 +171,14 @@ bool hash_table_contains(const hash_table_t *hash_table, const void *key) {
     return hash_table_contains_key(hash_table, key);
 }
 
-bool hash_table_contains_key(const hash_table_t *hash_table, const void *key) {
+bool hash_table_contains_key(const hash_table_t *hash_table, const void *key, boid *ctx) {
     if (!hash_table || !hash_table->is_initialized) return 0;
 
     size_t hash_key = hash_table->hash_func(key) % hash_table->num_buckets;
     dll_t *bucket = hash_table->buckets[hash_key];
     if (!bucket) return false;
 
-    return dll_contains(bucket, key, hash_table->cmp);
+    return dll_contains(bucket, key, hash_table->cmp, ctx);
 }
 
 bool hash_table_contains_value(const hash_table_t *hash_table, void *key, void *value) {

@@ -18,16 +18,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="ctx refactor">
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="ctx refactor complete">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/cdll_internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cdll_internal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/dll_internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dll_internal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cdll/cdll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cdll/cdll_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll_internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/deque/deque.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/deque/deque_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque_internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll/dll_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll_internal.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ccol_status.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ccol_status.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/comparator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/comparator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/comparator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/comparator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/shared/ccol_status.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/ccol_status.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,7 +118,7 @@
       <workItem from="1744042542700" duration="26780000" />
       <workItem from="1744175695330" duration="6281000" />
       <workItem from="1744384620744" duration="497000" />
-      <workItem from="1745254952012" duration="24151000" />
+      <workItem from="1745254952012" duration="27609000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -298,7 +296,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745306341556</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="ctx refactor complete">
+      <option name="closed" value="true" />
+      <created>1745341314298</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1745341314298</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -320,6 +326,7 @@
     <MESSAGE value="hash table staging" />
     <MESSAGE value="hash table WIP" />
     <MESSAGE value="ctx refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="ctx refactor" />
+    <MESSAGE value="ctx refactor complete" />
+    <option name="LAST_COMMIT_MESSAGE" value="ctx refactor complete" />
   </component>
 </project>

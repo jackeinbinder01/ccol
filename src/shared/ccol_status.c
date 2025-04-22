@@ -19,6 +19,7 @@ const char *ccol_strstatus(ccol_status_t status) {
         case CCOL_STATUS_UNDERFLOW:       return "Index underflow";
         case CCOL_STATUS_OVERFLOW:        return "Index overflow";
         case CCOL_STATUS_NOT_FOUND:       return "Element not found in container";
+        case CCOL_STATUS_ALREADY_EXISTS:  return "Element already exists in container";
         case CCOL_STATUS_FULL:            return "Container is full";
         case CCOL_STATUS_EMPTY:           return "Container is empty";
         case CCOL_STATUS_ERROR:           return "Generic error";
