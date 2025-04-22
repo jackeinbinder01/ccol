@@ -15,5 +15,6 @@
 #include "cdll.h"
 
 void cdll_uninit(cdll_t *cdll);
+ccol_status_t cdll_close_into(const cdll_t *src, cdll_t *dest, copy_func_t copy_data, void *ctx);
 
 #endif // CDLL_INTERNAL_H

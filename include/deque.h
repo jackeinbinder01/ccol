@@ -12,6 +12,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+
 #include "ccol_constants.h"
 #include "ccol_status.h"
 #include "iterator.h"
@@ -41,8 +42,8 @@ ccol_status_t deque_pop_front(deque_t *deque, void **data_out);
 ccol_status_t deque_pop_middle(deque_t *deque, void **data_out);
 ccol_status_t deque_pop_back(deque_t *deque, void **data_out);
 
-ccol_status_t deque_remove_node(deque_t *deque, dll_node_t* node);
-ccol_status_t deque_remove(deque_t *deque, void *data, int (*cmp)(const void *, const void *));
+ccol_status_t deque_remove_node(deque_t *deque, dll_node_t* node, free_func_t free_data, void *ctx);
+ccol_status_t deque_remove(deque_t *deque, void *data, comparator_t cmp, void *ctx);
 
 // Access
 ccol_status_t deque_get(const deque_t *deque, size_t index, void **data_out);
@@ -53,18 +54,18 @@ ccol_status_t deque_peek_front(const deque_t *deque, void **data_out);
 ccol_status_t deque_peek_middle(const deque_t *deque, void **data_out);
 ccol_status_t deque_peek_back(const deque_t *deque, void **data_out);
 
-dll_node_t *deque_search(const deque_t *deque, const void *data, int (*cmp)(const void *, const void *));
+dll_node_t *deque_search(const deque_t *deque, const void *data, comparator_t cmp, void *ctx);
 
 // Attributes
 bool deque_is_empty(const deque_t *deque);
 size_t deque_size(const deque_t *deque);
 
-bool deque_contains(const deque_t *deque, const void *data, int (*cmp)(const void *, const void *));
+bool deque_contains(const deque_t *deque, const void *data, comparator_t cmp, void *ctx);
 bool deque_contains_node(const deque_t *deque, const dll_node_t *node);
 
 // Indexing
-ccol_status_t deque_safe_index_of(const deque_t *deque, void *data, int (*cmp)(const void *, const void *), size_t *out_index);
-size_t deque_index_of(const deque_t *deque, void *data, int (*cmp)(const void *, const void *));
+ccol_status_t deque_safe_index_of(const deque_t *deque, void *data, comparator_t cmp, void *ctx, size_t *out_index);
+size_t deque_index_of(const deque_t *deque, void *data, comparator_t cmp, void *ctx);
 
 // Utilities
 ccol_status_t deque_set(deque_t *deque, size_t index, void *data);
@@ -75,17 +76,17 @@ ccol_status_t deque_swap_nodes(deque_t *deque, dll_node_t *x, dll_node_t *y);
 ccol_status_t deque_reverse(deque_t *deque);
 
 // Copy / Clone
-ccol_status_t deque_clone(const deque_t *src, deque_t **deque_out, void *(*copy_data)(const void *));
-ccol_status_t deque_deep_clone(const deque_t *src, deque_t **deque_out);
-ccol_status_t deque_copy(deque_t *dest, const deque_t *src, void (*free_data)(void *), void *(*copy_data)(const void *));
-ccol_status_t deque_deep_copy(deque_t *dest, const deque_t *src, void (*free_data)(void *));
+ccol_status_t deque_clone(const deque_t *src, deque_t **deque_out, copy_func_t copy_data, void *ctx);
+ccol_status_t deque_deep_clone(const deque_t *src, deque_t **deque_out, void *ctx);
+ccol_status_t deque_copy(deque_t *dest, const deque_t *src, free_func_t free_data, copy_func_t copy_data, void *ctx);
+ccol_status_t deque_deep_copy(deque_t *dest, const deque_t *src, free_func_t free_data, void *ctx);
 
 // Cleanup
-void deque_clear(deque_t *deque, void (*free_data)(void *));
-void deque_destroy(deque_t *deque, void (*free_data)(void*));
-void deque_free(deque_t *deque, void (*free_data)(void*));
+void deque_clear(deque_t *deque, free_func_t free_data, void *ctx);
+void deque_destroy(deque_t *deque, free_func_t free_data, void *ctx);
+void deque_free(deque_t *deque, free_func_t free_data, void *ctx);
 
 // Print / Debug
-ccol_status_t deque_print(const deque_t *deque, void (*print_data)(const void *));
+ccol_status_t deque_print(const deque_t *deque, print_func_t print_data, void *ctx);
 
 #endif // DEQUE_H

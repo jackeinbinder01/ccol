@@ -9,6 +9,7 @@
 
 #include <stdlib.h>
 #include <stdbool.h>
+
 #include "deque.h"
 #include "deque_iterator.h"
 #include "iterator.h"
