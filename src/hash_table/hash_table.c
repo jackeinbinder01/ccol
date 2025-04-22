@@ -109,14 +109,14 @@ ccol_status_t hash_table_insert(hash_table_t *hash_table, void *key, void *data,
 }
 
 // Removal
-ccol_status_t hash_table_remove(hash_table_t *hash_table, void *key, void *ctx) {
+ccol_status_t hash_table_remove(hash_table_t *hash_table, void *key, free_func_t free_data, void *ctx) {
     CCOL_CHECK_INIT(hash_table);
 
     size_t hash_key = hash_table->hash_func(key) % hash_table->num_buckets;
     dll_t *bucket = hash_table->buckets[hash_key];
     if (!bucket) return CCOL_STATUS_NOT_FOUND;
 
-    ccol_status_t status = dll_remove(bucket, key, hash_table->cmp, ctx);
+    ccol_status_t status = dll_remove(bucket, key, hash_table->cmp, free_data, ctx);
     if (status != CCOL_STATUS_OK) return status;
 
     hash_table->size--;

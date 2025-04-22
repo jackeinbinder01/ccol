@@ -206,13 +206,13 @@ ccol_status_t cdll_remove_node(cdll_t *cdll, dll_node_t* node, free_func_t free_
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t cdll_remove(cdll_t *cdll, void *data, comparator_t cmp, void *ctx) {
+ccol_status_t cdll_remove(cdll_t *cdll, void *data, comparator_t cmp, free_func_t free_data, void *ctx) {
     CCOL_CHECK_INIT(cdll);
 
     dll_node_t *node = cdll_search(cdll, data, cmp, ctx);
     if (!node) return CCOL_STATUS_NOT_FOUND;
 
-    return cdll_remove_node(cdll, node, NULL, NULL);
+    return cdll_remove_node(cdll, node, free_data, ctx);
 }
 
 // Access

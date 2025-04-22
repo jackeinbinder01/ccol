@@ -105,9 +105,9 @@ ccol_status_t deque_remove_node(deque_t *deque, dll_node_t* node, free_func_t fr
     return cdll_remove_node(&deque->list, node, free_data, ctx);
 }
 
-ccol_status_t deque_remove(deque_t *deque, void *data, comparator_t cmp, void *ctx) {
+ccol_status_t deque_remove(deque_t *deque, void *data, comparator_t cmp, free_func_t free_data, void *ctx) {
     CCOL_CHECK_INIT(deque);
-    return cdll_remove(&deque->list, data, cmp, ctx);
+    return cdll_remove(&deque->list, data, cmp, free_data, ctx);
 }
 
 // Access

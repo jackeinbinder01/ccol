@@ -45,7 +45,7 @@ ccol_status_t cdll_pop_middle(cdll_t *cdll, void **data_out);
 ccol_status_t cdll_pop_back(cdll_t *cdll, void **data_out);
 
 ccol_status_t cdll_remove_node(cdll_t *cdll, dll_node_t* node, free_func_t free_data, void *ctx);
-ccol_status_t cdll_remove(cdll_t *cdll, void *data, comparator_t cmp, void *ctx);
+ccol_status_t cdll_remove(cdll_t *cdll, void *data, comparator_t cmp, free_func_t free_data, void *ctx);
 
 // Access
 ccol_status_t cdll_get(const cdll_t *cdll, size_t index, void **data_out);

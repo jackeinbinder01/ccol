@@ -43,7 +43,7 @@ ccol_status_t deque_pop_middle(deque_t *deque, void **data_out);
 ccol_status_t deque_pop_back(deque_t *deque, void **data_out);
 
 ccol_status_t deque_remove_node(deque_t *deque, dll_node_t* node, free_func_t free_data, void *ctx);
-ccol_status_t deque_remove(deque_t *deque, void *data, comparator_t cmp, void *ctx);
+ccol_status_t deque_remove(deque_t *deque, void *data, comparator_t cmp, free_func_t free_data, void *ctx);
 
 // Access
 ccol_status_t deque_get(const deque_t *deque, size_t index, void **data_out);

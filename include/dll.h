@@ -51,7 +51,7 @@ ccol_status_t dll_pop_middle(dll_t *dll, void **data_out);
 ccol_status_t dll_pop_back(dll_t *dll, void **data_out);
 
 ccol_status_t dll_remove_node(dll_t *dll, dll_node_t* node, free_func_t free_data, void *ctx);
-ccol_status_t dll_remove(dll_t *dll, void *data, comparator_t cmp, void *ctx);
+ccol_status_t dll_remove(dll_t *dll, void *data, comparator_t cmp, free_func_t free_data, void *ctx);
 
 // Access
 ccol_status_t dll_get(const dll_t *dll, size_t index, void **data_out);

@@ -197,13 +197,13 @@ ccol_status_t dll_remove_node(dll_t *dll, dll_node_t* node, free_func_t free_dat
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t dll_remove(dll_t *dll, void *data, comparator_t cmp, void *ctx) {
+ccol_status_t dll_remove(dll_t *dll, void *data, comparator_t cmp, free_func_t free_data, void *ctx) {
     CCOL_CHECK_INIT(dll);
 
     dll_node_t *node = dll_search(dll, data, cmp, ctx);
     if (!node) return CCOL_STATUS_NOT_FOUND;
 
-    return dll_remove_node(dll, node, NULL, NULL);
+    return dll_remove_node(dll, node, free_data, ctx);
 }
 
 // Access
