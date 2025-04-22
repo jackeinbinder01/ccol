@@ -203,17 +203,24 @@ ccol_status_t deque_clone(const deque_t *src, deque_t **deque_out, copy_func_t c
     CCOL_CHECK_INIT(src);
     if (!deque_out || !copy_data) return CCOL_STATUS_INVALID_ARG;
 
+    *deque_out = NULL;
+
     deque_t *clone = calloc(1, sizeof(deque_t));
     if (!clone) return CCOL_STATUS_ALLOC;
 
-    ccol_status_t status = cdll_clone(&src->list, &clone->list, copy_data, ctx);
+    ccol_status_t status = deque_init(clone);
+    if (status != CCOL_STATUS_OK) {
+        free(clone);
+        return status;
+    }
+
+    status = cdll_clone_into(&src->list, &clone->list, copy_data, ctx);
     if (status != CCOL_STATUS_OK) {
         free(clone);
         *deque_out = NULL;
         return status;
     }
 
-    clone->is_initialized = true;
     *deque_out = clone;
     return CCOL_STATUS_OK;
 }
@@ -222,16 +229,23 @@ ccol_status_t deque_deep_clone(const deque_t *src, deque_t **deque_out, void *ct
     CCOL_CHECK_INIT(src);
     if (!deque_out) return CCOL_STATUS_INVALID_ARG;
 
+    *deque_out = NULL;
+
     deque_t *clone = calloc(1, sizeof(deque_t));
     if (!clone) return CCOL_STATUS_ALLOC;
 
-    ccol_status_t status = cdll_deep_clone(&src->list, &clone->list, ctx);
+    ccol_status_t status = deque_init(clone);
     if (status != CCOL_STATUS_OK) {
         free(clone);
         return status;
     }
 
-    clone->is_initialized = true;
+    status = cdll_deep_clone_into(&src->list, &clone->list, ctx);
+    if (status != CCOL_STATUS_OK) {
+        free(clone);
+        return status;
+    }
+
     *deque_out = clone;
     return CCOL_STATUS_OK;
 }

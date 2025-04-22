@@ -36,9 +36,7 @@ void dll_free_node(dll_node_t *node) {
     if (!node) return;
 
     if (node->data) free(node->data);
-    node->data = NULL;
-    node->next = NULL;
-    node->prev = NULL;
+    node->data = node->next = node->prev = NULL;
     free(node);
 }
 
@@ -86,8 +84,38 @@ ccol_status_t dll_get_node_bounded(const dll_node_t *head, const dll_node_t *tai
 void dll_uninit(dll_t *dll) {
     if (!dll || !dll->is_initialized) return;
 
-    dll->head = NULL;
-    dll->tail = NULL;
+    dll->head = dll->tail = NULL;
     dll->size = 0;
     dll->is_initialized = false;
+}
+
+ccol_status_t dll_clone_into(const dll_t *src, dll_t *dest, copy_func_t copy_data, void *ctx) {
+    CCOL_CHECK_INIT(src);
+    if (!dest || !copy_data || src == dest) return CCOL_STATUS_INVALID_ARG;
+
+    if (dest->is_initialized) dll_clear(dest, NULL, ctx);
+
+    ccol_status_t status = dll_init(dest);
+    if (status != CCOL_STATUS_OK) return status;
+
+    dll_node_t *curr = src->head;
+    for (size_t i = 0; i < src->size; i++) {
+        void *data_copy = copy_data(curr->data, ctx);
+        status = dll_push_back(dest, data_copy);
+        if (status != CCOL_STATUS_OK) {
+            dll_clone_rollback(dest, NULL, ctx);
+            return status;
+        }
+        curr = curr->next;
+    }
+
+    return CCOL_STATUS_OK;
+}
+
+ccol_status_t dll_deep_clone_into(const dll_t *src, dll_t *dest, void *ctx) {
+    return dll_clone_into(src, dest, COPY_DEFAULT, ctx);
+}
+
+void dll_clone_rollback(dll_t *dest, free_func_t free_data, void *ctx) {
+    dll_clear(dest, free_data, ctx);
 }

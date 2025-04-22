@@ -23,5 +23,8 @@ ccol_status_t dll_get_node_bounded(const dll_node_t *head, const dll_node_t *tai
 
 // DLL specific
 void dll_uninit(dll_t *dll);
+ccol_status_t dll_clone_into(const dll_t *src, dll_t *dest, copy_func_t copy_data, void *ctx);
+ccol_status_t dll_deep_clone_into(const dll_t *src, dll_t *dest, void *ctx);
+void dll_clone_rollback(dll_t *dest, free_func_t free_data, void *ctx);
 
 #endif // DLL_INTERNAL_H

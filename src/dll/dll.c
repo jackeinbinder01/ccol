@@ -22,8 +22,7 @@
 ccol_status_t dll_init(dll_t *dll) {
     if (!dll) return CCOL_STATUS_INVALID_ARG;
 
-    dll->head = NULL;
-    dll->tail = NULL;
+    dll->head = dll->tail = NULL;
     dll->size = 0;
     dll->is_initialized = true;
 
@@ -359,8 +358,7 @@ ccol_status_t dll_swap_data(dll_t *dll, size_t i, size_t j) {
 
     if (i == j) return CCOL_STATUS_OK;
 
-    dll_node_t *node_i = NULL;
-    dll_node_t *node_j = NULL;
+    dll_node_t *node_i = NULL, *node_j = NULL;
 
     ccol_status_t status_get_i = dll_get_node(dll, i, &node_i);
     ccol_status_t status_get_j = dll_get_node(dll, j, &node_j);
@@ -440,6 +438,8 @@ ccol_status_t dll_clone(const dll_t *src, dll_t **dll_out, copy_func_t copy_data
     CCOL_CHECK_INIT(src);
     if (!dll_out || !copy_data) return CCOL_STATUS_INVALID_ARG;
 
+    *dll_out = NULL;
+
     ccol_status_t status = dll_create(dll_out);
     if (status != CCOL_STATUS_OK) return status;
 
@@ -502,8 +502,7 @@ void dll_clear(dll_t *dll, free_func_t free_data, void *ctx) {
         curr = next;
     }
 
-    dll->head = NULL;
-    dll->tail = NULL;
+    dll->head = dll->tail = NULL;
     dll->size = 0;
 }
 

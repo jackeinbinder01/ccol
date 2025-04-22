@@ -22,8 +22,7 @@
 ccol_status_t cdll_init(cdll_t *cdll) {
     if (!cdll) return CCOL_STATUS_INVALID_ARG;
 
-    cdll->head = NULL;
-    cdll->tail = NULL;
+    cdll->head = cdll->tail = NULL;
     cdll->size = 0;
     cdll->is_initialized = true;
 
@@ -193,8 +192,7 @@ ccol_status_t cdll_remove_node(cdll_t *cdll, dll_node_t* node, free_func_t free_
     if (!node) return CCOL_STATUS_INVALID_ARG;
 
     if (cdll->size == 1) {
-        cdll->head = NULL;
-        cdll->tail = NULL;
+        cdll->head =  cdll->tail = NULL;
     } else {
         node->prev->next = node->next;
         node->next->prev = node->prev;
@@ -367,8 +365,7 @@ ccol_status_t cdll_swap_data(cdll_t *cdll, size_t i, size_t j) {
 
     if (i == j) return CCOL_STATUS_OK;
 
-    dll_node_t *node_i = NULL;
-    dll_node_t *node_j = NULL;
+    dll_node_t *node_i = NULL, *node_j = NULL;
 
     ccol_status_t status_get_i = cdll_get_node(cdll, i, &node_i);
     ccol_status_t status_get_j = cdll_get_node(cdll, j, &node_j);
@@ -454,6 +451,8 @@ ccol_status_t cdll_clone(const cdll_t *src, cdll_t **cdll_out, copy_func_t copy_
     CCOL_CHECK_INIT(src);
     if (!cdll_out || !copy_data) return CCOL_STATUS_INVALID_ARG;
 
+    *cdll_out = NULL;
+
     ccol_status_t status = cdll_create(cdll_out);
     if (status != CCOL_STATUS_OK) return status;
 
@@ -517,8 +516,7 @@ void cdll_clear(cdll_t *cdll, free_func_t free_data, void *ctx) {
         curr = next;
     }
 
-    cdll->head = NULL;
-    cdll->tail = NULL;
+    cdll->head = cdll->tail = NULL;
     cdll->size = 0;
 }
 
