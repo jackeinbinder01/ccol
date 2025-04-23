@@ -519,11 +519,12 @@ void dll_destroy(dll_t *dll, free_func_t free_data, void *ctx) {
     dll_uninit(dll);
 }
 
-void dll_free(dll_t *dll, free_func_t free_data, void *ctx) {
-    if (!dll || !dll->is_initialized) return;
+void dll_free(dll_t **dll_ptr, free_func_t free_data, void *ctx) {
+    if (!dll_ptr || !*dll_ptr || !(*dll_ptr)->is_initialized) return;
 
-    dll_destroy(dll, free_data, ctx);
-    free(dll);
+    dll_destroy(*dll_ptr, free_data, ctx);
+    free(*dll_ptr);
+    *dll_ptr = NULL;
 }
 
 // Print / Debug

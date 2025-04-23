@@ -92,7 +92,7 @@ ccol_status_t dll_deep_copy(dll_t *dest, const dll_t *src, free_func_t free_data
 // Cleanup
 void dll_clear(dll_t *dll, free_func_t free_data, void *ctx);
 void dll_destroy(dll_t *dll, free_func_t free_data, void *ctx);
-void dll_free(dll_t *dll, free_func_t free_data, void *ctx);
+void dll_free(dll_t **dll_ptr, free_func_t free_data, void *ctx);
 
 // Print / Debug
 ccol_status_t dll_print(const dll_t *dll, print_func_t print_data, void *ctx);

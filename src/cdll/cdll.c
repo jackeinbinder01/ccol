@@ -533,11 +533,12 @@ void cdll_destroy(cdll_t *cdll, free_func_t free_data, void *ctx) {
     cdll_uninit(cdll);
 }
 
-void cdll_free(cdll_t *cdll, free_func_t free_data, void *ctx) {
-    if (!cdll || !cdll->is_initialized) return;
+void cdll_free(cdll_t **cdll_ptr, free_func_t free_data, void *ctx) {
+    if (!cdll_ptr || !*cdll_ptr || !(*cdll_ptr)->is_initialized) return;
 
-    cdll_destroy(cdll, free_data, ctx);
-    free(cdll);
+    cdll_destroy(*cdll_ptr, free_data, ctx);
+    free(*cdll_ptr);
+    *cdll_ptr = NULL;
 }
 
 // Print / Debug

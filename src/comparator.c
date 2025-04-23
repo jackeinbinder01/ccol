@@ -17,6 +17,7 @@
 #include <stdint.h>
 
 #include "comparator.h"
+#include "hash_table_internal.h"
 
 int cmp_int8(const void *a, const void *b, void *ctx) {
 	(void)ctx;

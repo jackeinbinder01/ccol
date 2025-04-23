@@ -30,5 +30,6 @@ ccol_status_t hash_table_create_internal(
 );
 
 hash_func_t resolve_hash_func(size_t key_size, hash_policy_t policy);
+void hash_table_uninit(hash_table_t *hash_table);
 
 #endif // HASH_TABLE_INTERNAL_H

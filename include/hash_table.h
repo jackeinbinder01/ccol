@@ -70,7 +70,7 @@ ccol_status_t hash_table_deep_copy(hash_table_t *dest, hash_table_t *src, free_f
 ccol_status_t hash_table_clear_bucket(hash_table_t *hash_table, int bucket_index, free_func_t free_data, void *ctx);
 void hash_table_clear(hash_table_t *hash_table, free_func_t free_data, void *ctx);
 void hash_table_destroy(hash_table_t *hash_table, free_func_t free_data, void *ctx);
-void hash_table_free(hash_table_t *hash_table, free_func_t free_data, void *ctx);
+void hash_table_free(hash_table_t **hash_table_ptr, free_func_t free_data, void *ctx);
 
 // Print / Debug
 ccol_status_t hash_table_print(hash_table_t *hash_table, print_func_t print_data, void *ctx);

@@ -277,11 +277,12 @@ void deque_destroy(deque_t *deque, free_func_t free_data, void *ctx) {
      deque_uninit(deque);
 }
 
-void deque_free(deque_t *deque, free_func_t free_data, void *ctx) {
-    if (!deque || !deque->is_initialized) return;
+void deque_free(deque_t **deque_ptr, free_func_t free_data, void *ctx) {
+    if (!deque_ptr || !*deque_ptr || !(*deque_ptr)->is_initialized) return;
 
-    deque_destroy(deque, free_data, ctx);
-    free(deque);
+    deque_destroy(*deque_ptr, free_data, ctx);
+    free(*deque_ptr);
+    *deque_ptr = NULL;
 }
 
 // Print / Debug

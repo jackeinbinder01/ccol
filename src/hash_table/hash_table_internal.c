@@ -9,6 +9,8 @@
 
 #include <stdint.h>
 #include <stdlib.h>
+#include <stdbool.h>
+
 #include "hash_table_internal.h"
 #include "hash.h"
 #include "hash_simple.h"
@@ -86,8 +88,7 @@ ccol_status_t hash_table_create_internal(
     comparator_t cmp,
     hash_table_t **hash_table_out
 ) {
-    if (num_buckets < 1 || key_size < 1 || !hash_func || !cmp || !hash_table_out)
-    	return CCOL_STATUS_INVALID_ARG;
+    if (num_buckets < 1 || key_size < 1 || !hash_func || !cmp || !hash_table_out) return CCOL_STATUS_INVALID_ARG;
 
     hash_table_t *hash_table = calloc(1, sizeof(hash_table_t));
     if (!hash_table) return CCOL_STATUS_ALLOC;
@@ -113,4 +114,18 @@ ccol_status_t hash_table_create_internal(
     *hash_table_out = hash_table;
 
     return CCOL_STATUS_OK;
+}
+
+void hash_table_uninit(hash_table_t *hash_table) {
+    if (!hash_table || !hash_table->is_initialized) return;
+
+    hash_table->buckets = NULL;
+    hash_table->num_buckets = 0;
+    hash_table->size = 0;
+    hash_table->key_size = 0;
+    hash_table->policy = 0;
+    hash_table->hash_func = NULL;
+    hash_table->cmp = NULL;
+
+    hash_table->is_initialized = false;
 }
