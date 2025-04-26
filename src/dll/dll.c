@@ -466,8 +466,9 @@ ccol_status_t dll_deep_clone(const dll_t *src, dll_t **dll_out, void *ctx) {
 }
 
 ccol_status_t dll_copy(dll_t *dest, const dll_t *src, free_func_t free_data, copy_func_t copy_data, void *ctx) {
-    CCOL_CHECK_INIT(src);
     CCOL_CHECK_INIT(dest);
+    CCOL_CHECK_INIT(src);
+    
     if (!copy_data) return CCOL_STATUS_INVALID_ARG;
 
     dll_clear(dest, free_data, ctx);

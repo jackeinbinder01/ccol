@@ -207,9 +207,62 @@ ccol_status_t hash_table_swap(hash_table_t *hash_table, void *key1, void *key2, 
 ccol_status_t hash_table_resize(hash_table_t *hash_table, int new_num_buckets);
 
 // Copy / Clone
-ccol_status_t hash_table_clone(const hash_table_t *src, hash_table_t **hash_table_out, copy_func_t copy_data, void *ctx);
-ccol_status_t hash_table_deep_clone(const hash_table_t *src, hash_table_t **hash_table_out, void *ctx);
-ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src, free_func_t free_data, copy_func_t copy_data, void *ctx);
+ccol_status_t hash_table_clone(const hash_table_t *src, hash_table_t **hash_table_out, copy_func_t copy_data, void *ctx) {
+    CCOL_CHECK_INIT(src);
+    if (!hash_table_out || !copy_data) return CCOL_STATUS_INVALID_ARG;
+    
+    ccol_status_t status;
+    if (src->policy == HASH_CUSTOM) {
+        status = hash_table_create_custom(src->num_buckets, src->key_size, src->hash_func, src->cmp, hash_table_out);
+    } else {
+        status = hash_table_create(src->num_buckets, src->key_size, src->policy, src->cmp, hash_table_out);
+    }
+
+    if (status != CCOL_STATUS_OK) return status;
+
+    if (!src->buckets) return CCOL_STATUS_OK;
+
+    for (size_t i = 0; i < src->num_buckets; i++) {
+        dll_t *src_bucket = src->buckets[i];
+        if (!src_bucket) continue;
+
+        dll_t* dest_bucket = NULL;
+        status = dll_create(&dest_bucket);
+        if (status != CCOL_STATUS_OK) {
+            hash_table_destroy(hash_table_out);
+            return status;
+        }
+
+        status = dll_clone(src_bucket, &dest_bucket, copy_data, ctx);
+        if (status != CCOL_STATUS_OK) {
+            dll_destroy(&dest_bucket);
+            hash_table_destroy(hash_table_out);
+            return status;
+
+        }
+
+        (*hash_table_out)->buckets[i] = dest_bucket;
+    }
+
+    return CCOL_STATUS_OK;
+}
+
+ccol_status_t hash_table_deep_clone(const hash_table_t *src, hash_table_t **hash_table_out, void *ctx) {
+    CCOL_CHECK_INIT(src);
+    if (!hash_table_out) return CCOL_STATUS_INVALID_ARG;
+
+    return hash_table_clone(src, hash_table_out, COPY_DEFAULT, ctx);
+}
+
+ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src, free_func_t free_data, copy_func_t copy_data, void *ctx) {
+    CCOL_CHECK_INIT(dest);
+    CCOL_CHECK_INIT(src);
+    
+    if (!copy_data) return CCOL_STATUS_INVALID_ARG;
+
+    dll_clear(dest, free_data, ctx);
+
+}
 ccol_status_t hash_table_deep_copy(hash_table_t *dest, hash_table_t *src, free_func_t free_data, void *ctx);
 
 // Cleanup
