@@ -8,6 +8,8 @@
  */
 
 #include <stdlib.h>
+#include <stdbool.h>
+
 #include "dll.h"
 #include "dll_iterator.h"
 #include "iterator.h"

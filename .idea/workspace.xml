@@ -19,18 +19,14 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="Hash table WIP">
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="Hash table drafted">
+      <change afterPath="$PROJECT_DIR$/include/vector_iterator.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vector/vector.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vector/vector_internal.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/vector/vector_iterator.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/cdll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cdll.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/comparator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/comparator.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/deque.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/deque.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/dll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dll.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cdll/cdll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/comparator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/comparator.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/deque/deque.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/vector.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/vector.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dll/dll_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll_iterator.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -126,7 +122,7 @@
       <workItem from="1745254952012" duration="27609000" />
       <workItem from="1745557219928" duration="609000" />
       <workItem from="1745843984094" duration="8000" />
-      <workItem from="1745859614778" duration="7667000" />
+      <workItem from="1745859614778" duration="14962000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -328,7 +324,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745392336494</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="Hash table drafted">
+      <option name="closed" value="true" />
+      <created>1745867466454</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1745867466454</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -352,6 +356,7 @@
     <MESSAGE value="ctx refactor complete" />
     <MESSAGE value="hash table WIP" />
     <MESSAGE value="Hash table WIP" />
-    <option name="LAST_COMMIT_MESSAGE" value="Hash table WIP" />
+    <MESSAGE value="Hash table drafted" />
+    <option name="LAST_COMMIT_MESSAGE" value="Hash table drafted" />
   </component>
 </project>

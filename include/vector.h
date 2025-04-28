@@ -12,6 +12,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+
 #include "iterator.h"
 
 typedef struct vector {
@@ -25,60 +26,67 @@ typedef struct vector {
 } vector_t;
 
 // Constructors
-void vector_init(vector_t *vec, size_t capacity, size_t element_size);
-vector_t *vector_create(size_t capacity, size_t element_size);
+ccol_status_t vector_init(vector_t *vec);
+ccol_status_t vector_create(size_t capacity, size_t element_size, vector_t **vec_out);
 
 // Fill
-void vector_fill(vector_t *vec, void *value, size_t count);
+ccol_status_t vector_fill(vector_t *vec, void *value, size_t count);
 
 // Insertion
-void vector_append(vector_t *vec, void *data);
-void vector_insert(vector_t *vec, size_t index, void *data);
-void vector_insert_middle(vector_t *vec, size_t index, void *data);
+ccol_status_t vector_append(vector_t *vec, void *data);
+ccol_status_t vector_insert(vector_t *vec, size_t index, void *data);
+ccol_status_t vector_insert_middle(vector_t *vec, size_t index, void *data);
 
 // Removal
-void *vector_remove(vector_t *vec, size_t index);
-void *vector_pop(vector_t *vec);
-void *vector_pop_middle(vector_t *vec);
-void *vector_pop_front(vector_t *vec);
+ccol_status_t vector_remove_value(vector_t *vec, comparator_t cmp, free_func_t free_data, void *ctx);
+ccol_status_t vector_remove_at(vector_t *vec, size_t index);
+
+ccol_status_t vector_pop(vector_t *vec, void **data_out);
+ccol_status_t vector_pop_front(vector_t *vec, void **data_out);
+ccol_status_t vector_pop_middle(vector_t *vec, void **data_out);
+ccol_status_t vector_pop_back(vector_t *vec, void **data_out);
 
 // Access
-void *vector_get(const vector_t *vec, size_t index);
-void *vector_peek_back(const vector_t *vec);
-void *vector_peek_middle(const vector_t *vec);
-void *vector_peek_front(const vector_t *vec);
+ccol_status_t vector_get(const vector_t *vec, size_t index, void** data_out);
+ccol_status_t vector_get_index(const vector_t *vec, comparator_t cmp, size_t *index_out);
+
+ccol_status_t vector_peek_front(const vector_t *vec, void **data_out);
+ccol_status_t vector_peek_middle(const vector_t *vec, void **data_out);
+ccol_status_t vector_peek_back(const vector_t *vec, void **data_out);
+
+ccol_status_t vector_front(const vector_t *vec, void **data_out);
+ccol_status_t vector_middle(const vector_t *vec, void **data_out);
+ccol_status_t vector_back(const vector_t *vec, void **data_out);
 
 // Attributes
 size_t vector_size(const vector_t *vec);
 size_t vector_capacity(const vector_t *vec);
 bool vector_is_empty(const vector_t *vec);
 bool vector_is_full(const vector_t *vec);
-bool vector_contains(const vector_t *vec, void *data);
+bool vector_contains(const vector_t *vec, void *data, comparator_t cmp, void *ctx);
+ccol_status_t vector_at(const vector_t *vec, size_t index, void **data_out);
 
 // Print
-void vector_print(const vector_t *vec);
+ccol_status_t vector_print(const vector_t *vec, print_func_t print_data, void *ctx);
 
 // Cleanup
-void vector_free(vector_t *vec);
-void vector_destroy(vector_t *vec, void (*free_data)(void *));
-void vector_clear(vector_t *vec, void (*free_data)(void *));
+ccol_status_t vector_free(vector_t *vec, free_func_t free_data, void *ctx);
+ccol_status_t vector_destroy(vector_t *vec, free_func_t free_data, void *ctx);
+ccol_status_t vector_clear(vector_t *vec, free_func_t free_data, void *ctx);
 
 // Utilities
-vector_t *vector_clone(const vector_t *vec);
-void vector_copy(vector_t *dest, const vector_t *src);
-void vector_set(vector_t *vec, size_t index, void *value);
-void vector_swap(vector_t *vec, size_t i, size_t j);
-void vector_reserve(vector_t *vec, size_t new_capacity);
-void vector_shrink_to_fit(vector_t *vec);
+ccol_status_t vector_clone(const vector_t *src, vector_t **vec_out, copy_func_t copy_data, void *ctx);
+ccol_status_t vector_deep_clone(const vector_t *src, vector_t **vec_out, void *ctx);
 
-// Iterator
-iterator_t *vector_iterator_create(const vector_t *vec);
+ccol_status_t vector_copy(vector_t *dest, const vector_t *src, free_func_t free_data, copy_func_t copy_data, void *ctx);
+ccol_status_t vector_deep_copy(vector_t *dest, const vector_t *src, free_func_t free_data, void *ctx);
 
-#define VEC_FOR(type, var, vec_ptr)                                             \
-    for (iterator_t *_it = vector_iterator_create(vec_ptr); _it; _it = NULL)    \
-        for (type *var = NULL;                                                  \
-            _it->has_next(_it) &&                                               \
-            ((var = (type *)_it->next(_it)) || 1);)                             \
-            for (int _done = (_it->destroy(_it), 0); !_done; _done = 1)
+ccol_status_t vector_set(vector_t *vec, size_t index, void *value);
+ccol_status_t vector_swap(vector_t *vec, size_t i, size_t j);
+ccol_status_t vector_reserve(vector_t *vec, size_t new_capacity);
+ccol_status_t vector_reserve_exact(vector_t *vec, size_t exact_capacity);
+ccol_status_t vector_shrink_to_fit(vector_t *vec);
+ccol_status_t vector_resize(vector_t *vec, size_t new_size, void *default_value);
+ccol_status_t vector_assign(vector_t *vec, size_t count, void *value);
 
 #endif // VECTOR_H
