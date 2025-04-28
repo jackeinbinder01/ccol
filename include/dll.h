@@ -77,10 +77,8 @@ size_t dll_index_of(const dll_t *dll, void *data, comparator_t cmp, void *ctx);
 
 // Utilities
 ccol_status_t dll_set(dll_t *dll, size_t index, void *data);
-
 ccol_status_t dll_swap_data(dll_t *dll, size_t i, size_t j);
 ccol_status_t dll_swap_nodes(dll_t *dll, dll_node_t *x, dll_node_t *y);
-
 ccol_status_t dll_reverse(dll_t *dll);
 
 // Copy / Clone
