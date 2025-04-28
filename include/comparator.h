@@ -33,6 +33,6 @@ int cmp_long_double(const void *a, const void *b, void *ctx);
 int cmp_str(const void *a, const void *b, void *ctx);
 int cmp_str_case_insensitive(const void *a, const void *b, void *ctx);
 int cmp_ptr(const void *a, const void *b, void *ctx);
-int cmp_hash_keys(const void *entry_ptr, const void *key_ptr, void *ctx);
+int cmp_hash_entry_key(const void *a, const void *b, void *ctx);
 
 #endif // COMPARATOR_H

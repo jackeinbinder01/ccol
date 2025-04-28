@@ -21,6 +21,16 @@
   <component name="ChangeListManager">
     <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="Hash table WIP">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/cdll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cdll.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/comparator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/comparator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/deque.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/deque.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/dll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dll.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cdll/cdll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/comparator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/comparator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deque/deque.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dll/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -39,12 +49,12 @@
     &quot;assignee&quot;: &quot;jackeinbinder01&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings"><![CDATA[{
-  "selectedUrlAndAccountId": {
-    "url": "https://github.com/jackeinbinder01/ccol.git",
-    "accountId": "0026f97a-d077-47b4-a1aa-64debce7dcf6"
+  <component name="GithubPullRequestsUISettings">{
+  &quot;selectedUrlAndAccountId&quot;: {
+    &quot;url&quot;: &quot;https://github.com/jackeinbinder01/ccol.git&quot;,
+    &quot;accountId&quot;: &quot;0026f97a-d077-47b4-a1aa-64debce7dcf6&quot;
   }
-}]]></component>
+}</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/include/dll.h" root0="FORCE_HIGHLIGHTING" />
   </component>
@@ -115,6 +125,8 @@
       <workItem from="1744384620744" duration="497000" />
       <workItem from="1745254952012" duration="27609000" />
       <workItem from="1745557219928" duration="609000" />
+      <workItem from="1745843984094" duration="8000" />
+      <workItem from="1745859614778" duration="7667000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />

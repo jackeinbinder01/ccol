@@ -126,9 +126,11 @@ int cmp_ptr(const void *a, const void *b, void *ctx) {
     return (x > y) - (x < y);
 }
 
-int cmp_hash_keys(const void *entry_ptr, const void *key_ptr, void *ctx) {
-    const hash_entry_t *entry = entry_ptr;
-    comparator_t key_cmp = (comparator_t)ctx;
+int cmp_hash_entry_key(const void *a, const void *b, void *ctx) {
+	const hash_entry_t *entry_a = (const hash_entry_t *)a;
+    const hash_entry_t *entry_b = (const hash_entry_t *)b;
+    comparator_t cmp_key = (comparator_t)ctx;
 
-    return key_cmp(entry->key, key_ptr, ctx);
+    return cmp_key(entry_a->key, entry_b->key, ctx);
 }
+

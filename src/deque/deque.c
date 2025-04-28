@@ -265,24 +265,32 @@ ccol_status_t deque_deep_copy(deque_t *dest, const deque_t *src, free_func_t fre
 }
 
 // Cleanup
-void deque_clear(deque_t *deque, free_func_t free_data, void *ctx) {
-    if (!deque || !deque->is_initialized) return;
-    cdll_clear(&deque->list, free_data, ctx);
+ccol_status_t deque_clear(deque_t *deque, free_func_t free_data, void *ctx) {
+    CCOL_CHECK_INIT(deque);
+    return cdll_clear(&deque->list, free_data, ctx);
 }
 
-void deque_destroy(deque_t *deque, free_func_t free_data, void *ctx) {
-     if (!deque || !deque->is_initialized) return;
+ccol_status_t deque_destroy(deque_t *deque, free_func_t free_data, void *ctx) {
+    CCOL_CHECK_INIT(deque);
 
-     cdll_destroy(&deque->list, free_data, ctx);
-     deque_uninit(deque);
+    ccol_status_t status = cdll_destroy(&deque->list, free_data, ctx);
+    if (status != CCOL_STATUS_OK) return status;
+
+
+    deque_uninit(deque);
+
+    return CCOL_STATUS_OK;
 }
 
-void deque_free(deque_t **deque_ptr, free_func_t free_data, void *ctx) {
-    if (!deque_ptr || !*deque_ptr || !(*deque_ptr)->is_initialized) return;
+ccol_status_t deque_free(deque_t **deque_ptr, free_func_t free_data, void *ctx) {
+    if (!deque_ptr || !*deque_ptr || !(*deque_ptr)->is_initialized) return CCOL_STATUS_INVALID_ARG;
 
-    deque_destroy(*deque_ptr, free_data, ctx);
+    ccol_status_t status = deque_destroy(*deque_ptr, free_data, ctx);
+
     free(*deque_ptr);
     *deque_ptr = NULL;
+
+    return status;
 }
 
 // Print / Debug

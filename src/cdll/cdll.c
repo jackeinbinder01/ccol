@@ -241,8 +241,8 @@ ccol_status_t cdll_get(const cdll_t *cdll, size_t index, void **data_out){
 
 ccol_status_t cdll_get_node(const cdll_t *cdll, size_t index, dll_node_t **node_out) {
     CCOL_CHECK_INIT(cdll);
-    if (index > cdll->size - 1) return CCOL_STATUS_OUT_OF_BOUNDS;
     if (!node_out) return CCOL_STATUS_INVALID_ARG;
+    if (index > cdll->size - 1) return CCOL_STATUS_OUT_OF_BOUNDS;
 
     return dll_get_node_bounded(cdll->head, cdll->tail, cdll->size, index, node_out);
 }
@@ -521,25 +521,26 @@ ccol_status_t cdll_clear(cdll_t *cdll, free_func_t free_data, void *ctx) {
     return CCOL_STATUS_OK;
 }
 
-void cdll_destroy(cdll_t *cdll, free_func_t free_data, void *ctx) {
-    if (!cdll || !cdll->is_initialized) return;
+ccol_status_t cdll_destroy(cdll_t *cdll, free_func_t free_data, void *ctx) {
+    CCOL_CHECK_INIT(cdll);
 
-    dll_node_t *curr = cdll->head;
-    for (size_t i = 0; i < cdll->size; i++) {
-        dll_node_t *next = curr->next;
-        dll_dispose_node(curr, free_data, ctx);
-        curr = next;
-    }
+    ccol_status_t status = cdll_clear(cdll, free_data, ctx);
+    if (status != CCOL_STATUS_OK) return status;
 
     cdll_uninit(cdll);
+
+    return CCOL_STATUS_OK;
 }
 
-void cdll_free(cdll_t **cdll_ptr, free_func_t free_data, void *ctx) {
-    if (!cdll_ptr || !*cdll_ptr || !(*cdll_ptr)->is_initialized) return;
+ccol_status_t cdll_free(cdll_t **cdll_ptr, free_func_t free_data, void *ctx) {
+    if (!cdll_ptr || !*cdll_ptr || !(*cdll_ptr)->is_initialized) return CCOL_STATUS_INVALID_ARG;
 
-    cdll_destroy(*cdll_ptr, free_data, ctx);
+    ccol_status_t status = cdll_destroy(*cdll_ptr, free_data, ctx);
+   
     free(*cdll_ptr);
     *cdll_ptr = NULL;
+
+    return status;
 }
 
 // Print / Debug

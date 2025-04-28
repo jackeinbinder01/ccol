@@ -232,8 +232,8 @@ ccol_status_t dll_get(const dll_t *dll, size_t index, void **data_out){
 
 ccol_status_t dll_get_node(const dll_t *dll, size_t index, dll_node_t **node_out) {
     CCOL_CHECK_INIT(dll);
-    if (index > dll->size - 1) return CCOL_STATUS_OUT_OF_BOUNDS;
     if (!node_out) return CCOL_STATUS_INVALID_ARG;
+    if (index > dll->size - 1) return CCOL_STATUS_OUT_OF_BOUNDS;
 
     return dll_get_node_bounded(dll->head, dll->tail, dll->size, index, node_out);
 }
@@ -276,7 +276,7 @@ ccol_status_t dll_peek_back(const dll_t *dll, void **data_out) {
 
 dll_node_t *dll_search(const dll_t *dll, const void *data, comparator_t cmp, void *ctx) {
     if (!dll || !dll->is_initialized || dll->size == 0 || !data || !cmp) return NULL;
-    const dll_node_t *head = dll->head;
+    dll_node_t *head = dll->head;
     return dll_search_bounded(head, dll->size, data, cmp, ctx);
 }
 
@@ -508,25 +508,25 @@ ccol_status_t dll_clear(dll_t *dll, free_func_t free_data, void *ctx) {
     return CCOL_STATUS_OK;
 }
 
-void dll_destroy(dll_t *dll, free_func_t free_data, void *ctx) {
-    if (!dll || !dll->is_initialized) return;
+ccol_status_t dll_destroy(dll_t *dll, free_func_t free_data, void *ctx) {
+    CCOL_CHECK_INIT(dll);
 
-    dll_node_t *curr = dll->head;
-    for (size_t i = 0; i < dll->size; i++) {
-        dll_node_t *next = curr->next;
-        dll_dispose_node(curr, free_data, ctx);
-        curr = next;
-    }
+    ccol_status_t status = dll_clear(dll, free_data, ctx);
+    if (status != CCOL_STATUS_OK) return status;
 
     dll_uninit(dll);
+    
+    return CCOL_STATUS_OK;
 }
 
-void dll_free(dll_t **dll_ptr, free_func_t free_data, void *ctx) {
-    if (!dll_ptr || !*dll_ptr || !(*dll_ptr)->is_initialized) return;
+ccol_status_t dll_free(dll_t **dll_ptr, free_func_t free_data, void *ctx) {
+    if (!dll_ptr || !*dll_ptr || !(*dll_ptr)->is_initialized) return CCOL_STATUS_INVALID_ARG;
 
-    dll_destroy(*dll_ptr, free_data, ctx);
+    ccol_status_t status = dll_destroy(*dll_ptr, free_data, ctx);
     free(*dll_ptr);
     *dll_ptr = NULL;
+
+    return status;
 }
 
 // Print / Debug

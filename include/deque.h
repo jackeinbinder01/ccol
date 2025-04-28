@@ -82,7 +82,7 @@ ccol_status_t deque_copy(deque_t *dest, const deque_t *src, free_func_t free_dat
 ccol_status_t deque_deep_copy(deque_t *dest, const deque_t *src, free_func_t free_data, void *ctx);
 
 // Cleanup
-void deque_clear(deque_t *deque, free_func_t free_data, void *ctx);
+ccol_status_t deque_clear(deque_t *deque, free_func_t free_data, void *ctx);
 void deque_destroy(deque_t *deque, free_func_t free_data, void *ctx);
 void deque_free(deque_t **deque_ptr, free_func_t free_data, void *ctx);
 

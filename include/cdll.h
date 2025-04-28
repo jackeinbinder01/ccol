@@ -85,8 +85,8 @@ ccol_status_t cdll_deep_copy(cdll_t *dest, const cdll_t *src, free_func_t free_d
 
 // Cleanup
 ccol_status_t cdll_clear(cdll_t *cdll, free_func_t free_data, void *ctx);
-void cdll_destroy(cdll_t *cdll, free_func_t free_data, void *ctx); // might return ccol_status_t later
-void cdll_free(cdll_t **cdll_ptr, free_func_t free_data, void *ctx);
+ccol_status_t cdll_destroy(cdll_t *cdll, free_func_t free_data, void *ctx); // might return ccol_status_t later
+ccol_status_t cdll_free(cdll_t **cdll_ptr, free_func_t free_data, void *ctx);
 
 // Print / Debug
 ccol_status_t cdll_print(const cdll_t *cdll, print_func_t print_data, void *ctx);

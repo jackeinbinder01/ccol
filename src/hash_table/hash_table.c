@@ -127,7 +127,7 @@ ccol_status_t hash_table_remove(hash_table_t *hash_table, void *key, free_func_t
 }
 
 // Access
-ccol_status_t hash_table_get_node(const hash_table_t *hash_table, void *key, dll_node_t **node_out, void *ctx) {
+ccol_status_t hash_table_get_node(const hash_table_t *hash_table, const void *key, dll_node_t **node_out, void *ctx) {
     CCOL_CHECK_INIT(hash_table);
 
     size_t hash_key = hash_table->hash_func(key) % hash_table->num_buckets;
@@ -142,18 +142,59 @@ ccol_status_t hash_table_get_node(const hash_table_t *hash_table, void *key, dll
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t hash_table_get(const hash_table_t *hash_table, void *key, void **data_out, void *ctx) {
+ccol_status_t hash_table_get(const hash_table_t *hash_table, const void *key, void **data_out, void *ctx) {
     CCOL_CHECK_INIT(hash_table);
 
     dll_node_t *node = NULL;
     ccol_status_t status = hash_table_get_node(hash_table, key, &node, ctx);
     if (status != CCOL_STATUS_OK) return status;
-    *data_out = node->data;
+    hash_entry_t *entry = (hash_entry_t *)node->data;
+    *data_out = entry->value;
 
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t hash_table_get_all_keys(const hash_table_t *hash_table, void ***keys_out, size_t *key_count);
+ccol_status_t hash_table_get_entry(const hash_table_t *hash_table, const void *key, hash_entry_t **entry_out, void *ctx) {
+    CCOL_CHECK_INIT(hash_table);
+
+    dll_node_t *node = NULL;
+    ccol_status_t status = hash_table_get_node(hash_table, key, &node, ctx);
+    if (status != CCOL_STATUS_OK) return status;
+    *entry_out = (hash_entry_t *)node->data;
+
+    return CCOL_STATUS_OK;
+}
+
+ccol_status_t hash_table_get_all_keys(const hash_table_t *hash_table, void ***keys_out, size_t *key_count) {
+	CCOL_CHECK_INIT(hash_table);
+    if (!keys_out) return CCOL_STATUS_INVALID_ARG;
+    if (hash_table->size == 0) {
+    	*keys_out = NULL;
+        *key_count = 0;
+        return CCOL_STATUS_EMPTY;
+    }
+
+    void **keys = calloc(hash_table->size, sizeof(void *));
+    if (!keys) return CCOL_STATUS_ALLOC;
+
+    size_t keys_copied = 0;
+    for (size_t i = 0; i < hash_table->num_buckets; i++) {
+    	dll_t *bucket = hash_table->buckets[i];
+    	if (!bucket) continue;
+
+        dll_node_t *node = bucket->head;
+        for (size_t j = 0; j < bucket->size; j++) {
+        	hash_entry_t *entry = (hash_entry_t *)node->data;
+        	keys[keys_copied++] = entry->key;
+            node = node->next;
+        }
+    }
+
+    *keys_out = keys;
+    *key_count = keys_copied;
+
+    return CCOL_STATUS_OK;
+}
 
 // Attributes
 bool hash_table_is_empty(const hash_table_t *hash_table) {
@@ -191,20 +232,90 @@ bool hash_table_contains_value(const hash_table_t *hash_table, void *key, void *
     dll_t *bucket = hash_table->buckets[hash_key];
     if (!bucket) return false;
 
-    return dll_contains(bucket, value, hash_table->cmp);
+    return dll_contains(bucket, value, hash_table->cmp, ctx);
 }
 
-double hash_table_load_factor(const hash_table_t *hash_table);
+double hash_table_load_factor(const hash_table_t *hash_table) {
+	if (!hash_table || !hash_table->is_initialized || hash_table->num_buckets == 0) return 0;
+    return (double) hash_table->size / (double) hash_table->num_buckets;
+}
 
 // Utilities
-int cmp_hash_entry_key(const void *a, const void *b) {
-    const hash_entry_t *entry = a;
+int cmp_hash_keys(const void *entry_ptr, const void *key_ptr, void *ctx) {
+    const hash_entry_t *entry = entry_ptr;
+    comparator_t key_cmp = (comparator_t)ctx;
 
-
+    return key_cmp(entry->key, key_ptr, ctx);
 }
 
-ccol_status_t hash_table_swap(hash_table_t *hash_table, void *key1, void *key2, void *ctx);
-ccol_status_t hash_table_resize(hash_table_t *hash_table, int new_num_buckets);
+ccol_status_t hash_table_swap(hash_table_t *hash_table, void *key1, void *key2, void *ctx) {
+	CCOL_CHECK_INIT(hash_table);
+    if (!key1 || !key2) return CCOL_STATUS_INVALID_ARG;
+
+    hash_entry_t *entry1 = NULL, *entry2 = NULL;
+
+    ccol_status_t status = hash_table_get_entry(hash_table, key1, &entry1, ctx);
+    if (status != CCOL_STATUS_OK) return status;
+
+    status = hash_table_get_entry(hash_table, key2, &entry2, ctx);
+    if (status != CCOL_STATUS_OK) return status;
+
+    if (entry1 == entry2) return CCOL_STATUS_OK;
+
+    void *temp = entry1->value;
+    entry1->value = entry2->value;
+    entry2->value = temp;
+
+    return CCOL_STATUS_OK;
+}
+
+ccol_status_t hash_table_resize(hash_table_t *hash_table, int new_num_buckets) {
+	CCOL_CHECK_INIT(hash_table);
+    if (new_num_buckets <= 0) return CCOL_STATUS_INVALID_ARG;
+
+	dll_t **new_buckets = calloc(new_num_buckets, sizeof(dll_t *));
+	if (!new_buckets) return CCOL_STATUS_ALLOC;
+
+    hash_func_t hash_func = hash_table->hash_func;
+	for (size_t i = 0; i < hash_table->num_buckets; i++) {
+		dll_t *bucket = hash_table->buckets[i];
+        if (!bucket) continue;
+
+        ccol_status_t status;
+        dll_node_t *node = bucket->head;
+        for (size_t j = 0; j < bucket->size; j++) {
+         	hash_entry_t *entry = (hash_entry_t *)node->data;
+            size_t new_index = hash_func(entry->key) % new_num_buckets;
+            if (!new_buckets[new_index]) {
+            	status = dll_create(&new_buckets[new_index]);
+                if (status != CCOL_STATUS_OK) return status;
+            }
+
+            dll_push_back(new_buckets[new_index], entry);
+            node = node->next;
+        }
+   }
+   for (size_t i = 0; i < hash_table->num_buckets; i++) {
+       if (hash_table->buckets[i]) {
+           dll_destroy(hash_table->buckets[i], NULL, NULL);
+           free(hash_table->buckets[i]);
+           hash_table->buckets[i] = NULL;
+       }
+   }
+   free(hash_table->buckets);
+
+   hash_table->buckets = new_buckets;
+   hash_table->num_buckets = new_num_buckets;
+
+   hash_table->size = 0;
+   for (size_t i = 0; i < new_num_buckets; i++) {
+       if (hash_table->buckets[i]) {
+           hash_table->size += hash_table->buckets[i]->size;
+       }
+   }
+
+   return CCOL_STATUS_OK;
+}
 
 // Copy / Clone
 ccol_status_t hash_table_clone(const hash_table_t *src, hash_table_t **hash_table_out, copy_func_t copy_data, void *ctx) {
@@ -269,14 +380,14 @@ ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src, free_func_t
             status = dll_create(&dest_bucket);
 
             if (status != CCOL_STATUS_OK) {
-                hash_table_destroy(dest);
+                hash_table_destroy(dest, free_data, ctx);
                 return status;
             }
 
             status = dll_copy(dest_bucket, src->buckets[i], free_data, copy_data, ctx);
             if (status != CCOL_STATUS_OK) {
-                dll_destroy(dest_bucket);
-                hash_table_destroy(dest);
+                dll_destroy(dest_bucket, free_data, ctx);
+                hash_table_destroy(dest, free_data, ctx);
                 return status;
             }
 
@@ -286,13 +397,13 @@ ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src, free_func_t
         else {
             status = dll_clear(dest->buckets[i], free_data, ctx);
             if (status != CCOL_STATUS_OK) {
-                hash_table_destroy(dest);
+                hash_table_destroy(dest, free_data, ctx);
                 return status;
             }
 
             status = dll_copy(dest->buckets[i], src->buckets[i], free_data, copy_data, ctx);
             if (status != CCOL_STATUS_OK) {
-                hash_table_destroy(dest);
+                hash_table_destroy(dest, free_data, ctx);
                 return status;
             }
         }
@@ -302,8 +413,9 @@ ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src, free_func_t
     return CCOL_STATUS_OK;
 }
 
-
-ccol_status_t hash_table_deep_copy(hash_table_t *dest, hash_table_t *src, free_func_t free_data, void *ctx);
+ccol_status_t hash_table_deep_copy(hash_table_t *dest, hash_table_t *src, free_func_t free_data, void *ctx) {
+	return hash_table_copy(dest, src, free_data, COPY_DEFAULT, ctx);
+}
 
 // Cleanup
 ccol_status_t hash_table_clear_bucket(hash_table_t *hash_table, int bucket_index, free_func_t free_data, void *ctx) {
@@ -315,43 +427,40 @@ ccol_status_t hash_table_clear_bucket(hash_table_t *hash_table, int bucket_index
     if (!bucket) return CCOL_STATUS_NOT_FOUND;
 
     hash_table->size -= dll_size(bucket);
-    dll_clear(bucket, free_data, ctx);
 
-    return CCOL_STATUS_OK;
+    ccol_status_t status = dll_clear(bucket, free_data, ctx);
+    return status;
 }
 
-void hash_table_clear(hash_table_t *hash_table, free_func_t free_data, void *ctx) {
-	if (!hash_table || !hash_table->is_initialized) return;
-    if (hash_table->size == 0) return;
+ccol_status_t hash_table_clear(hash_table_t *hash_table, free_func_t free_data, void *ctx) {
+    CCOL_CHECK_INIT(hash_table);
 
+    ccol_status_t final_status = CCOL_STATUS_OK;
     for (size_t i = 0; i < hash_table->num_buckets; i++) {
-    	dll_t *bucket = hash_table->buckets[i];
-        if (!bucket) continue;
-    	dll_clear(bucket, free_data, ctx);
+        ccol_status_t bucket_status = hash_table_clear_bucket(hash_table, i, free_data, ctx);
+        if (bucket_status != CCOL_STATUS_OK && final_status == CCOL_STATUS_OK) final_status = bucket_status;
     }
 
-    hash_table->size = 0;
+    return final_status;
 }
 
-void hash_table_destroy(hash_table_t *hash_table, free_func_t free_data, void *ctx) {
-	if (!hash_table || !hash_table->is_initialized) return;
+ccol_status_t hash_table_destroy(hash_table_t *hash_table, free_func_t free_data, void *ctx) {
+    CCOL_CHECK_INIT(hash_table);
 
-    for (size_t i = 0; i < hash_table->num_buckets; i++) {
-    	dll_t *bucket = hash_table->buckets[i];
-        if (!bucket) continue;
-    	dll_destroy(bucket, free_data, ctx);
-        free(bucket);
-    }
-
+    ccol_status_t status = hash_table_clear(hash_table, free_data, ctx);
     hash_table_uninit(hash_table);
+
+    return status;
 }
 
-void hash_table_free(hash_table_t **hash_table_ptr, free_func_t free_data, void *ctx) {
-	if (!hash_table_ptr || !*hash_table_ptr || !(*hash_table_ptr)->is_initialized) return;
+ccol_status_t hash_table_free(hash_table_t **hash_table_ptr, free_func_t free_data, void *ctx) {
+	if (!hash_table_ptr || !*hash_table_ptr || !(*hash_table_ptr)->is_initialized) return CCOL_STATUS_INVALID_ARG;
 
-    hash_table_destroy(*hash_table_ptr, free_data, ctx);
+    ccol_status_t status = hash_table_destroy(*hash_table_ptr, free_data, ctx);
     free(*hash_table_ptr);
     *hash_table_ptr = NULL;
+
+    return status;
 }
 
 // Print / Debug
