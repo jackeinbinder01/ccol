@@ -504,9 +504,8 @@ ccol_status_t cdll_deep_copy(cdll_t *dest, const cdll_t *src, free_func_t free_d
 }
 
 // Cleanup
-void cdll_clear(cdll_t *cdll, free_func_t free_data, void *ctx) {
-    if (!cdll || !cdll->is_initialized) return;
-    if (cdll->size == 0) return;
+ccol_status_t cdll_clear(cdll_t *cdll, free_func_t free_data, void *ctx) {
+    CCOL_CHECK_INIT(cdll);
 
     dll_node_t *curr = cdll->head;
 
@@ -518,6 +517,8 @@ void cdll_clear(cdll_t *cdll, free_func_t free_data, void *ctx) {
 
     cdll->head = cdll->tail = NULL;
     cdll->size = 0;
+
+    return CCOL_STATUS_OK;
 }
 
 void cdll_destroy(cdll_t *cdll, free_func_t free_data, void *ctx) {

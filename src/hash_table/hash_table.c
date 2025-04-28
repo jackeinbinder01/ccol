@@ -260,9 +260,49 @@ ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src, free_func_t
     
     if (!copy_data) return CCOL_STATUS_INVALID_ARG;
 
-    dll_clear(dest, free_data, ctx);
+    ccol_status_t status;
+    for (size_t i = 0; i < src->num_buckets; i++) {
+        if (!src->buckets[i]) continue;
 
+        if (!dest->buckets[i]) {
+            dll_t* dest_bucket = NULL;
+            status = dll_create(&dest_bucket);
+
+            if (status != CCOL_STATUS_OK) {
+                hash_table_destroy(dest);
+                return status;
+            }
+
+            status = dll_copy(dest_bucket, src->buckets[i], free_data, copy_data, ctx);
+            if (status != CCOL_STATUS_OK) {
+                dll_destroy(dest_bucket);
+                hash_table_destroy(dest);
+                return status;
+            }
+
+            dest->buckets[i] = dest_bucket;
+        }
+
+        else {
+            status = dll_clear(dest->buckets[i], free_data, ctx);
+            if (status != CCOL_STATUS_OK) {
+                hash_table_destroy(dest);
+                return status;
+            }
+
+            status = dll_copy(dest->buckets[i], src->buckets[i], free_data, copy_data, ctx);
+            if (status != CCOL_STATUS_OK) {
+                hash_table_destroy(dest);
+                return status;
+            }
+        }
+
+    }
+
+    return CCOL_STATUS_OK;
 }
+
+
 ccol_status_t hash_table_deep_copy(hash_table_t *dest, hash_table_t *src, free_func_t free_data, void *ctx);
 
 // Cleanup

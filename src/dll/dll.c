@@ -492,9 +492,8 @@ ccol_status_t dll_deep_copy(dll_t *dest, const dll_t *src, free_func_t free_data
 }
 
 // Cleanup
-void dll_clear(dll_t *dll, free_func_t free_data, void *ctx) {
-    if (!dll || !dll->is_initialized) return;
-    if (dll->size == 0) return;
+ccol_status_t dll_clear(dll_t *dll, free_func_t free_data, void *ctx) {
+    CCOL_CHECK_INIT(dll); 
 
     dll_node_t *curr = dll->head;
     for (size_t i = 0; i < dll->size; i++) {
@@ -505,6 +504,8 @@ void dll_clear(dll_t *dll, free_func_t free_data, void *ctx) {
 
     dll->head = dll->tail = NULL;
     dll->size = 0;
+
+    return CCOL_STATUS_OK;
 }
 
 void dll_destroy(dll_t *dll, free_func_t free_data, void *ctx) {
