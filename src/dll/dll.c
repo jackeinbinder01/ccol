@@ -547,5 +547,6 @@ ccol_status_t dll_print(const dll_t *dll, print_func_t print_data, void *ctx) {
         curr = curr->next;
     }
     printf(" ] ← TAIL\n");
+    
     return CCOL_STATUS_OK;
 }

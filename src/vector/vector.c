@@ -7,6 +7,7 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
+#include <cstddef>
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -21,8 +22,39 @@
 #include "ccol_macros.h"
 
 // Create / Initialize
-ccol_status_t vector_init(vector_t *vec);
-ccol_status_t vector_create(size_t capacity, size_t element_size, vector_t **vec_out);
+ccol_status_t vector_init(vector_t *vec, size_t capacity, size_t element_size) {
+    if (!vec || element_size == 0) return CCOL_STATUS_INVALID_ARG;
+
+    if (capacity > 0) {
+        vec->data = calloc(capacity,element_size);
+        if (!vec->data) return CCOL_STATUS_ALLOC;
+    } else {
+        vec->data = NULL;
+    }
+   
+    vec->size = 0;
+    vec->capacity = capacity;
+    vec->element_size = element_size;
+    vec->is_initialized = true;
+
+    return CCOL_STATUS_OK;    
+}
+
+ccol_status_t vector_create(size_t capacity, size_t element_size, vector_t **vec_out) {
+    if (!vec_out) return CCOL_STATUS_INVALID_ARG;
+
+    vector_t *vec = calloc(1, sizeof(vector_t));
+    if (!vec) return CCOL_STATUS_ALLOC;
+
+    ccol_status_t status = vector_init(vec, capacity, element_size);
+    if (status != CCOL_STATUS_OK) {
+        free(vec);
+        return status;
+    }
+
+    *vec_out = vec;
+    return CCOL_STATUS_OK;
+}
 
 // Insertion
 ccol_status_t vector_append(vector_t *vec, void *data);
@@ -54,10 +86,26 @@ ccol_status_t vector_middle(const vector_t *vec, void **data_out);
 ccol_status_t vector_back(const vector_t *vec, void **data_out);
 
 // Attributes
-size_t vector_size(const vector_t *vec);
-size_t vector_capacity(const vector_t *vec);
-bool vector_is_empty(const vector_t *vec);
-bool vector_is_full(const vector_t *vec);
+size_t vector_size(const vector_t *vec) {
+    if (!vec || !vec->is_initialized) return 0;
+    return vec->size;
+}
+
+size_t vector_capacity(const vector_t *vec) {
+    if (!vec || !vec->is_initialized) return 0;
+    return vec->capacity;
+}
+
+bool vector_is_empty(const vector_t *vec) {
+    if (!vec || !vec->is_initialized) return true;
+    return vec->size == 0;
+}
+
+bool vector_is_full(const vector_t *vec) {
+    if (!vec || !vec->is_initialized) return true;
+    return vec->capacity == vec->size;
+}
+
 bool vector_contains(const vector_t *vec, void *data, comparator_t cmp, void *ctx);
 ccol_status_t vector_at(const vector_t *vec, size_t index, void **data_out);
 
@@ -72,14 +120,77 @@ ccol_status_t vector_assign(vector_t *vec, size_t count, void *value);
 
 // Copy / Clone
 ccol_status_t vector_clone(const vector_t *src, vector_t **vec_out, copy_func_t copy_data, void *ctx);
-ccol_status_t vector_deep_clone(const vector_t *src, vector_t **vec_out, void *ctx);
+
+ccol_status_t vector_deep_clone(const vector_t *src, vector_t **vec_out, void *ctx) {
+    CCOL_CHECK_INIT(src);
+    if (!*vec_out) return CCOL_STATUS_INVALID_ARG;
+
+    return vector_clone(src, vec_out, COPY DEFAULT, ctx);
+}
+
 ccol_status_t vector_copy(vector_t *dest, const vector_t *src, free_func_t free_data, copy_func_t copy_data, void *ctx);
-ccol_status_t vector_deep_copy(vector_t *dest, const vector_t *src, free_func_t free_data, void *ctx);
+
+ccol_status_t vector_deep_copy(vector_t *dest, const vector_t *src, free_func_t free_data, void *ctx) {
+    return vector_copy(dest, src, free_data, COPY_DEFAULT, ctx);
+}
 
 // Cleanup
-ccol_status_t vector_free(vector_t *vec, free_func_t free_data, void *ctx);
-ccol_status_t vector_destroy(vector_t *vec, free_func_t free_data, void *ctx);
-ccol_status_t vector_clear(vector_t *vec, free_func_t free_data, void *ctx);
+ccol_status_t vector_clear(vector_t *vec, free_func_t free_data, void *ctx) {
+    CCOL_CHECK_INIT(vec);
+
+    if (free_data) {
+        for (size_t i = 0; i < vec->size; i++) {
+            void *element = (char *)vec->data + (i * vec->element_size);
+            free_data(element, ctx);
+        }
+    }
+
+    free(vec->data);
+    vec->data = NULL;
+    vec->size = 0;
+    vec->capacity = 0;
+    vec->element_size = 0;
+
+    return CCOL_STATUS_OK;
+}
+
+ccol_status_t vector_destroy(vector_t *vec, free_func_t free_data, void *ctx) {
+    CCOL_CHECK_INIT(vec);
+
+    ccol_status_t status = vector_clear(vec, free_data, ctx);
+    if (status != CCOL_STATUS_OK) return status;
+
+    vector_uninit(vec);
+
+    return CCOL_STATUS_OK;
+}
+
+ccol_status_t vector_free(vector_t **vec_ptr, free_func_t free_data, void *ctx) {
+    if (!vec_ptr || !*vec_ptr || !(*vec_ptr)->is_initialized) return CCOL_STATUS_INVALID_ARG;
+
+    ccol_status_t status = vector_destroy(*vec_ptr, free_data, ctx);
+    free(*vec_ptr);
+    *vec_ptr = NULL;
+
+    return status;
+}
 
 // Print / Debug
-ccol_status_t vector_print(const vector_t *vec, print_func_t print_data, void *ctx);
+ccol_status_t vector_print(const vector_t *vec, print_func_t print_data, void *ctx) {
+    CCOL_CHECK_INIT(vec);
+    if (!print_data) return CCOL_STATUS_INVALID_ARG;
+    if (vec->size == 0) {
+        printf("[]\n");
+        return CCOL_STATUS_OK;
+    }
+
+    printf("[");
+    for (size_t i = 0; i < vec->size; i++) {
+        void *element = (char *)vec->data + (i * vec->element_size);
+        print_data(element, ctx);
+        if (i < vec->size - 1) printf(", ");
+    }
+    printf("]\n");
+
+    return CCOL_STATUS_OK;
+}

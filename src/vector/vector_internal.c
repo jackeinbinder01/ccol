@@ -6,3 +6,18 @@
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
  */
+
+#include <stdbool.h>
+
+#include "vector.h"
+#include "vector_internal.h"
+
+void vector_uninit(vector_t *vec) {
+    if (!vec || !vec->is_initialized) return;
+
+    free(vec->data);
+    vec->data = NULL;
+    vec->size = vec->capacity = vec->element_size = 0;
+    vec->is_initialized = false;
+}
+
