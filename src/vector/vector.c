@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
+#include <string.h>
 
 #include "vector.h"
 #include "vectorinternal.h"
@@ -57,7 +58,21 @@ ccol_status_t vector_create(size_t capacity, size_t element_size, vector_t **vec
 }
 
 // Insertion
-ccol_status_t vector_append(vector_t *vec, void *data);
+ccol_status_t vector_append(vector_t *vec, void *data) {
+	CCOL_CHECK_INIT(vec);
+
+    if (vec->size == vec->capacity) {
+    	ccol_status_t status = vector_reserve(vec, vec->capacity == 0 ? 1: vec->capacity * 2);
+        if (status != CCOL_STATUS_OK) return status;
+    }
+
+    void * target = (char *)vec->data + (vec->size * vec->element_size);
+    memcpy(target, data, vec->element_size);
+    vec->size++;
+
+    return CCOL_STATUS_OK;
+}
+
 ccol_status_t vector_insert(vector_t *vec, size_t index, void *data);
 ccol_status_t vector_insert_middle(vector_t *vec, size_t index, void *data);
 
