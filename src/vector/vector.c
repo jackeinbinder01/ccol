@@ -15,7 +15,7 @@
 #include <string.h>
 
 #include "vector.h"
-#include "vectorinternal.h"
+#include "vector_internal.h"
 #include "vector_iterator.h"
 #include "comparator.h"
 #include "ccol_status.h"
@@ -73,7 +73,36 @@ ccol_status_t vector_append(vector_t *vec, void *data) {
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t vector_insert(vector_t *vec, size_t index, void *data);
+ccol_status_t vector_insert(vector_t *vec, size_t index, void *data) {
+	CCOL_CHECK_INIT(vec);
+    if (index > vec->size) return CCOL_STATUS_INVALID_ARG;
+
+    if (vec->size == vec->capacity) {
+    	ccol_status_t status = vector_reserve(vec, vec->capacity == 0 ? 1: vec->capacity * 2);
+        if (status != CCOL_STATUS_OK) return status;
+    }
+
+    void *base = vec->data;
+    size_t element_size = vec->element_size;
+
+    // shift elements
+    if (index < vec->size) {
+    	void *src = (char *)base + index * element_size;
+    	void *dest = (char *)base + (index + 1) * element_size;
+    	size_t bytes = (vec->size - index) * element_size;
+    	memmove(dest, src, bytes);
+    }
+
+    // insert
+    void *target = (char *)base + index * element_size;
+    if (data) memcpy(target, data, element_size);
+    else memset(target, 0, element_size);
+
+    vec->size++;
+
+    return CCOL_STATUS_OK;
+}
+
 ccol_status_t vector_insert_middle(vector_t *vec, size_t index, void *data);
 
 // Fill

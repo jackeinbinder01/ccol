@@ -10,4 +10,9 @@
 #ifndef VECTOR_INTERNAL_H
 #define VECTOR_INTERNAL_H
 
+#include "vector.h"
+
+void vector_uninit(vector_t *vec);
+
 #endif //VECTOR_INTERNAL_H
+

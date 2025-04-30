@@ -19,7 +19,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="vector staging">
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="vector WIP">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vector/vector.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector/vector.c" afterDir="false" />
     </list>
@@ -118,7 +118,7 @@
       <workItem from="1745557219928" duration="609000" />
       <workItem from="1745843984094" duration="8000" />
       <workItem from="1745859614778" duration="16344000" />
-      <workItem from="1745886246819" duration="3467000" />
+      <workItem from="1745886246819" duration="4892000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -344,7 +344,15 @@
       <option name="project" value="LOCAL" />
       <updated>1745883695428</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="vector WIP">
+      <option name="closed" value="true" />
+      <created>1746010275986</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1746010275986</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -370,7 +378,8 @@
     <MESSAGE value="Hash table WIP" />
     <MESSAGE value="Hash table drafted" />
     <MESSAGE value="vector staging" />
-    <option name="LAST_COMMIT_MESSAGE" value="vector staging" />
+    <MESSAGE value="vector WIP" />
+    <option name="LAST_COMMIT_MESSAGE" value="vector WIP" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
