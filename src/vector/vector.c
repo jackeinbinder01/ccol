@@ -125,9 +125,17 @@ ccol_status_t vector_peek_front(const vector_t *vec, void **data_out);
 ccol_status_t vector_peek_middle(const vector_t *vec, void **data_out);
 ccol_status_t vector_peek_back(const vector_t *vec, void **data_out);
 
-ccol_status_t vector_front(const vector_t *vec, void **data_out);
-ccol_status_t vector_middle(const vector_t *vec, void **data_out);
-ccol_status_t vector_back(const vector_t *vec, void **data_out);
+ccol_status_t vector_front(const vector_t *vec, void **data_out) {
+	return vector_peek_front(vec, data_out);
+}
+
+ccol_status_t vector_middle(const vector_t *vec, void **data_out) {
+	return vector_peek_middle(vec, data_out);
+}
+
+ccol_status_t vector_back(const vector_t *vec, void **data_out) {
+	return vector_peek_back(vec, data_out);
+}
 
 // Attributes
 size_t vector_size(const vector_t *vec) {
@@ -156,9 +164,63 @@ ccol_status_t vector_at(const vector_t *vec, size_t index, void **data_out);
 // Utilities
 ccol_status_t vector_set(vector_t *vec, size_t index, void *value);
 ccol_status_t vector_swap(vector_t *vec, size_t i, size_t j);
-ccol_status_t vector_reserve(vector_t *vec, size_t new_capacity);
-ccol_status_t vector_reserve_exact(vector_t *vec, size_t exact_capacity);
-ccol_status_t vector_shrink_to_fit(vector_t *vec);
+ccol_status_t vector_reserve(vector_t *vec, size_t new_capacity) {
+	CCOL_CHECK_INIT(vec);
+    if (new_capacity <= vec->capacity) return CCOL_STATUS_OK;
+
+    void *new_data = calloc(new_capacity, vec->element_size);
+    if (!new_data) return CCOL_STATUS_ALLOC;
+
+    if (vec->data && vec->size > 0) {
+    	memcpy(new_data, vec->data, vec->size * vec->element_size);
+    }
+
+    free(vec->data);
+    vec->data = new_data;
+    vec->capacity = new_capacity;
+
+    return CCOL_STATUS_OK;
+}
+
+ccol_status_t vector_reserve_exact(vector_t *vec, size_t exact_capacity) {
+	CCOL_CHECK_INIT(vec);
+    if (exact_capacity < vec->capacity) return CCOL_STATUS_INVALID_ARG;
+    if (exact_capacity == vec->capacity) return CCOL_STATUS_OK;
+
+
+	void *new_data = calloc(exact_capacity, vec->element_size);
+    if (!new_data) return CCOL_STATUS_ALLOC;
+
+    if (vec->data && vec->size > 0) {
+    	memcpy(new_data, vec->data, vec->size * vec->element_size);
+    }
+
+    free(vec->data);
+    vec->data = new_data;
+    vec->capacity = exact_capacity;
+
+    return CCOL_STATUS_OK;
+}
+
+ccol_status_t vector_shrink_to_fit(vector_t *vec) {
+	CCOL_CHECK_INIT(vec);
+    if (vec->size == vec->capacity) return CCOL_STATUS_OK;
+
+    if (vec->size == 0) {
+    	free(vec->data);
+        vec->data = NULL;
+        vec->capacity = 0;
+        return CCOL_STATUS_OK;
+    }
+
+    void *new_data = realloc(vec->data, vec->size * vec->element_size);
+    if (!new_data) return CCOL_STATUS_ALLOC;
+
+    vec->data = new_data;
+    vec->capacity = vec->size;
+    return CCOL_STATUS_OK;
+}
+
 ccol_status_t vector_resize(vector_t *vec, size_t new_size, void *default_value);
 ccol_status_t vector_assign(vector_t *vec, size_t count, void *value);
 
