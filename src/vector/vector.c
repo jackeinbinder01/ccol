@@ -7,7 +7,6 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
-#include <cstddef>
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdbool.h>
@@ -158,7 +157,9 @@ bool vector_is_full(const vector_t *vec) {
     return vec->capacity == vec->size;
 }
 
-bool vector_contains(const vector_t *vec, void *data, comparator_t cmp, void *ctx);
+bool vector_contains(const vector_t *vec, void *data, comparator_t cmp, void *ctx) {
+    
+}
 ccol_status_t vector_at(const vector_t *vec, size_t index, void **data_out);
 
 // Utilities
@@ -202,6 +203,23 @@ ccol_status_t vector_reserve_exact(vector_t *vec, size_t exact_capacity) {
     return CCOL_STATUS_OK;
 }
 
+ccol_status_t vector_ensure_capacity(vector_t *vec, size_t min_capacity) {
+    CCOL_CHECK_INIT(vec);
+    if (vec->capacity >= min_capacity) return CCOL_STATUS_OK;
+
+    size_t new_capacity = vec->capacity == 0 ? 1 : vec->capacity;
+    while (new_capacity < min_capacity) new_capacity *= 2; 
+    if (new_capacity > SIZE_MAX / vec->element_size) return CCOL_STATUS_OVERFLOW;
+
+    void *new_data = realloc(vec->data, new_capacity * vec->element_size);
+    if (!new_data) return CCOL_STATUS_ALLOC;
+    
+    vec->data = new_data;
+    vec->capacity = new_capacity;
+
+    return CCOL_STATUS_OK;
+}
+
 ccol_status_t vector_shrink_to_fit(vector_t *vec) {
 	CCOL_CHECK_INIT(vec);
     if (vec->size == vec->capacity) return CCOL_STATUS_OK;
@@ -221,7 +239,31 @@ ccol_status_t vector_shrink_to_fit(vector_t *vec) {
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t vector_resize(vector_t *vec, size_t new_size, void *default_value);
+ccol_status_t vector_resize(vector_t *vec, size_t new_size, void *default_value) {
+    CCOL_CHECK_INIT(vec);
+    if (new_size == vec->size) return CCOL_STATUS_OK;
+
+    ccol_status_t status;
+    if (new_size > vec->size) {
+        if (new_size > vec->capacity) {
+            status = vector_ensure_capacity(vec, new_size);
+            if (status != CCOL_STATUS_OK) return status;
+        }
+
+        for (size_t i = vec->size; i < new_size; i++) {
+            status = vector_append(vec, default_value);
+            if (status != CCOL_STATUS_OK) return status;
+        }
+    } else {
+        for (ssize_t i = (ssize_t)vec->size - 1; i >= (ssize_t)new_size; i--) {
+            status = vector_remove_at(vec, i);
+            if (status != CCOL_STATUS_OK) return status;
+        }
+    }
+
+    return CCOL_STATUS_OK;
+}
+
 ccol_status_t vector_assign(vector_t *vec, size_t count, void *value);
 
 // Copy / Clone
