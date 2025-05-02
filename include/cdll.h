@@ -22,6 +22,12 @@ typedef struct cdll_t {
     dll_node_t *tail;
     size_t size;
 
+    copy_func_t copy_func;
+    free_func_t free_func;
+    print_func_t print_func;
+    comparator_t cmp;
+    void *ctx;
+
     bool is_initialized;
 } cdll_t;
 
