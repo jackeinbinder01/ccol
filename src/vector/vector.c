@@ -22,7 +22,16 @@
 #include "ccol_macros.h"
 
 // Create / Initialize
-ccol_status_t vector_init(vector_t *vec, size_t capacity, size_t element_size) {
+ccol_status_t vector_init(
+    vector_t 	   *vec,
+    size_t			capacity,
+    size_t			element_size,
+    copy_func_t		copy_func,
+    free_func_t		free_func,
+    print_func_t	print_func,
+    comparator_t	cmp,
+    void       	   *ctx,
+) {
     if (!vec || element_size == 0) return CCOL_STATUS_INVALID_ARG;
 
     if (capacity > 0) {
@@ -35,18 +44,32 @@ ccol_status_t vector_init(vector_t *vec, size_t capacity, size_t element_size) {
     vec->size = 0;
     vec->capacity = capacity;
     vec->element_size = element_size;
+    vec->copy_func = copy_func;
+    vec->free_func = free_func;
+    vec->print_func = print_func;
+    vec->cmp = cmp;
+    vec->ctx = ctx;
     vec->is_initialized = true;
 
     return CCOL_STATUS_OK;    
 }
 
-ccol_status_t vector_create(size_t capacity, size_t element_size, vector_t **vec_out) {
+ccol_status_t vector_create(
+    size_t			capacity,
+    size_t			element_size,
+    copy_func_t		copy_func,
+    free_func_t		free_func,
+    print_func_t	print_func,
+    comparator_t	cmp,
+    void       	   *ctx,
+    vector_t      **vec_out
+) {
     if (!vec_out) return CCOL_STATUS_INVALID_ARG;
 
     vector_t *vec = calloc(1, sizeof(vector_t));
     if (!vec) return CCOL_STATUS_ALLOC;
 
-    ccol_status_t status = vector_init(vec, capacity, element_size);
+    ccol_status_t status = vector_init(vec, capacity, element_size, copy_func, free_func, print_func, cmp, ctx);
     if (status != CCOL_STATUS_OK) {
         free(vec);
         return status;
@@ -295,9 +318,7 @@ ccol_status_t vector_clear(vector_t *vec, free_func_t free_data, void *ctx) {
 
     free(vec->data);
     vec->data = NULL;
-    vec->size = 0;
-    vec->capacity = 0;
-    vec->element_size = 0;
+    vec->size = vec->capacity = vec->element_size =0;
 
     return CCOL_STATUS_OK;
 }

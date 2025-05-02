@@ -21,7 +21,9 @@
   <component name="ChangeListManager">
     <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="vector WIP">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/vector.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/vector.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vector/vector.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector/vector.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vector/vector_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector/vector_internal.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -120,6 +122,7 @@
       <workItem from="1745859614778" duration="16344000" />
       <workItem from="1745886246819" duration="10279000" />
       <workItem from="1746185894948" duration="17000" />
+      <workItem from="1746189858368" duration="1227000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />

@@ -19,6 +19,13 @@ void vector_uninit(vector_t *vec) {
     free(vec->data);
     vec->data = NULL;
     vec->size = vec->capacity = vec->element_size = 0;
+
+    vec->copy_func = NULL;
+    vec->free_func = NULL;
+    vec->print_func = NULL;
+    vec->cmp = NULL;
+    vec->ctx = NULL;
+
     vec->is_initialized = false;
 }
 
