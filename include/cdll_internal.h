@@ -14,9 +14,10 @@
 #include "dll_internal.h"
 #include "cdll.h"
 
-void cdll_uninit(cdll_t *cdll);
-ccol_status_t cdll_clone_into(const cdll_t *src, cdll_t *dest, copy_func_t copy_data, void *ctx);
-ccol_status_t cdll_deep_clone_into(const cdll_t *src, cdll_t *dest, void *ctx);
-void cdll_clone_rollback(cdll_t *dest, free_func_t free_data, void *ctx);
+ccol_status_t cdll_uninit(cdll_t *cdll);
+ccol_status_t cdll_clone_into(const cdll_t *src, cdll_t *dest);
+ccol_status_t cdll_deep_clone_into(const cdll_t *src, cdll_t *dest);
+ccol_status_t cdll_clone_rollback(cdll_t *dest);
+void cdll_dispose_node(dll_t *cdll, dll_node_t *node);
 
 #endif // CDLL_INTERNAL_H

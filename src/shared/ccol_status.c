@@ -23,6 +23,11 @@ const char *ccol_strstatus(ccol_status_t status) {
         case CCOL_STATUS_FULL:            return "Container is full";
         case CCOL_STATUS_EMPTY:           return "Container is empty";
         case CCOL_STATUS_ERROR:           return "Generic error";
+        case CCOL_STATUS_COPY_FUNC:       return "Copy function not provided";
+        case CCOL_STATUS_FREE_FUNC:       return "Free function not provided";
+        case CCOL_STATUS_PRINT_FUNC:      return "Print function not provided";
+        case CCOL_STATUS_CMP:             return "Comparator not provided";
+        case CCOL_STATUS_CTX:             return "Context not provided";
         default:                          return "Unknown error";
     }
 }

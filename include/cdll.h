@@ -32,8 +32,24 @@ typedef struct cdll_t {
 } cdll_t;
 
 // Create / Initialize
-ccol_status_t cdll_init(cdll_t *cdll);
-ccol_status_t cdll_create(cdll_t **cdll_out);
+// Create / Initialize
+ccol_status_t dll_init(
+    dll_t *dll,
+    copy_func_t copy_func,
+    free_func_t free_func,
+    print_func_t print_func,
+    comparator_t cmp,
+    void *ctx
+);
+
+ccol_status_t dll_create(
+    dll_t **dll_out,
+    copy_func_t copy_func,
+    free_func_t free_func,
+    print_func_t print_func,
+    comparator_t cmp,
+    void *ctx
+);
 
 // Insertion
 ccol_status_t cdll_push(cdll_t *cdll, void *data);
@@ -50,8 +66,8 @@ ccol_status_t cdll_pop_front(cdll_t *cdll, void **data_out);
 ccol_status_t cdll_pop_middle(cdll_t *cdll, void **data_out);
 ccol_status_t cdll_pop_back(cdll_t *cdll, void **data_out);
 
-ccol_status_t cdll_remove_node(cdll_t *cdll, dll_node_t* node, free_func_t free_data, void *ctx);
-ccol_status_t cdll_remove(cdll_t *cdll, void *data, comparator_t cmp, free_func_t free_data, void *ctx);
+ccol_status_t cdll_remove_node(cdll_t *cdll, dll_node_t* node);
+ccol_status_t cdll_remove(cdll_t *cdll, void *data);
 
 // Access
 ccol_status_t cdll_get(const cdll_t *cdll, size_t index, void **data_out);
@@ -62,18 +78,18 @@ ccol_status_t cdll_peek_front(const cdll_t *cdll, void **data_out);
 ccol_status_t cdll_peek_middle(const cdll_t *cdll, void **data_out);
 ccol_status_t cdll_peek_back(const cdll_t *cdll, void **data_out);
 
-dll_node_t *cdll_search(const cdll_t *cdll, const void *data, comparator_t cmp, void *ctx);
+dll_node_t *cdll_search(const cdll_t *cdll, const void *data);
 
 // Attributes
 bool cdll_is_empty(const cdll_t *cdll);
 size_t cdll_size(const cdll_t *cdll);
 
-bool cdll_contains(const cdll_t *cdll, const void *data, comparator_t cmp, void *ctx);
+bool cdll_contains(const cdll_t *cdll, const void *data);
 bool cdll_contains_node(const cdll_t *cdll, const dll_node_t *node);
 
 // Indexing
-ccol_status_t cdll_safe_index_of(const cdll_t *cdll, void *data, comparator_t cmp, void *ctx, size_t *out_index);
-size_t cdll_index_of(const cdll_t *cdll, void *data, comparator_t cmp, void *ctx);
+ccol_status_t cdll_safe_index_of(const cdll_t *cdll, void *data, size_t *out_index);
+size_t cdll_index_of(const cdll_t *cdll, void *data);
 
 // Utilities
 ccol_status_t cdll_set(cdll_t *cdll, size_t index, void *data);
@@ -84,17 +100,17 @@ ccol_status_t cdll_swap_nodes(cdll_t *cdll, dll_node_t *x, dll_node_t *y);
 ccol_status_t cdll_reverse(cdll_t *cdll);
 
 // Copy / Clone
-ccol_status_t cdll_clone(const cdll_t *src, cdll_t **cdll_out, copy_func_t copy_data, void *ctx);
-ccol_status_t cdll_deep_clone(const cdll_t *src, cdll_t **cdll_out, void *ctx);
-ccol_status_t cdll_copy(cdll_t *dest, const cdll_t *src, free_func_t free_data, copy_func_t copy_data, void *ctx);
-ccol_status_t cdll_deep_copy(cdll_t *dest, const cdll_t *src, free_func_t free_data, void *ctx);
+ccol_status_t cdll_clone(const cdll_t *src, cdll_t **cdll_out);
+ccol_status_t cdll_deep_clone(const cdll_t *src, cdll_t **cdll_out);
+ccol_status_t cdll_copy(cdll_t *dest, const cdll_t *src);
+ccol_status_t cdll_deep_copy(cdll_t *dest, const cdll_t *src);
 
 // Cleanup
-ccol_status_t cdll_clear(cdll_t *cdll, free_func_t free_data, void *ctx);
-ccol_status_t cdll_destroy(cdll_t *cdll, free_func_t free_data, void *ctx); // might return ccol_status_t later
-ccol_status_t cdll_free(cdll_t **cdll_ptr, free_func_t free_data, void *ctx);
+ccol_status_t cdll_clear(cdll_t *cdll);
+ccol_status_t cdll_destroy(cdll_t *cdll);
+ccol_status_t cdll_free(cdll_t **cdll_ptr);
 
 // Print / Debug
-ccol_status_t cdll_print(const cdll_t *cdll, print_func_t print_data, void *ctx);
+ccol_status_t cdll_print(const cdll_t *cdll);
 
 #endif //CDLL_H

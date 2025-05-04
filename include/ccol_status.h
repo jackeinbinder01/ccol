@@ -23,6 +23,11 @@ typedef enum {
     CCOL_STATUS_FULL,
     CCOL_STATUS_EMPTY,
     CCOL_STATUS_ERROR,
+    CCOL_STATUS_COPY_FUNC,
+    CCOL_STATUS_FREE_FUNC,
+    CCOL_STATUS_PRINT_FUNC,
+    CCOL_STATUS_CMP,
+    CCOL_STATUS_CTX,
 } ccol_status_t;
 
 const char *ccol_strstatus(ccol_status_t status);
