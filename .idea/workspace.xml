@@ -19,11 +19,8 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="refactor">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" afterDir="false" />
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="hash table WIP">
+      <change afterPath="$PROJECT_DIR$/checklist.md" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -398,7 +395,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746398573891</updated>
     </task>
-    <option name="localTasksCounter" value="35" />
+    <task id="LOCAL-00035" summary="hash table WIP">
+      <option name="closed" value="true" />
+      <created>1746725600718</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1746725600718</updated>
+    </task>
+    <option name="localTasksCounter" value="36" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -420,13 +425,13 @@
     <MESSAGE value="hash table staging" />
     <MESSAGE value="ctx refactor" />
     <MESSAGE value="ctx refactor complete" />
-    <MESSAGE value="hash table WIP" />
     <MESSAGE value="Hash table WIP" />
     <MESSAGE value="Hash table drafted" />
     <MESSAGE value="vector staging" />
     <MESSAGE value="vector WIP" />
     <MESSAGE value="refactor" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
+    <MESSAGE value="hash table WIP" />
+    <option name="LAST_COMMIT_MESSAGE" value="hash table WIP" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
