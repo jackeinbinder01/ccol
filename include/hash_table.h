@@ -14,6 +14,7 @@
 #include <stdbool.h>
 #include "dll.h"
 #include "hash.h"
+#include "hash_table_internal.h"
 #include "hash_table_iterator.h"
 #include "comparator.h"
 
