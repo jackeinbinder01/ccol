@@ -85,7 +85,11 @@ ccol_status_t hash_table_create_internal(
     size_t key_size,
     hash_policy_t policy,
     hash_func_t hash_func,
+    copy_func_t copy_func,
+    free_func_t free_func,
+    print_func_t print_func,
     comparator_t cmp,
+    void *ctx,
     hash_table_t **hash_table_out
 ) {
     if (num_buckets < 1 || key_size < 1 || !hash_func || !cmp || !hash_table_out) return CCOL_STATUS_INVALID_ARG;
@@ -107,9 +111,15 @@ ccol_status_t hash_table_create_internal(
 
     hash_table->num_buckets = num_buckets;
     hash_table->key_size = key_size;
+
     hash_table->policy = policy;
     hash_table->hash_func = hash_func;
+    hash_table->copy_func = copy_func;
+    hash_table->free_func = free_func;
+    hash_table->print_func = print_func;
+
     hash_table->cmp = cmp;
+    hash_table->ctx = ctx;
 
     *hash_table_out = hash_table;
 
@@ -120,12 +130,18 @@ void hash_table_uninit(hash_table_t *hash_table) {
     if (!hash_table || !hash_table->is_initialized) return;
 
     hash_table->buckets = NULL;
+
     hash_table->num_buckets = 0;
     hash_table->size = 0;
     hash_table->key_size = 0;
     hash_table->policy = 0;
+
     hash_table->hash_func = NULL;
+    hash_table->copy_func = NULL;
+    hash_table->free_func = NULL;
+    hash_table->print_func = NULL;
     hash_table->cmp = NULL;
+    hash_table->ctx = NULL;
 
     hash_table->is_initialized = false;
 }

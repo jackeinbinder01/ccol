@@ -23,7 +23,11 @@
 #include "ccol_macros.h"
 
 // Create / Initialize
-ccol_status_t hash_table_init(hash_table_t *hash_table) {
+ccol_status_t hash_table_init(
+    hash_table_t *hash_table,
+
+
+) {
     if (!hash_table) return CCOL_STATUS_INVALID_ARG;
 
     hash_table->buckets = NULL;
@@ -346,7 +350,7 @@ ccol_status_t hash_table_clone(const hash_table_t *src, hash_table_t **hash_tabl
 
         status = dll_clone(src_bucket, &dest_bucket, copy_data, ctx);
         if (status != CCOL_STATUS_OK) {
-            dll_destroy(&dest_bucket);
+            dll_destroy(dest_bucket);
             hash_table_destroy(hash_table_out);
             return status;
 

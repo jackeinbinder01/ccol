@@ -29,6 +29,7 @@ typedef struct hash_table_t {
     copy_func_t copy_func;
     free_func_t free_func;
     print_func_t print_func;
+
     comparator_t cmp;
     void *ctx;
 

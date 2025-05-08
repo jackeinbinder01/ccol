@@ -19,17 +19,11 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="vector WIP">
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="refactor">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/ccol_status.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ccol_status.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/cdll_internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cdll_internal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/dll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dll.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/dll_internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dll_internal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cdll/cdll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cdll/cdll_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll_internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll/dll_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll_internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/ccol_status.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/ccol_status.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -56,6 +50,7 @@
 }</component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/include/dll.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="mock:///Users/jackeinbinder/Documents/ccol/src/hash_table/hash_table.c" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -129,7 +124,7 @@
       <workItem from="1745886246819" duration="10279000" />
       <workItem from="1746185894948" duration="17000" />
       <workItem from="1746189858368" duration="17469000" />
-      <workItem from="1746395052058" duration="2487000" />
+      <workItem from="1746395052058" duration="7502000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -395,7 +390,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746193379441</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="refactor">
+      <option name="closed" value="true" />
+      <created>1746398573891</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1746398573891</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -422,7 +425,8 @@
     <MESSAGE value="Hash table drafted" />
     <MESSAGE value="vector staging" />
     <MESSAGE value="vector WIP" />
-    <option name="LAST_COMMIT_MESSAGE" value="vector WIP" />
+    <MESSAGE value="refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
