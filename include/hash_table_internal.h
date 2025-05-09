@@ -25,7 +25,11 @@ ccol_status_t hash_table_create_internal(
     size_t key_size,
     hash_policy_t policy,
     hash_func_t hash_func,
+    copy_func_t copy_func,
+    free_func_t free_func,
+    print_func_t print_func,
     comparator_t cmp,
+    void *ctx,
     hash_table_t **hash_table_out
 );
 

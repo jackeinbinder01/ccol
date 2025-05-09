@@ -38,15 +38,46 @@ typedef struct hash_table_t {
 } hash_table_t;
 
 // Create / Initialize
-ccol_status_t hash_table_init(hash_table_t *hash_table);
-ccol_status_t hash_table_create(size_t num_buckets, size_t key_size, hash_policy_t policy, comparator_t cmp, hash_table_t **hash_table_out);
-ccol_status_t hash_table_create_custom(size_t num_buckets, size_t key_size, hash_func_t hash_func, comparator_t cmp, hash_table_t **hash_table_out);
+ccol_status_t hash_table_init(
+    hash_table_t *hash_table,
+    hash_policy_t policy,
+    hash_func_t hash_func,
+    copy_func_t copy_func,
+    free_func_t free_func,
+    print_func_t print_func,
+    comparator_t cmp,
+    void *ctx
+);
+
+ccol_status_t hash_table_create(
+    size_t num_buckets,
+    size_t key_size,
+    hash_policy_t policy,
+    copy_func_t copy_func,
+    free_func_t free_func,
+    print_func_t print_func,
+    comparator_t cmp,
+    void *ctx,
+    hash_table_t **hash_table_out
+);
+
+ccol_status_t hash_table_create_custom(
+    size_t num_buckets,
+    size_t key_size,
+    hash_func_t hash_func,
+    copy_func_t copy_func,
+    free_func_t free_func,
+    print_func_t print_func,
+    comparator_t cmp,
+    void *ctx,
+    hash_table_t **hash_table_out
+);
 
 // Insertion
-ccol_status_t hash_table_insert(hash_table_t *hash_table, void *key, void *data, void *ctx);
+ccol_status_t hash_table_insert(hash_table_t *hash_table, void *key, void *data);
 
 // Removal
-ccol_status_t hash_table_remove(hash_table_t *hash_table, void *key, void *ctx);
+ccol_status_t hash_table_remove(hash_table_t *hash_table, void *key);
 
 // Access
 ccol_status_t hash_table_get(const hash_table_t *hash_table, const void *key, void **data_out, void *ctx);

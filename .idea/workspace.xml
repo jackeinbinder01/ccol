@@ -20,7 +20,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="hash table WIP">
-      <change afterPath="$PROJECT_DIR$/checklist.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/hash_table_internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table_internal.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/comparator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/comparator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -42,7 +47,7 @@
   <component name="GithubPullRequestsUISettings">{
   &quot;selectedUrlAndAccountId&quot;: {
     &quot;url&quot;: &quot;https://github.com/jackeinbinder01/ccol.git&quot;,
-    &quot;accountId&quot;: &quot;0026f97a-d077-47b4-a1aa-64debce7dcf6&quot;
+    &quot;accountId&quot;: &quot;78929b9b-adba-4497-94a1-6cdcc5a96269&quot;
   }
 }</component>
   <component name="HighlightingSettingsPerFile">
@@ -75,7 +80,7 @@
     &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
     &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
     &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;editor.preferences.fonts.default&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Console Font&quot;,
     &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
 }</component>
@@ -122,6 +127,8 @@
       <workItem from="1746185894948" duration="17000" />
       <workItem from="1746189858368" duration="17469000" />
       <workItem from="1746395052058" duration="7502000" />
+      <workItem from="1746803356823" duration="4898000" />
+      <workItem from="1746808541510" duration="1197000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -403,7 +410,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746725600718</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="hash table WIP">
+      <option name="closed" value="true" />
+      <created>1746748357632</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1746748357632</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

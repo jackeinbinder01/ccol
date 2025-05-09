@@ -10,6 +10,7 @@
 #include <stdint.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "hash_table_internal.h"
 #include "hash.h"
@@ -20,8 +21,6 @@
 #include "hash_table.h"
 #include "ccol_constants.h"
 #include "ccol_status.h"
-
-#include <stdio.h>
 
 void auto_resize(hash_table_t *hash_table);
 
@@ -92,12 +91,12 @@ ccol_status_t hash_table_create_internal(
     void *ctx,
     hash_table_t **hash_table_out
 ) {
-    if (num_buckets < 1 || key_size < 1 || !hash_func || !cmp || !hash_table_out) return CCOL_STATUS_INVALID_ARG;
+    if (!hash_func || !cmp || !hash_table_out || num_buckets < 1 || key_size < 1) return CCOL_STATUS_INVALID_ARG;
 
     hash_table_t *hash_table = calloc(1, sizeof(hash_table_t));
     if (!hash_table) return CCOL_STATUS_ALLOC;
 
-    ccol_status_t status = hash_table_init(hash_table);
+    ccol_status_t status = hash_table_init(hash_table, policy, hash_func, copy_func, free_func, print_func, cmp, ctx);
     if (status != CCOL_STATUS_OK) {
         free(hash_table);
         return status;
@@ -111,15 +110,6 @@ ccol_status_t hash_table_create_internal(
 
     hash_table->num_buckets = num_buckets;
     hash_table->key_size = key_size;
-
-    hash_table->policy = policy;
-    hash_table->hash_func = hash_func;
-    hash_table->copy_func = copy_func;
-    hash_table->free_func = free_func;
-    hash_table->print_func = print_func;
-
-    hash_table->cmp = cmp;
-    hash_table->ctx = ctx;
 
     *hash_table_out = hash_table;
 
