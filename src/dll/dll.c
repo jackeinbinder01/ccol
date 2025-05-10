@@ -18,6 +18,7 @@
 #include "ccol_macros.h"
 #include "ccol_constants.h"
 
+
 // Create / Initialize
 ccol_status_t dll_init(
     dll_t *dll,
