@@ -12,10 +12,14 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+
 #include "ccol_constants.h"
 #include "ccol_status.h"
 #include "ccol_constants.h"
 #include "iterator.h"
+#include "copy.h"
+#include "free.h"
+#include "print.h"
 #include "comparator.h"
 
 typedef struct dll_node_t {
@@ -43,7 +47,7 @@ ccol_status_t dll_init(
     copy_t copier,
     free_t freer,
     print_t printer,
-    comparator_t comparator,
+    comparator_t comparator
 );
 
 ccol_status_t dll_create(
