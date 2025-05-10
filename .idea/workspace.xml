@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="BackendCodeEditorMiscSettings">
-    <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
-    <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
     <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppFormatterOtherPage" type="string" />
-    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
+    <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
   </component>
   <component name="CMakeProjectFlavorService">
     <option name="flavorId" value="CMakePlainProjectFlavor" />
@@ -19,21 +18,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="hash table WIP">
-      <change afterPath="$PROJECT_DIR$/include/free.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/free.c" afterDir="false" />
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="refactor">
+      <change beforePath="$PROJECT_DIR$/.idea/editor.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/editor.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/ccol_constants.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ccol_constants.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/comparator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/comparator.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/copy.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/copy.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/cdll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cdll.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/dll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dll.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/hash.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/print.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/print.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/comparator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/comparator.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/copy.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/copy.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/print.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/print.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,15 +42,38 @@
     &quot;assignee&quot;: &quot;jackeinbinder01&quot;
   }
 }</component>
-  <component name="GithubPullRequestsUISettings">{
-  &quot;selectedUrlAndAccountId&quot;: {
-    &quot;url&quot;: &quot;https://github.com/jackeinbinder01/ccol.git&quot;,
-    &quot;accountId&quot;: &quot;78929b9b-adba-4497-94a1-6cdcc5a96269&quot;
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/jackeinbinder01/ccol.git",
+    "accountId": "0026f97a-d077-47b4-a1aa-64debce7dcf6"
   }
-}</component>
+}]]></component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/include/cbuf.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/ccol_constants.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/ccol_macros.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/ccol_status.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/comparator.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/copy.h" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/include/dll.h" root0="FORCE_HIGHLIGHTING" />
-    <setting file="mock:///Users/jackeinbinder/Documents/ccol/src/hash_table/hash_table.c" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/free.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/hash.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/hash_robust.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/hash_secure.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/hash_table.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/include/print.h" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/comparator.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/copy.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/dll/dll.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/free.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/hash_table/hash.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/hash_table/hash_robust.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/hash_table/hash_secure.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/hash_table/hash_simple.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/hash_table/hash_table.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/hash_table/hash_table_internal.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/print.c" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/swap.c" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 1
@@ -137,6 +150,7 @@
       <workItem from="1746395052058" duration="7502000" />
       <workItem from="1746803356823" duration="4898000" />
       <workItem from="1746808541510" duration="1197000" />
+      <workItem from="1746845310964" duration="307000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -426,7 +440,15 @@
       <option name="project" value="LOCAL" />
       <updated>1746748357632</updated>
     </task>
-    <option name="localTasksCounter" value="37" />
+    <task id="LOCAL-00037" summary="refactor">
+      <option name="closed" value="true" />
+      <created>1746845234989</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1746845234989</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -452,9 +474,9 @@
     <MESSAGE value="Hash table drafted" />
     <MESSAGE value="vector staging" />
     <MESSAGE value="vector WIP" />
-    <MESSAGE value="refactor" />
     <MESSAGE value="hash table WIP" />
-    <option name="LAST_COMMIT_MESSAGE" value="hash table WIP" />
+    <MESSAGE value="refactor" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactor" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

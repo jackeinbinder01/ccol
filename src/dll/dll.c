@@ -21,9 +21,9 @@
 // Create / Initialize
 ccol_status_t dll_init(
     dll_t *dll,
-    copy_func_t copy_func,
-    free_func_t free_func,
-    print_func_t print_func,
+    copy_t copier,
+    free_t freer,
+    print_t printer,
     comparator_t cmp
 ) {
     if (!dll) return CCOL_STATUS_INVALID_ARG;
@@ -31,11 +31,10 @@ ccol_status_t dll_init(
     dll->head = dll->tail = NULL;
     dll->size = 0;
 
-    dll->copy_func = copy_func;
-    dll->free_func = free_func;
-    dll->print_func = print_func;
-
-    dll->cmp = cmp;
+    dll->copy_t = copier;
+    dll->free_t = freer;
+    dll->print_t = printer;
+    dll->comparator_t = cmp;
 
     dll->is_initialized = true;
 
@@ -44,9 +43,9 @@ ccol_status_t dll_init(
 
 ccol_status_t dll_create(
     dll_t **dll_out,
-    copy_func_t copy_func,
-    free_func_t free_func,
-    print_func_t print_func,
+    copy_t copier,
+    free_t freer,
+    print_t printer,
     comparator_t cmp
 ) {
     if (!dll_out) return CCOL_STATUS_INVALID_ARG;

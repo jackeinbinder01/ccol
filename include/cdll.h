@@ -12,6 +12,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+
 #include "ccol_status.h"
 #include "ccol_constants.h"
 #include "iterator.h"
@@ -22,33 +23,29 @@ typedef struct cdll_t {
     dll_node_t *tail;
     size_t size;
 
-    copy_func_t copy_func;
-    free_func_t free_func;
-    print_func_t print_func;
-    comparator_t cmp;
-    void *ctx;
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator
 
     bool is_initialized;
 } cdll_t;
 
 // Create / Initialize
-// Create / Initialize
-ccol_status_t dll_init(
-    dll_t *dll,
-    copy_func_t copy_func,
-    free_func_t free_func,
-    print_func_t print_func,
-    comparator_t cmp,
-    void *ctx
+ccol_status_t cdll_init(
+    dll_t *cdll,
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator
 );
 
-ccol_status_t dll_create(
-    dll_t **dll_out,
-    copy_func_t copy_func,
-    free_func_t free_func,
-    print_func_t print_func,
-    comparator_t cmp,
-    void *ctx
+ccol_status_t cdll_create(
+    dll_t **cdll_out,
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator
 );
 
 // Insertion

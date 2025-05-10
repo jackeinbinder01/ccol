@@ -13,7 +13,6 @@
 #include <stddef.h>
 #include <stdint.h>
 
-
 typedef enum {
     HASH_SIMPLE = 1,
     HASH_ROBUST = 2,

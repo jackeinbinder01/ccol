@@ -12,6 +12,7 @@
 
 #include <stddef.h>
 #include <stdbool.h>
+
 #include "dll.h"
 #include "hash.h"
 #include "hash_table_internal.h"
@@ -24,15 +25,12 @@ typedef struct hash_table_t {
     size_t size;
     size_t key_size;
 
-    hash_policy_t policy;
-    hash_func_t hash_func;
+	hash_t hasher;
 
-    copy_func_t copy_func;
-    free_func_t free_func;
-    print_func_t print_func;
-
-    comparator_t cmp;
-    void *ctx;
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator
 
     bool is_initialized;
 } hash_table_t;
@@ -40,36 +38,32 @@ typedef struct hash_table_t {
 // Create / Initialize
 ccol_status_t hash_table_init(
     hash_table_t *hash_table,
-    hash_policy_t policy,
-    hash_func_t hash_func,
-    copy_func_t copy_func,
-    free_func_t free_func,
-    print_func_t print_func,
-    comparator_t cmp,
-    void *ctx
+    hash_t hasher;
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator
 );
 
 ccol_status_t hash_table_create(
     size_t num_buckets,
     size_t key_size,
-    hash_policy_t policy,
-    copy_func_t copy_func,
-    free_func_t free_func,
-    print_func_t print_func,
-    comparator_t cmp,
-    void *ctx,
+    hash_t hasher;
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator
     hash_table_t **hash_table_out
 );
 
 ccol_status_t hash_table_create_custom(
     size_t num_buckets,
     size_t key_size,
-    hash_func_t hash_func,
-    copy_func_t copy_func,
-    free_func_t free_func,
-    print_func_t print_func,
-    comparator_t cmp,
-    void *ctx,
+    hash_t hasher;
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator
     hash_table_t **hash_table_out
 );
 
