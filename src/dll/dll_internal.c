@@ -41,7 +41,7 @@ void dll_free_node(dll_node_t *node) {
 
 void dll_dispose_node(dll_t *dll, dll_node_t *node) {
     if (!node) return;
-    if (dll->free_func && node->data) dll->free_func(node->data, dll->ctx);
+    if (dll->freer.func && node->data) dll->freer.func(node->data, dll->freer.ctx);
     dll_free_node(node);
 }
 
@@ -50,7 +50,7 @@ dll_node_t *dll_search_bounded(const dll_t *dll, const dll_node_t *head, size_t 
 
     dll_node_t *curr = (dll_node_t *)head;
     for (size_t i = 0; i < size; i++) {
-        if (dll->cmp(curr->data, data, dll->ctx) == 0) return curr;
+        if (dll->comparator.func(curr->data, data, dll->comparator.ctx) == 0) return curr;
         curr = curr->next;
     }
 
@@ -86,8 +86,10 @@ ccol_status_t dll_uninit(dll_t *dll) {
     dll->head = dll->tail = NULL;
     dll->size = 0;
 
-    dll->copy_func = dll->free_func = dll->print_func = NULL;
-    dll->cmp = dll->ctx = NULL;
+    dll->copier = (copy_t){0};
+    dll->freer = (free_t){0};
+    dll->printer = (print_t){0};
+    dll->comparator = (comparator_t){0};
 
     dll->is_initialized = false;
 
@@ -98,15 +100,19 @@ ccol_status_t dll_clone_into(const dll_t *src, dll_t *dest) {
     CCOL_CHECK_INIT(src);
     if (!dest || src == dest) return CCOL_STATUS_INVALID_ARG;
 
-    if (dest->is_initialized) dll_clear(dest, dest->free_func, dest->ctx);
+    ccol_status_t status;
+    if (dest->is_initialized) {
+         status = dll_clear(dest);
+         if (status != CCOL_STATUS_OK) return status;
+    }
 
-    ccol_status_t status = dll_init(dest, src->copy_func, src->free_func, src->print_func, src->cmp, src->ctx);
+    status = dll_init(dest, src->copier, src->freer, src->printer, src->comparator);
     if (status != CCOL_STATUS_OK) return status;
 
     dll_node_t *curr = src->head;
     for (size_t i = 0; i < src->size; i++) {
         // Shallow clone if no copy_func is provided
-        void *data_copy = src->copy_func ? src->copy_func(curr->data, src->ctx) : curr->data;
+        void *data_copy = src->copier.func ? src->copier.func(curr->data, src->copier.ctx) : curr->data;
         status = dll_push_back(dest, data_copy);
         if (status != CCOL_STATUS_OK) {
             ccol_status_t rollback_status = dll_clone_rollback(dest);
@@ -124,5 +130,5 @@ ccol_status_t dll_deep_clone_into(const dll_t *src, dll_t *dest) {
 
 ccol_status_t dll_clone_rollback(dll_t *dest) {
     CCOL_CHECK_INIT(dest);
-    return dll_clear(dest, dest->free_func, dest->ctx);
+    return dll_clear(dest);
 }
