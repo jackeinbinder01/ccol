@@ -7,25 +7,24 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
-#include <stddef.h>
-#include "ccol_status.h"
-
 #ifndef SWAP_H
 #define SWAP_H
 
-ccol_status_t swap_int(int *x, int *y);
-ccol_status_t swap_uint(unsigned int *x, unsigned int *y);
-ccol_status_t swap_long(long *x, long *y);
-ccol_status_t swap_long_long(long long *x, long long *y);
-ccol_status_t swap_ulong(unsigned long *x, unsigned long *y);
-ccol_status_t swap_ulong_long(unsigned long long *x, unsigned long long *y);
-ccol_status_t swap_short(short int *x, short int *y);
-ccol_status_t swap_ushort(unsigned short int *x, unsigned short int *y);
-ccol_status_t swap_float(float *x, float *y);
-ccol_status_t swap_double(double *x, double *y);
-ccol_status_t swap_long_double(long double *x, long double *y);
-ccol_status_t swap_char(char *x, char *y);
-ccol_status_t swap_uchar(unsigned char *x, unsigned char *y);
+#include <stdint.h>
+#include <stddef.h>
+
+#include "ccol_status.h"
+
+ccol_status_t swap_int8(int8_t *x, int8_t *y);
+ccol_status_t swap_int16(int16_t *x, int16_t *y);
+ccol_status_t swap_int32(int32_t *x, int32_t *y);
+ccol_status_t swap_int64(int64_t *x, int64_t *y);
+
+ccol_status_t swap_uint8(uint8_t *x, uint8_t *y);
+ccol_status_t swap_uint16(uint16_t *x, uint16_t *y);
+ccol_status_t swap_uint32(uint32_t *x, uint32_t *y);
+ccol_status_t swap_uint64(uint64_t *x, uint64_t *y);
+
 ccol_status_t swap_string(char **s1, char **s2);
 ccol_status_t swap(void *x, void *y, size_t size);
 
