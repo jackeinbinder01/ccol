@@ -11,6 +11,8 @@
 #define HASH_H
 
 #include <stddef.h>
+#include <stdint.h>
+
 
 typedef enum {
     HASH_SIMPLE = 1,
@@ -19,17 +21,32 @@ typedef enum {
     HASH_CUSTOM = 4,
 } hash_policy_t;
 
-typedef unsigned int (*hash_func_t)(const void *key);
+typedef uint32_t (*hash_func_t)(const void *key, void *ctx);
+    
+typedef struct {
+     hash_policy_t policy;
+} hash_policy_ctx_t;
 
-unsigned int hash_int8(const void *key, hash_policy_t policy);
-unsigned int hash_int16(const void *key, hash_policy_t policy);
-unsigned int hash_int32(const void *key, hash_policy_t policy);
-unsigned int hash_int64(const void *key, hash_policy_t policy);
-unsigned int hash_uint8(const void *key, hash_policy_t policy);
-unsigned int hash_uint16(const void *key, hash_policy_t policy);
-unsigned int hash_uint32(const void *key, hash_policy_t policy);
-unsigned int hash_uint64(const void *key, hash_policy_t policy);
-unsigned int hash_str(const void *key, hash_policy_t policy);
-unsigned int hash_ptr(const void *key, hash_policy_t policy);
+typedef struct {
+    hash_func_t func;
+    void *ctx;
+} hash_t;
+
+static inline hash_t hash_create(hash_func_t func, void *ctx) {
+    return (hash_t){ .func = func, .ctx = ctx };
+}
+
+uint32_t hash_int8(const void *key, void *ctx);
+uint32_t hash_int16(const void *key, void *ctx);
+uint32_t hash_int32(const void *key, void *ctx);
+uint32_t hash_int64(const void *key, void *ctx);
+
+uint32_t hash_uint8(const void *key, void *ctx);
+uint32_t hash_uint16(const void *key, void *ctx);
+uint32_t hash_uint32(const void *key, void *ctx);
+uint32_t hash_uint64(const void *key, void *ctx);
+
+uint32_t hash_str(const void *key, void *ctx);
+uint32_t hash_ptr(const void *key, void *ctx);
 
 #endif // HASH_H

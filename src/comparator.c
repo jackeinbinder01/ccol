@@ -128,8 +128,8 @@ int cmp_ptr(const void *a, const void *b, void *ctx) {
 
 int cmp_hash_entry_key(const void *entry_ptr, const void *key_ptr, void *ctx) {
 	const hash_entry_t *entry = (const hash_entry_t *)entry_ptr;
-    comparator_t cmp_key = (comparator_t)ctx;
+    const comparator_t *cmp_key = (const comparator_t *)ctx;
 
-    return cmp_key(entry->key, key_ptr, ctx);
+    return cmp_key->func(entry->key, key_ptr, cmp_key->ctx);
 }
 

@@ -12,19 +12,24 @@
 
 #include "ccol_constants.h"
 
-void *copy_int(const void *data, void *ctx);
-void *copy_uint(const void *data, void *ctx);
-void *copy_long(const void *data, void *ctx);
-void *copy_long_long(const void *data, void *ctx);
-void *copy_ulong(const void *data, void *ctx);
-void *copy_ulong_long(const void *data, void *ctx);
-void *copy_short(const void *data, void *ctx);
-void *copy_ushort(const void *data, void *ctx);
-void *copy_float(const void *data, void *ctx);
-void *copy_double(const void *data, void *ctx);
-void *copy_long_double(const void *data, void *ctx);
-void *copy_char(const void *data, void *ctx);
-void *copy_uchar(const void *data, void *ctx);
+typedef struct {
+    copy_func_t func;
+    void *ctx;
+} copy_t;
+
+static inline copy_t copy_create(copy_func_t func, void *ctx) {
+    return (copy_t){ .func = func, .ctx = ctx };
+}
+
+void *copy_int8(const void *data, void *ctx);
+void *copy_int16(const void *data, void *ctx);
+void *copy_int32(const void *data, void *ctx);
+void *copy_int64(const void *data, void *ctx);
+
+void *copy_uint8(const void *data, void *ctx);
+void *copy_uint16(const void *data, void *ctx);
+void *copy_uint32(const void *data, void *ctx);
+void *copy_uint64(const void *data, void *ctx);
 
 void *copy_str(const void *data, void *ctx); // Deep copy of null-terminated string
 void *copy_identity(const void *data, void *ctx); // Shallow copy (returns passed object)

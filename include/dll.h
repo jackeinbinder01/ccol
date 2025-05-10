@@ -16,6 +16,7 @@
 #include "ccol_status.h"
 #include "ccol_constants.h"
 #include "iterator.h"
+#include "comparator.h"
 
 typedef struct dll_node_t {
     void *data;
@@ -32,7 +33,6 @@ typedef struct dll_t {
     free_func_t free_func;
     print_func_t print_func;
     comparator_t cmp;
-    void *ctx;
 
     bool is_initialized;
 } dll_t;
@@ -43,8 +43,7 @@ ccol_status_t dll_init(
     copy_func_t copy_func,
     free_func_t free_func,
     print_func_t print_func,
-    comparator_t cmp,
-    void *ctx
+    comparator_t cmp
 );
 
 ccol_status_t dll_create(
@@ -52,8 +51,7 @@ ccol_status_t dll_create(
     copy_func_t copy_func,
     free_func_t free_func,
     print_func_t print_func,
-    comparator_t cmp,
-    void *ctx
+    comparator_t cmp
 );
 
 // Insertion

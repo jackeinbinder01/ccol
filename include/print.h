@@ -12,19 +12,26 @@
 
 #include "ccol_constants.h"
 
-void print_int(const void *x);
-void print_uint(const void *x);
-void print_long(const void *x);
-void print_long_long(const void *x);
-void print_ulong(const void *x);
-void print_ulong_long(const void *x);
-void print_short(const void *x);
-void print_ushort(const void *x);
-void print_float(const void *x);
-void print_double(const void *x);
-void print_long_double(const void *x);
-void print_char(const void *x);
-void print_uchar(const void *x);
-void print_string(const void *x);
+typedef struct {
+    print_func_t func;
+    void *ctx;
+} print_t;
+
+
+void print_int8(const void *x, void *ctx);
+void print_int16(const void *x, void *ctx);
+void print_int32(const void *x, void *ctx);
+void print_int64(const void *x, void *ctx);
+
+void print_uint8(const void *x, void *ctx);
+void print_uint16(const void *x, void *ctx);
+void print_uint32(const void *x, void *ctx);
+void print_uint64(const void *x, void *ctx);
+
+void print_float(const void *x, void *ctx);
+void print_double(const void *x, void *ctx);
+void print_long_double(const void *x, void *ctx);
+
+void print_string(const void *x, void *ctx);
 
 #endif //PRINT_H

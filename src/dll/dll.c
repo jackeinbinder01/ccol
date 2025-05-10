@@ -24,8 +24,7 @@ ccol_status_t dll_init(
     copy_func_t copy_func,
     free_func_t free_func,
     print_func_t print_func,
-    comparator_t cmp,
-    void *ctx
+    comparator_t cmp
 ) {
     if (!dll) return CCOL_STATUS_INVALID_ARG;
 
@@ -37,7 +36,6 @@ ccol_status_t dll_init(
     dll->print_func = print_func;
 
     dll->cmp = cmp;
-    dll->ctx = ctx;
 
     dll->is_initialized = true;
 
@@ -49,15 +47,14 @@ ccol_status_t dll_create(
     copy_func_t copy_func,
     free_func_t free_func,
     print_func_t print_func,
-    comparator_t cmp,
-    void *ctx
+    comparator_t cmp
 ) {
     if (!dll_out) return CCOL_STATUS_INVALID_ARG;
 
     dll_t *dll = calloc(1, sizeof(dll_t));
     if (!dll) return CCOL_STATUS_ALLOC;
 
-    ccol_status_t status = dll_init(dll, copy_func, free_func, print_func, cmp, ctx);
+    ccol_status_t status = dll_init(dll, copy_func, free_func, print_func, cmp);
     if (status != CCOL_STATUS_OK) {
         free(dll);
         return status;
