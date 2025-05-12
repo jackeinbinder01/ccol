@@ -17,6 +17,9 @@ typedef struct {
     void *ctx;
 } print_t;
 
+static inline print_t print_create(print_func_t func, void *ctx) {
+    return (print_t){ .func = func, .ctx = ctx };
+}
 
 void print_int8(const void *x, void *ctx);
 void print_int16(const void *x, void *ctx);

@@ -25,24 +25,20 @@
 // Create / Initialize
 ccol_status_t hash_table_init(
     hash_table_t *hash_table,
-    hash_policy_t policy,
-    hash_func_t hash_func,
-    copy_func_t copy_func,
-    free_func_t free_func,
-    print_func_t print_func,
-    comparator_t cmp,
-    void *ctx
+    hash_t hasher,
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator
 ) {
     if (!hash_table) return CCOL_STATUS_INVALID_ARG;
 
-    hash_table->policy = policy;
-    hash_table->hash_func = hash_func;
-    hash_table->copy_func = copy_func;
-    hash_table->free_func = free_func;
-    hash_table->print_func = print_func;
+    hash_table->hasher = hasher;
 
-    hash_table->cmp = cmp;
-    hash_table->ctx = ctx;
+    hash_table->copier = copier;
+    hash_table->freer = freer;
+    hash_table->printer = printer;
+    hash_table->comparator = comparator;
 
     hash_table->is_initialized = true;
 
@@ -52,15 +48,14 @@ ccol_status_t hash_table_init(
 ccol_status_t hash_table_create(
     size_t num_buckets,
     size_t key_size,
-    hash_policy_t policy,
-    copy_func_t copy_func,
-    free_func_t free_func,
-    print_func_t print_func,
-    comparator_t cmp,
-    void *ctx,
+    hash_t hasher,
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator,
     hash_table_t **hash_table_out
 ) {
-    if (!cmp || !hash_table_out || num_buckets < 1 || key_size < 1 || policy < HASH_SIMPLE || policy > HASH_SECURE) {
+    if (!comparator || !hash_table_out || num_buckets < 1 || key_size < 1 || policy < HASH_SIMPLE || policy > HASH_SECURE) {
     	return CCOL_STATUS_INVALID_ARG;
 	}
 

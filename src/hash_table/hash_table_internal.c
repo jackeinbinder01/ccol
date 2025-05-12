@@ -24,59 +24,66 @@
 
 void auto_resize(hash_table_t *hash_table);
 
-hash_func_t resolve_hash_func(size_t key_size, hash_policy_t policy) {
+ccol_status_t resolve_hash_func(size_t key_size, hash_policy_t policy, hash_func_t *hash_func_out) {
+    if (policy == HASH_CUSTOM) return CCOL_STATUS_OK;
+    if (policy < HASH_SIMPLE || policy > HASH_SECURE) return CCOL_STATUS_HASH_POLICY;
+
     if (key_size == HASH_KEY_STRING) {
         switch(policy) {
-                case HASH_SIMPLE: return hash_simple_str;
-                case HASH_ROBUST: return hash_robust_str;
-                case HASH_SECURE: return hash_secure_str;
-                default:
-                    fprintf(stderr, "resolve_hash_func: invalid hash policy: %d\n", policy);
-                    return NULL;
-            }
+            case HASH_SIMPLE: *hash_func_out = hash_simple_str; return CCOL_STATUS_OK;
+            case HASH_ROBUST: *hash_func_out = hash_robust_str; return CCOL_STATUS_OK;
+            case HASH_SECURE: *hash_func_out = hash_secure_str; return CCOL_STATUS_OK;
+            default: return CCOL_STATUS_HASH_POLICY;
+        }
     }
 
-    switch(key_size) {
-        case sizeof(int8_t):
-            switch(policy) {
-                case HASH_SIMPLE: return hash_simple_int8;
-                case HASH_ROBUST: return hash_robust_int8;
-                case HASH_SECURE: return hash_secure_int8;
-                default:
-                    fprintf(stderr, "resolve_hash_func: invalid hash policy: %d\n", policy);
-                    return NULL;
-            }
-        case sizeof(int16_t):
-            switch(policy) {
-                case HASH_SIMPLE: return hash_simple_int16;
-                case HASH_ROBUST: return hash_robust_int16;
-                case HASH_SECURE: return hash_secure_int16;
-                default:
-                    fprintf(stderr, "resolve_hash_func: invalid hash policy: %d\n", policy);
-                    return NULL;
-            }
-        case sizeof(int32_t):
-            switch(policy) {
-                case HASH_SIMPLE: return hash_simple_int32;
-                case HASH_ROBUST: return hash_robust_int32;
-                case HASH_SECURE: return hash_secure_int32;
-                default:
-                    fprintf(stderr, "resolve_hash_func: invalid hash policy: %d\n", policy);
-                    return NULL;
-            }
-        case sizeof(int64_t):
-            switch(policy) {
-                case HASH_SIMPLE: return hash_simple_int64;
-                case HASH_ROBUST: return hash_robust_int64;
-                case HASH_SECURE: return hash_secure_int64;
-                default:
-                    fprintf(stderr, "resolve_hash_func: invalid hash policy: %d\n", policy);
-                    return NULL;
-            }
-        default:
-            fprintf(stderr, "resolve_hash_func: unsupported key size: %zu\n", key_size);
-        return NULL;
+    if (key_size == sizeof(int8_t) || key_size == sizeof(uint8_t)) {
+        switch(policy) {
+            case HASH_SIMPLE: *hash_func_out = hash_simple_uint8; return CCOL_STATUS_OK;
+            case HASH_ROBUST: *hash_func_out = hash_robust_uint8; return CCOL_STATUS_OK;
+            case HASH_SECURE: *hash_func_out = hash_secure_uint8; return CCOL_STATUS_OK;
+            default: return CCOL_STATUS_HASH_POLICY;
+        }
     }
+
+    if (key_size == sizeof(int16_t) || key_size == sizeof(uint16_t)) {
+        switch(policy) {
+            case HASH_SIMPLE: *hash_func_out = hash_simple_uint16; return CCOL_STATUS_OK;
+            case HASH_ROBUST: *hash_func_out = hash_robust_uint16; return CCOL_STATUS_OK;
+            case HASH_SECURE: *hash_func_out = hash_secure_uint16; return CCOL_STATUS_OK;
+            default: return CCOL_STATUS_HASH_POLICY;
+        }
+    }
+
+    if (key_size == sizeof(int32_t) || key_size == sizeof(uint32_t)) {
+        switch(policy) {
+            case HASH_SIMPLE: *hash_func_out = hash_simple_uint32; return CCOL_STATUS_OK;
+            case HASH_ROBUST: *hash_func_out = hash_robust_uint32; return CCOL_STATUS_OK;
+            case HASH_SECURE: *hash_func_out = hash_secure_uint32; return CCOL_STATUS_OK;
+            default: return CCOL_STATUS_HASH_POLICY;
+        }
+    }
+
+    if (key_size == sizeof(int64_t) || key_size == sizeof(uint64_t)) {
+        switch(policy) {
+            case HASH_SIMPLE: *hash_func_out = hash_simple_uint64; return CCOL_STATUS_OK;
+            case HASH_ROBUST: *hash_func_out = hash_robust_uint64; return CCOL_STATUS_OK;
+            case HASH_SECURE: *hash_func_out = hash_secure_uint64; return CCOL_STATUS_OK;
+            default: return CCOL_STATUS_HASH_POLICY;
+        }
+    }
+
+    if (key_size == sizeof(void *)) {
+        switch(policy) {
+            case HASH_SIMPLE: *hash_func_out = hash_simple_ptr; return CCOL_STATUS_OK;
+            case HASH_ROBUST: *hash_func_out = hash_robust_ptr; return CCOL_STATUS_OK;
+            case HASH_SECURE: *hash_func_out = hash_secure_ptr; return CCOL_STATUS_OK;
+            default: return CCOL_STATUS_HASH_POLICY;
+        }
+    }
+
+    *hash_func_out = NULL;
+    return CCOL_STATUS_KEY_SIZE;
 }
 
 ccol_status_t hash_table_create_internal(
@@ -84,19 +91,30 @@ ccol_status_t hash_table_create_internal(
     size_t key_size,
     hash_policy_t policy,
     hash_func_t hash_func,
-    copy_func_t copy_func,
-    free_func_t free_func,
-    print_func_t print_func,
-    comparator_t cmp,
-    void *ctx,
+    void *hash_ctx,
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator,
     hash_table_t **hash_table_out
 ) {
-    if (!hash_func || !cmp || !hash_table_out || num_buckets < 1 || key_size < 1) return CCOL_STATUS_INVALID_ARG;
+    if (!hash_func || !hash_table_out || num_buckets < 1 || key_size < 1) return CCOL_STATUS_INVALID_ARG;
+    if (!comparator.func) return CCOL_STATUS_COMPARATOR_FUNC;
 
     hash_table_t *hash_table = calloc(1, sizeof(hash_table_t));
     if (!hash_table) return CCOL_STATUS_ALLOC;
 
-    ccol_status_t status = hash_table_init(hash_table, policy, hash_func, copy_func, free_func, print_func, cmp, ctx);
+    hash_t hasher = hash_create(hash_func, hash_ctx, policy);
+
+    ccol_status_t status = hash_table_init(
+        hash_table,
+        policy,
+        hasher,
+        copier,
+        freer,
+        printer,
+        comparator
+    );
     if (status != CCOL_STATUS_OK) {
         free(hash_table);
         return status;
@@ -126,12 +144,11 @@ void hash_table_uninit(hash_table_t *hash_table) {
     hash_table->key_size = 0;
     hash_table->policy = 0;
 
-    hash_table->hash_func = NULL;
-    hash_table->copy_func = NULL;
-    hash_table->free_func = NULL;
-    hash_table->print_func = NULL;
-    hash_table->cmp = NULL;
-    hash_table->ctx = NULL;
+    hash_table->hasher = (hash_t){0};
+    hash_table->copier = (copy_t){0};
+    hash_table->freer = (free_t){0};
+    hash_table->printer = (print_t){0};
+    hash_table->comparator = (comparator_t){0};
 
     hash_table->is_initialized = false;
 }

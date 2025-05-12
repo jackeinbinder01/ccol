@@ -469,7 +469,7 @@ ccol_status_t cdll_reverse(cdll_t *cdll) {
 ccol_status_t cdll_clone(const cdll_t *src, cdll_t **cdll_out) {
     CCOL_CHECK_INIT(src);
     if (!cdll_out) return CCOL_STATUS_INVALID_ARG;
-    if (!src->copier.func) return CCOL_STATUS_COPIER_FUNC;
+    if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
 
     *cdll_out = NULL;
 
@@ -501,7 +501,7 @@ ccol_status_t cdll_deep_clone(const cdll_t *src, cdll_t **cdll_out) {
 ccol_status_t cdll_copy(cdll_t *dest, const cdll_t *src) {
     CCOL_CHECK_INIT(src);
     CCOL_CHECK_INIT(dest);
-    if (!src->copier.func) return CCOL_STATUS_COPIER_FUNC;
+    if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
 
     ccol_status_t status = cdll_clear(dest);
     if (status != CCOL_STATUS_OK) return status;
@@ -564,7 +564,7 @@ ccol_status_t cdll_free(cdll_t **cdll_ptr) {
 // Print / Debug
 ccol_status_t cdll_print(const cdll_t *cdll) {
 	CCOL_CHECK_INIT(cdll);
-    if (!cdll->printer.func) return CCOL_STATUS_PRINTER_FUNC;
+    if (!cdll->printer.func) return CCOL_STATUS_PRINT_FUNC;
     if (cdll->size == 0) {
     	printf("[]\n");
         return CCOL_STATUS_EMPTY;

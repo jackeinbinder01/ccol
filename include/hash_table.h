@@ -25,12 +25,14 @@ typedef struct hash_table_t {
     size_t size;
     size_t key_size;
 
+
+    hash_policy_t policy;
 	hash_t hasher;
 
-    copy_t copier,
-    free_t freer,
-    print_t printer,
-    comparator_t comparator
+    copy_t copier;
+    free_t freer;
+    print_t printer;
+    comparator_t comparator;
 
     bool is_initialized;
 } hash_table_t;
@@ -38,7 +40,8 @@ typedef struct hash_table_t {
 // Create / Initialize
 ccol_status_t hash_table_init(
     hash_table_t *hash_table,
-    hash_t hasher;
+    hash_policy_t policy,
+    hash_t hasher,
     copy_t copier,
     free_t freer,
     print_t printer,
@@ -48,22 +51,24 @@ ccol_status_t hash_table_init(
 ccol_status_t hash_table_create(
     size_t num_buckets,
     size_t key_size,
-    hash_t hasher;
+    hash_policy_t policy,
+    hash_t hasher,
     copy_t copier,
     free_t freer,
     print_t printer,
-    comparator_t comparator
+    comparator_t comparator,
     hash_table_t **hash_table_out
 );
 
 ccol_status_t hash_table_create_custom(
     size_t num_buckets,
     size_t key_size,
-    hash_t hasher;
+    hash_policy_t policy,
+    hash_t hasher,
     copy_t copier,
     free_t freer,
     print_t printer,
-    comparator_t comparator
+    comparator_t comparator,
     hash_table_t **hash_table_out
 );
 
