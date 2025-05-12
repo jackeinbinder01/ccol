@@ -25,7 +25,6 @@
 // Create / Initialize
 ccol_status_t hash_table_init(
     hash_table_t *hash_table,
-    hash_policy_t policy,
     hash_t hasher,
     copy_t copier,
     free_t freer,

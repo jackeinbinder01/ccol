@@ -45,7 +45,6 @@ ccol_status_t hash_table_create_internal(
 
     ccol_status_t status = hash_table_init(
         hash_table,
-        policy,
         hasher,
         copier,
         freer,

@@ -20,11 +20,10 @@ void vector_uninit(vector_t *vec) {
     vec->data = NULL;
     vec->size = vec->capacity = vec->element_size = 0;
 
-    vec->copy_func = NULL;
-    vec->free_func = NULL;
-    vec->print_func = NULL;
-    vec->cmp = NULL;
-    vec->ctx = NULL;
+    vec->copier = (copy_t){0};
+    vec->freer = (free_t){0};
+    vec->printer = (print_t){0};
+    vec->comparator = (comparator_t){0};
 
     vec->is_initialized = false;
 }
