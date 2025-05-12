@@ -142,7 +142,6 @@ void hash_table_uninit(hash_table_t *hash_table) {
     hash_table->num_buckets = 0;
     hash_table->size = 0;
     hash_table->key_size = 0;
-    hash_table->policy = 0;
 
     hash_table->hasher = (hash_t){0};
     hash_table->copier = (copy_t){0};
