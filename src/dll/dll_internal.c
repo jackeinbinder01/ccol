@@ -46,7 +46,7 @@ void dll_dispose_node(dll_t *dll, dll_node_t *node) {
 }
 
 dll_node_t *dll_search_bounded(const dll_t *dll, const dll_node_t *head, size_t size, const void *data) {
-    if (!head || size == 0 || !data) return NULL;
+    if (!dll || !head || size == 0 || !data || !dll->comparator.func) return NULL;
 
     dll_node_t *curr = (dll_node_t *)head;
     for (size_t i = 0; i < size; i++) {

@@ -209,7 +209,7 @@ ccol_status_t dll_remove_node(dll_t *dll, dll_node_t* node) {
     if (!node->next) dll->tail = node->prev;
     else node->next->prev = node->prev;
 
-    dll_dispose_node(node, dll->freer);
+    dll_dispose_node(dll, node);
     dll->size--;
     return CCOL_STATUS_OK;
 }
@@ -324,7 +324,7 @@ bool dll_contains_node(const dll_t *dll, const dll_node_t *node) {
 ccol_status_t dll_safe_index_of(const dll_t *dll, void *data, size_t *out_index) {
     CCOL_CHECK_INIT(dll);
     if (!out_index) return CCOL_STATUS_INVALID_ARG;
-    if (!dll->comparator.func) return CCOL_STATUS_CMP;
+    if (!dll->comparator.func) return CCOL_STATUS_COMPARATOR_FUNC;
 
     dll_node_t *curr = dll->head;
     for (size_t i = 0; i < dll->size; i++) {
@@ -454,7 +454,7 @@ ccol_status_t dll_reverse(dll_t *dll) {
 ccol_status_t dll_clone(const dll_t *src, dll_t **dll_out) {
     CCOL_CHECK_INIT(src);
     if (!dll_out) return CCOL_STATUS_INVALID_ARG;
-    if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
+    if (!src->copier.func) return CCOL_STATUS_COPIER_FUNC;
 
     *dll_out = NULL;
 
@@ -486,7 +486,7 @@ ccol_status_t dll_deep_clone(const dll_t *src, dll_t **dll_out) {
 ccol_status_t dll_copy(dll_t *dest, const dll_t *src) {
     CCOL_CHECK_INIT(dest);
     CCOL_CHECK_INIT(src);
-    if (!src->copier.func) return CCOL_STATUS_INVALID_ARG;
+    if (!src->copier.func) return CCOL_STATUS_COPIER_FUNC;
 
     ccol_status_t status = dll_clear(dest);
     if (status != CCOL_STATUS_OK) return status;
@@ -548,7 +548,7 @@ ccol_status_t dll_free(dll_t **dll_ptr) {
 // Print / Debug
 ccol_status_t dll_print(const dll_t *dll) {
 	CCOL_CHECK_INIT(dll);
-    if (!dll->printer.func) return CCOL_STATUS_PRINT_FUNC;
+    if (!dll->printer.func) return CCOL_STATUS_PRINTER_FUNC;
     if (dll->size == 0) {
     	printf("[]\n");
         return CCOL_STATUS_EMPTY;

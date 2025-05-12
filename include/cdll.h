@@ -23,17 +23,17 @@ typedef struct cdll_t {
     dll_node_t *tail;
     size_t size;
 
-    copy_t copier,
-    free_t freer,
-    print_t printer,
-    comparator_t comparator
+    copy_t copier;
+    free_t freer;
+    print_t printer;
+    comparator_t comparator;
 
     bool is_initialized;
 } cdll_t;
 
 // Create / Initialize
 ccol_status_t cdll_init(
-    dll_t *cdll,
+    cdll_t *cdll,
     copy_t copier,
     free_t freer,
     print_t printer,
@@ -41,7 +41,7 @@ ccol_status_t cdll_init(
 );
 
 ccol_status_t cdll_create(
-    dll_t **cdll_out,
+    cdll_t **cdll_out,
     copy_t copier,
     free_t freer,
     print_t printer,

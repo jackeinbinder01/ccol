@@ -18,6 +18,7 @@ ccol_status_t cdll_uninit(cdll_t *cdll);
 ccol_status_t cdll_clone_into(const cdll_t *src, cdll_t *dest);
 ccol_status_t cdll_deep_clone_into(const cdll_t *src, cdll_t *dest);
 ccol_status_t cdll_clone_rollback(cdll_t *dest);
-void cdll_dispose_node(dll_t *cdll, dll_node_t *node);
+void cdll_dispose_node(cdll_t *cdll, dll_node_t *node);
+dll_node_t *cdll_search_bounded(const cdll_t *cdll, const dll_node_t *head, size_t size, const void *data);
 
 #endif // CDLL_INTERNAL_H
