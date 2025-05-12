@@ -19,10 +19,12 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="hash_table refactored">
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="hash table refactored">
+      <change afterPath="$PROJECT_DIR$/src/hash_table/hash.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/hash.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -151,7 +153,7 @@
       <workItem from="1746808541510" duration="1197000" />
       <workItem from="1746845310964" duration="307000" />
       <workItem from="1746847260537" duration="1331000" />
-      <workItem from="1747076797627" duration="3248000" />
+      <workItem from="1747076797627" duration="4361000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -497,7 +499,23 @@
       <option name="project" value="LOCAL" />
       <updated>1747076784112</updated>
     </task>
-    <option name="localTasksCounter" value="44" />
+    <task id="LOCAL-00044" summary="hash table refactored">
+      <option name="closed" value="true" />
+      <created>1747080232633</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1747080232633</updated>
+    </task>
+    <task id="LOCAL-00045" summary="hash table refactored">
+      <option name="closed" value="true" />
+      <created>1747080280714</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1747080280714</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -527,7 +545,8 @@
     <MESSAGE value="refactor" />
     <MESSAGE value="cdll refactored" />
     <MESSAGE value="hash_table refactored" />
-    <option name="LAST_COMMIT_MESSAGE" value="hash_table refactored" />
+    <MESSAGE value="hash table refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="hash table refactored" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -13,6 +13,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "ccol_status.h"
+
 typedef enum {
     HASH_SIMPLE = 1,
     HASH_ROBUST = 2,
@@ -31,6 +33,9 @@ typedef struct {
 static inline hash_t hash_create(hash_func_t func, void *ctx, hash_policy_t policy) {
     return (hash_t){ .func = func, .ctx = ctx };
 }
+
+ccol_status_t resolve_hash_func(size_t key_size, hash_policy_t policy, hash_func_t *hash_func_out);
+ccol_status_t hash_create_from_policy(size_t key_size, hash_policy_t policy, void *ctx, hash_t *hasher_out);
 
 uint32_t hash_int8(const void *key, void *ctx);
 uint32_t hash_int16(const void *key, void *ctx);

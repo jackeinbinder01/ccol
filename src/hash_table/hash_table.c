@@ -59,16 +59,7 @@ ccol_status_t hash_table_create(
 ) {
     if (!hash_table_out || num_buckets < 1 || key_size < 1) return CCOL_STATUS_INVALID_ARG;
 	if (!comparator.func) return CCOL_STATUS_COMPARATOR_FUNC;
-
-    if (policy == HASH_CUSTOM) {
-    	if (!hasher.func) return CCOL_STATUS_HASH_FUNC;
-    } else {
-    	hash_func_t resolved_func = NULL;
-    	ccol_status_t status = resolve_hash_func(key_size, policy, &resolved_func);
-    	if (status != CCOL_STATUS_OK) return status;
-    	hasher.func = resolved_func;
-    	hasher.policy = policy;
-    }
+    if (!hasher.func) return CCOL_STATUS_HASH_FUNC;
 
     return hash_table_create_internal(
     	num_buckets,
