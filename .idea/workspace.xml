@@ -19,14 +19,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="vector refactor">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/vector.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/vector.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vector/vector.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector/vector.c" afterDir="false" />
-    </list>
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="vector refactor" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -154,7 +147,7 @@
       <workItem from="1746808541510" duration="1197000" />
       <workItem from="1746845310964" duration="307000" />
       <workItem from="1746847260537" duration="1331000" />
-      <workItem from="1747076797627" duration="5496000" />
+      <workItem from="1747076797627" duration="5798000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -532,7 +525,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747081416862</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="vector refactor">
+      <option name="closed" value="true" />
+      <created>1747082593544</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1747082593544</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
