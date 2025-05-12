@@ -19,25 +19,10 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="cdll refactored">
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="hash_table refactored">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/ccol_status.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ccol_status.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash_robust.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_robust.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash_secure.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_secure.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash_simple.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_simple.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash_table_internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table_internal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/print.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/print.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cdll/cdll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_robust.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_robust.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_secure.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_secure.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_simple.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_simple.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/ccol_status.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/ccol_status.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -166,6 +151,7 @@
       <workItem from="1746808541510" duration="1197000" />
       <workItem from="1746845310964" duration="307000" />
       <workItem from="1746847260537" duration="1331000" />
+      <workItem from="1747076797627" duration="3248000" />
     </task>
     <task id="LOCAL-00001" summary="initial push">
       <option name="closed" value="true" />
@@ -503,7 +489,15 @@
       <option name="project" value="LOCAL" />
       <updated>1747069520072</updated>
     </task>
-    <option name="localTasksCounter" value="43" />
+    <task id="LOCAL-00043" summary="hash_table refactored">
+      <option name="closed" value="true" />
+      <created>1747076784112</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1747076784112</updated>
+    </task>
+    <option name="localTasksCounter" value="44" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -532,7 +526,8 @@
     <MESSAGE value="hash table WIP" />
     <MESSAGE value="refactor" />
     <MESSAGE value="cdll refactored" />
-    <option name="LAST_COMMIT_MESSAGE" value="cdll refactored" />
+    <MESSAGE value="hash_table refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="hash_table refactored" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
