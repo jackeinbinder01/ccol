@@ -20,24 +20,21 @@
 
 // Create / Initialize
 ccol_status_t cdll_init(
-    cdll_t *cdll,
-    copy_func_t copy_func,
-    free_func_t free_func,
-    print_func_t print_func,
-    comparator_t cmp,
-    void *ctx
+    dll_t *cdll,
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator
 ) {
     if (!cdll) return CCOL_STATUS_INVALID_ARG;
 
     cdll->head = cdll->tail = NULL;
     cdll->size = 0;
 
-    cdll->copy_func = copy_func;
-    cdll->free_func = free_func;
-    cdll->print_func = print_func;
-
-    cdll->cmp = cmp;
-    cdll->ctx = ctx;
+    cdll->copier = copier;
+    cdll->freer = freer;
+    cdll->printer = printer;
+    cdll->comparator = comparator;
 
     cdll->is_initialized = true;
 
@@ -45,19 +42,18 @@ ccol_status_t cdll_init(
 }
 
 ccol_status_t cdll_create(
-    cdll_t **cdll_out,
-    copy_func_t copy_func,
-    free_func_t free_func,
-    print_func_t print_func,
-    comparator_t cmp,
-    void *ctx
+    dll_t **cdll_out,
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator
 ) {
     if (!cdll_out) return CCOL_STATUS_INVALID_ARG;
 
     cdll_t *cdll = calloc(1, sizeof(cdll_t));
     if (!cdll) return CCOL_STATUS_ALLOC;
 
-    ccol_status_t status = cdll_init(cdll, copy_func, free_func, print_func, cmp, ctx);
+    ccol_status_t status = cdll_init(cdll, copier, freer, printer, comparator);
     if (status != CCOL_STATUS_OK) {
         free(cdll);
         return status;
@@ -306,7 +302,7 @@ ccol_status_t cdll_peek_back(const cdll_t *cdll, void **data_out) {
 }
 
 dll_node_t *cdll_search(const cdll_t *cdll, const void *data) {
-    if (!cdll || !cdll->is_initialized || !cdll->cmp || cdll->size == 0 || !data ) return NULL;
+    if (!cdll || !cdll->is_initialized || !cdll->comparator.func || cdll->size == 0 || !data) return NULL;
     return dll_search_bounded(*cdll, cdll->head, cdll->size, data);
 }
 
