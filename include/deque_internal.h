@@ -15,6 +15,6 @@
 #include "cdll.h"
 #include "deque.h"
 
-void deque_uninit(deque_t *deque);
+ccol_status_t deque_uninit(deque_t *deque);
 
 #endif // DEQUE_INTERNAL_H

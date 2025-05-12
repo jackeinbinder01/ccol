@@ -22,10 +22,16 @@
 #include "ccol_constants.h"
 
 // Create / Initialize
-ccol_status_t deque_init(deque_t *deque) {
+ccol_status_t deque_init(
+    deque_t *deque,
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator
+) {
     if (!deque) return CCOL_STATUS_INVALID_ARG;
 
-    ccol_status_t status = cdll_init(&deque->list);
+    ccol_status_t status = cdll_init(&deque->list, copier, freer, printer, comparator);
     if (status != CCOL_STATUS_OK) {
         return status;
     }
@@ -34,13 +40,19 @@ ccol_status_t deque_init(deque_t *deque) {
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t deque_create(deque_t **deque_out) {
+ccol_status_t deque_create(
+    deque_t **deque_out,
+    copy_t copier,
+    free_t freer,
+    print_t printer,
+    comparator_t comparator
+) {
     if (!deque_out) return CCOL_STATUS_INVALID_ARG;
 
     deque_t *deque = calloc(1, sizeof(deque_t));
     if (!deque) return CCOL_STATUS_ALLOC;
 
-    ccol_status_t status = deque_init(deque);
+    ccol_status_t status = deque_init(deque, copier, freer, printer, comparator);
     if (status != CCOL_STATUS_OK) {
         free(deque);
         return status;
@@ -100,14 +112,14 @@ ccol_status_t deque_pop_back(deque_t *deque, void **data_out) {
     return cdll_pop_back(&deque->list, data_out);
 }
 
-ccol_status_t deque_remove_node(deque_t *deque, dll_node_t* node, free_func_t free_data, void *ctx) {
+ccol_status_t deque_remove_node(deque_t *deque, dll_node_t* node) {
     CCOL_CHECK_INIT(deque);
-    return cdll_remove_node(&deque->list, node, free_data, ctx);
+    return cdll_remove_node(&deque->list, node);
 }
 
-ccol_status_t deque_remove(deque_t *deque, void *data, comparator_t cmp, free_func_t free_data, void *ctx) {
+ccol_status_t deque_remove(deque_t *deque, void *data) {
     CCOL_CHECK_INIT(deque);
-    return cdll_remove(&deque->list, data, cmp, free_data, ctx);
+    return cdll_remove(&deque->list, data);
 }
 
 // Access
@@ -140,9 +152,9 @@ ccol_status_t deque_peek_back(const deque_t *deque, void **data_out) {
     return cdll_peek_back(&deque->list, data_out);
 }
 
-dll_node_t *deque_search(const deque_t *deque, const void *data, comparator_t cmp, void *ctx) {
-    if (!deque || !deque->is_initialized || !data || !cmp) return NULL;
-    return cdll_search(&deque->list, data, cmp, ctx);
+dll_node_t *deque_search(const deque_t *deque, const void *data) {
+    if (!deque || !deque->is_initialized || !data || !deque->list.comparator.func) return NULL;
+    return cdll_search(&deque->list, data);
 }
 
 // Attributes
@@ -156,9 +168,9 @@ size_t deque_size(const deque_t *deque) {
     return cdll_size(&deque->list);
 }
 
-bool deque_contains(const deque_t *deque, const void *data, comparator_t cmp, void *ctx) {
-    if (!deque || !deque->is_initialized || !data || !cmp) return false;
-    return cdll_contains(&deque->list, data, cmp, ctx);
+bool deque_contains(const deque_t *deque, const void *data) {
+    if (!deque || !deque->is_initialized || !data || !deque->list.comparator.func) return false;
+    return cdll_contains(&deque->list, data);
 }
 
 bool deque_contains_node(const deque_t *deque, const dll_node_t *node) {
@@ -167,14 +179,14 @@ bool deque_contains_node(const deque_t *deque, const dll_node_t *node) {
 }
 
 // Indexing
-ccol_status_t deque_safe_index_of(const deque_t *deque, void *data, comparator_t cmp, void *ctx, size_t *out_index) {
+ccol_status_t deque_safe_index_of(const deque_t *deque, void *data, size_t *out_index) {
     CCOL_CHECK_INIT(deque);
-    return cdll_safe_index_of(&deque->list, data, cmp, ctx, out_index);
+    return cdll_safe_index_of(&deque->list, data, out_index);
 }
 
-size_t deque_index_of(const deque_t *deque, void *data, comparator_t cmp, void *ctx) {
-    if (!deque || !deque->is_initialized || !data || !cmp) return DEQUE_INDEX_NOT_FOUND;
-    return cdll_index_of(&deque->list, data, cmp, ctx);
+size_t deque_index_of(const deque_t *deque, void *data) {
+    if (!deque || !deque->is_initialized || !data || !deque->list.comparator.func) return DEQUE_INDEX_NOT_FOUND;
+    return cdll_index_of(&deque->list, data);
 }
 
 // Utilities
@@ -199,22 +211,23 @@ ccol_status_t deque_reverse(deque_t *deque) {
 }
 
 // Copy / Clone
-ccol_status_t deque_clone(const deque_t *src, deque_t **deque_out, copy_func_t copy_data, void *ctx) {
+ccol_status_t deque_clone(const deque_t *src, deque_t **deque_out) {
     CCOL_CHECK_INIT(src);
-    if (!deque_out || !copy_data) return CCOL_STATUS_INVALID_ARG;
+    if (!deque_out) return CCOL_STATUS_INVALID_ARG;
+    if (!src->list.copier.func) return CCOL_STATUS_COPY_FUNC;
 
     *deque_out = NULL;
 
     deque_t *clone = calloc(1, sizeof(deque_t));
     if (!clone) return CCOL_STATUS_ALLOC;
 
-    ccol_status_t status = deque_init(clone);
+    ccol_status_t status = deque_init(clone, src->copier, src->freer, src->printer, src->comparator);
     if (status != CCOL_STATUS_OK) {
         free(clone);
         return status;
     }
 
-    status = cdll_clone_into(&src->list, &clone->list, copy_data, ctx);
+    status = cdll_clone_into(&src->list, &clone->list);
     if (status != CCOL_STATUS_OK) {
         free(clone);
         *deque_out = NULL;
@@ -225,7 +238,7 @@ ccol_status_t deque_clone(const deque_t *src, deque_t **deque_out, copy_func_t c
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t deque_deep_clone(const deque_t *src, deque_t **deque_out, void *ctx) {
+ccol_status_t deque_deep_clone(const deque_t *src, deque_t **deque_out) {
     CCOL_CHECK_INIT(src);
     if (!deque_out) return CCOL_STATUS_INVALID_ARG;
 
@@ -234,13 +247,13 @@ ccol_status_t deque_deep_clone(const deque_t *src, deque_t **deque_out, void *ct
     deque_t *clone = calloc(1, sizeof(deque_t));
     if (!clone) return CCOL_STATUS_ALLOC;
 
-    ccol_status_t status = deque_init(clone);
+    ccol_status_t status = deque_init(clone, src->copier, src->freer, src->printer, src->comparator);
     if (status != CCOL_STATUS_OK) {
         free(clone);
         return status;
     }
 
-    status = cdll_deep_clone_into(&src->list, &clone->list, ctx);
+    status = cdll_deep_clone_into(&src->list, &clone->list);
     if (status != CCOL_STATUS_OK) {
         free(clone);
         return status;
@@ -250,42 +263,41 @@ ccol_status_t deque_deep_clone(const deque_t *src, deque_t **deque_out, void *ct
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t deque_copy(deque_t *dest, const deque_t *src, free_func_t free_data, copy_func_t copy_data, void *ctx) {
+ccol_status_t deque_copy(deque_t *dest, const deque_t *src) {
     CCOL_CHECK_INIT(src);
     CCOL_CHECK_INIT(dest);
-    if (!copy_data) return CCOL_STATUS_INVALID_ARG;
+    if (!src->list.copier.func) return CCOL_STATUS_COPY_FUNC;
 
-    cdll_clear(&dest->list, free_data, ctx);
+    cdll_clear(&dest->list);
 
-    return cdll_copy(&dest->list, &src->list, free_data, copy_data, ctx);
+    return cdll_copy(&dest->list, &src->list);
 }
 
-ccol_status_t deque_deep_copy(deque_t *dest, const deque_t *src, free_func_t free_data, void *ctx) {
-    return deque_copy(dest, src, free_data, COPY_DEFAULT, ctx);
+ccol_status_t deque_deep_copy(deque_t *dest, const deque_t *src) {
+    return deque_copy(dest, src);
 }
 
 // Cleanup
-ccol_status_t deque_clear(deque_t *deque, free_func_t free_data, void *ctx) {
+ccol_status_t deque_clear(deque_t *deque) {
     CCOL_CHECK_INIT(deque);
-    return cdll_clear(&deque->list, free_data, ctx);
+    return cdll_clear(&deque->list);
 }
 
-ccol_status_t deque_destroy(deque_t *deque, free_func_t free_data, void *ctx) {
+ccol_status_t deque_destroy(deque_t *deque) {
     CCOL_CHECK_INIT(deque);
 
-    ccol_status_t status = cdll_destroy(&deque->list, free_data, ctx);
+    ccol_status_t status = cdll_destroy(&deque->list);
     if (status != CCOL_STATUS_OK) return status;
-
 
     deque_uninit(deque);
 
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t deque_free(deque_t **deque_ptr, free_func_t free_data, void *ctx) {
+ccol_status_t deque_free(deque_t **deque_ptr) {
     if (!deque_ptr || !*deque_ptr || !(*deque_ptr)->is_initialized) return CCOL_STATUS_INVALID_ARG;
 
-    ccol_status_t status = deque_destroy(*deque_ptr, free_data, ctx);
+    ccol_status_t status = deque_destroy(*deque_ptr);
 
     free(*deque_ptr);
     *deque_ptr = NULL;
@@ -294,7 +306,7 @@ ccol_status_t deque_free(deque_t **deque_ptr, free_func_t free_data, void *ctx) 
 }
 
 // Print / Debug
-ccol_status_t deque_print(const deque_t *deque, print_func_t print_data, void *ctx) {
+ccol_status_t deque_print(const deque_t *deque) {
     CCOL_CHECK_INIT(deque);
-    return cdll_print(&deque->list, print_data, ctx);
+    return cdll_print(&deque->list);
 }
