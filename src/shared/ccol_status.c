@@ -28,6 +28,7 @@ const char *ccol_strstatus(ccol_status_t status) {
         case CCOL_STATUS_HASH_POLICY:     return "Invalid hash policy";
         case CCOL_STATUS_COPY_FUNC:       return "Copy function not provided";
         case CCOL_STATUS_COPY_CTX:        return "Copy context not provided";
+        case CCOL_STATUS_COPY:            return "Failed to copy data";
         case CCOL_STATUS_FREE_FUNC:       return "Free function not provided";
         case CCOL_STATUS_FREE_CTX:        return "Free context not provided";
         case CCOL_STATUS_PRINT_FUNC:      return "Print function not provided";

@@ -49,13 +49,13 @@ ccol_status_t vector_init(
 );
 
 ccol_status_t vector_create(
+    vector_t **vec_out,
     size_t capacity,
     size_t element_size,
     copy_t copier,
     free_t freer,
     print_t printer,
-    comparator_t comparator,
-    vector_t **vec_out
+    comparator_t comparator
 );
 
 // Insertion
@@ -63,8 +63,9 @@ ccol_status_t vector_append(vector_t *vec, void *data);
 ccol_status_t vector_insert(vector_t *vec, size_t index, void *data);
 ccol_status_t vector_insert_middle(vector_t *vec, size_t index, void *data);
 
-// Fill
-ccol_status_t vector_fill(vector_t *vec, void *value, size_t count);
+// Fill / Assign
+ccol_status_t vector_fill(vector_t *vec, size_t count, void *value);
+ccol_status_t vector_assign(vector_t *vec, size_t count, void *value);
 
 // Removal
 ccol_status_t vector_remove_value(vector_t *vec, void *value);
@@ -79,6 +80,7 @@ ccol_status_t vector_pop_back(vector_t *vec, void **data_out);
 ccol_status_t vector_get(const vector_t *vec, size_t index, void** data_out);
 ccol_status_t vector_get_index(const vector_t *vec, size_t *index_out);
 
+ccol_status_t vector_peek_at(const vector_t *vec, size_t index, void **data_out);
 ccol_status_t vector_peek_front(const vector_t *vec, void **data_out);
 ccol_status_t vector_peek_middle(const vector_t *vec, void **data_out);
 ccol_status_t vector_peek_back(const vector_t *vec, void **data_out);
@@ -102,7 +104,6 @@ ccol_status_t vector_reserve(vector_t *vec, size_t new_capacity);
 ccol_status_t vector_reserve_exact(vector_t *vec, size_t exact_capacity);
 ccol_status_t vector_shrink_to_fit(vector_t *vec);
 ccol_status_t vector_resize(vector_t *vec, size_t new_size, void *default_value);
-ccol_status_t vector_assign(vector_t *vec, size_t count, void *value);
 
 // Copy / Clone
 ccol_status_t vector_clone(const vector_t *src, vector_t **vec_out);

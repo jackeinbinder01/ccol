@@ -478,9 +478,16 @@ ccol_status_t cdll_clone(const cdll_t *src, cdll_t **cdll_out) {
 
     dll_node_t *curr = src->head;
     for (size_t i = 0; i < src->size; i++) {
-        void *data_copy = src->copier.func ? src->copier.func(curr->data, src->copier.ctx) : curr->data;
+        void *data_copy = src->copier.func(curr->data, src->copier.ctx);
+        if (!data_copy && curr->data != NULL) {
+            cdll_destroy(*cdll_out);
+            *cdll_out = NULL;
+            return CCOL_STATUS_COPY;
+        }
+
         status = cdll_push_back(*cdll_out, data_copy);
         if (status != CCOL_STATUS_OK) {
+            if (src->freer.func && data_copy) src->freer.func(data_copy, src->freer.ctx);
             cdll_destroy(*cdll_out);
             *cdll_out = NULL;
             return status;
@@ -509,10 +516,16 @@ ccol_status_t cdll_copy(cdll_t *dest, const cdll_t *src) {
     dll_node_t *curr = src->head;
     for (size_t i = 0; i < src->size; i++) {
         void *data_copy = src->copier.func(curr->data, src->copier.ctx);
+        if (!data_copy && curr->data != NULL) {
+            status = cdll_clear(dest);
+            return status != CCOL_STATUS_OK ? status: CCOL_STATUS_COPY;
+        }
+
         status = cdll_push_back(dest, data_copy);
         if (status != CCOL_STATUS_OK) {
+            if (src->freer.func && data_copy) src->freer.func(data_copy, src->freer.ctx);
         	ccol_status_t clear_status = cdll_clear(dest);
-           return clear_status != CCOL_STATUS_OK ? clear_status: status;
+            return clear_status != CCOL_STATUS_OK ? clear_status: status;
         }
         curr = curr->next;
     }

@@ -334,37 +334,19 @@ ccol_status_t hash_table_clone(const hash_table_t *src, hash_table_t **hash_tabl
         src->comparator,
         hash_table_out
     );
-
     if (status != CCOL_STATUS_OK) return status;
 
     if (!src->buckets) return CCOL_STATUS_OK;
 
     for (size_t i = 0; i < src->num_buckets; i++) {
-        dll_t *src_bucket = src->buckets[i];
-        if (!src_bucket) continue;
+        if (!src->buckets[i]) continue;
 
-        dll_t* dest_bucket = NULL;
-        status = dll_create(
-            &dest_bucket,
-            src->copier,
-            src->freer,
-            src->printer,
-            src->comparator
-        );
+        status = dll_clone(src->buckets[i], &((*hash_table_out)->buckets[i]));
         if (status != CCOL_STATUS_OK) {
-            hash_table_destroy(*hash_table_out);
-            return status;
-        }
-
-        status = dll_clone(src_bucket, &dest_bucket);
-        if (status != CCOL_STATUS_OK) {
-            dll_destroy(dest_bucket);
             hash_table_destroy(*hash_table_out);
             return status;
 
         }
-
-        (*hash_table_out)->buckets[i] = dest_bucket;
     }
 
     return CCOL_STATUS_OK;
@@ -380,6 +362,7 @@ ccol_status_t hash_table_deep_clone(const hash_table_t *src, hash_table_t **hash
 ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src) {
     CCOL_CHECK_INIT(dest);
     CCOL_CHECK_INIT(src);
+    if (dest == src) return CCOL_STATUS_OK;
     
     if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
 
@@ -410,9 +393,7 @@ ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src) {
             }
 
             dest->buckets[i] = dest_bucket;
-        }
-
-        else {
+        } else {
             status = dll_clear(dest->buckets[i]);
             if (status != CCOL_STATUS_OK) {
                 hash_table_destroy(dest);
@@ -425,7 +406,20 @@ ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src) {
                 return status;
             }
         }
+    }
 
+    // Clear remaining dest buckets
+    for (size_t i = src->num_buckets; i < dest->num_buckets; i++) {
+        if (dest->buckets[i]) {
+            dll_destroy(dest->buckets[i]);
+            dest->buckets[i] = NULL;
+        }
+    }
+
+    // Recalculate dest size
+    dest->size = 0;
+    for (size_t i = 0; i < dest->num_buckets; i++) {
+        if (dest->buckets[i]) dest->size += dest->buckets[i]->size;
     }
 
     return CCOL_STATUS_OK;

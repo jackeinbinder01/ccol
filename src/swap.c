@@ -29,7 +29,7 @@ ccol_status_t swap_string(char **s1, char **s2);
 ccol_status_t swap(void *x, void *y, size_t size) {
     if (!x || !y || size == 0) return CCOL_STATUS_INVALID_ARG;
 
-    void *tmp = malloc(size);
+    uint8_t *tmp = malloc(size);
     if (!tmp) return CCOL_STATUS_ALLOC;
 
     memcpy(tmp, x, size);
