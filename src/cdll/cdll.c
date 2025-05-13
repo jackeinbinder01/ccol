@@ -510,6 +510,11 @@ ccol_status_t cdll_copy(cdll_t *dest, const cdll_t *src) {
     CCOL_CHECK_INIT(dest);
     if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
 
+    dest->copier = src->copier;
+    dest->freer = src->freer;
+    dest->printer = src->printer;
+    dest->comparator = src->comparator;
+
     ccol_status_t status = cdll_clear(dest);
     if (status != CCOL_STATUS_OK) return status;
 

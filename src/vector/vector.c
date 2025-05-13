@@ -503,8 +503,18 @@ ccol_status_t vector_copy(vector_t *dest, const vector_t *src) {
     CCOL_CHECK_INIT(src);
     if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
 
+    dest->copier = src->copier;
+    dest->freer = src->freer;
+    dest->printer = src->printer;
+    dest->comparator = src->comparator;
+
     ccol_status_t status = vector_clear(dest);
     if (status != CCOL_STATUS_OK) return status;
+
+    if (dest->capacity < src->size) {
+        status = vector_reserve(dest, src->size);
+        if (status != CCOL_STATUS_OK) return status;
+    }
 
     for (size_t i = 0; i < src->size; i++) {
      	void *element = (char *)src->data + (i * src->element_size);

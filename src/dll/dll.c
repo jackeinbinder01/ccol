@@ -498,6 +498,11 @@ ccol_status_t dll_copy(dll_t *dest, const dll_t *src) {
     ccol_status_t status = dll_clear(dest);
     if (status != CCOL_STATUS_OK) return status;
 
+    dest->copier = src->copier;
+    dest->freer = src->freer;
+    dest->printer = src->printer;
+    dest->comparator = src->comparator;
+
     dll_node_t *curr = src->head;
     for (size_t i = 0; i < src->size; i++) {
         void *data_copy = src->copier.func(curr->data, src->copier.ctx);

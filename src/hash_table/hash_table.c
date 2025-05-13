@@ -366,6 +366,12 @@ ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src) {
     
     if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
 
+    dest->hasher = src->hasher;
+    dest->copier = src->copier;
+    dest->freer = src->freer;
+    dest->printer = src->printer;
+    dest->comparator = src->comparator;
+
     ccol_status_t status;
     for (size_t i = 0; i < src->num_buckets; i++) {
         if (!src->buckets[i]) continue;

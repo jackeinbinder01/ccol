@@ -19,15 +19,13 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="deque refactored">
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="vector drafted">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/ccol_status.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ccol_status.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/vector.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/vector.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/deque.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/deque.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cdll/cdll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deque/deque.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dll/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/ccol_status.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/ccol_status.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/swap.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/swap.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vector/vector.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector/vector.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -158,14 +156,6 @@
       <workItem from="1746845310964" duration="307000" />
       <workItem from="1746847260537" duration="1331000" />
       <workItem from="1747076797627" duration="5798000" />
-    </task>
-    <task id="LOCAL-00001" summary="initial push">
-      <option name="closed" value="true" />
-      <created>1743263390550</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1743263390550</updated>
     </task>
     <task id="LOCAL-00002" summary="initial push">
       <option name="closed" value="true" />
@@ -551,14 +541,21 @@
       <option name="project" value="LOCAL" />
       <updated>1747087418289</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="vector drafted">
+      <option name="closed" value="true" />
+      <created>1747164584514</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1747164584514</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="iter updated" />
     <MESSAGE value="APIs updated" />
     <MESSAGE value="dir structure updated" />
     <MESSAGE value="dll implementation" />
@@ -583,7 +580,8 @@
     <MESSAGE value="hash table refactored" />
     <MESSAGE value="vector refactor" />
     <MESSAGE value="deque refactored" />
-    <option name="LAST_COMMIT_MESSAGE" value="deque refactored" />
+    <MESSAGE value="vector drafted" />
+    <option name="LAST_COMMIT_MESSAGE" value="vector drafted" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -221,7 +221,13 @@ ccol_status_t deque_clone(const deque_t *src, deque_t **deque_out) {
     deque_t *clone = calloc(1, sizeof(deque_t));
     if (!clone) return CCOL_STATUS_ALLOC;
 
-    ccol_status_t status = deque_init(clone, src->copier, src->freer, src->printer, src->comparator);
+    ccol_status_t status = deque_init(
+        clone,
+        src->list.copier,
+        src->list.freer,
+        src->list.printer,
+        src->list.comparator
+    );
     if (status != CCOL_STATUS_OK) {
         free(clone);
         return status;
@@ -242,25 +248,7 @@ ccol_status_t deque_deep_clone(const deque_t *src, deque_t **deque_out) {
     CCOL_CHECK_INIT(src);
     if (!deque_out) return CCOL_STATUS_INVALID_ARG;
 
-    *deque_out = NULL;
-
-    deque_t *clone = calloc(1, sizeof(deque_t));
-    if (!clone) return CCOL_STATUS_ALLOC;
-
-    ccol_status_t status = deque_init(clone, src->copier, src->freer, src->printer, src->comparator);
-    if (status != CCOL_STATUS_OK) {
-        free(clone);
-        return status;
-    }
-
-    status = cdll_deep_clone_into(&src->list, &clone->list);
-    if (status != CCOL_STATUS_OK) {
-        free(clone);
-        return status;
-    }
-
-    *deque_out = clone;
-    return CCOL_STATUS_OK;
+    return deque_clone(src, deque_out);
 }
 
 ccol_status_t deque_copy(deque_t *dest, const deque_t *src) {

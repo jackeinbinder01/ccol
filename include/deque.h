@@ -90,14 +90,14 @@ ccol_status_t deque_reverse(deque_t *deque);
 
 // Copy / Clone
 ccol_status_t deque_clone(const deque_t *src, deque_t **deque_out);
-ccol_status_t deque_deep_clone(const deque_t *src, deque_t **deque_out, void *ctx);
+ccol_status_t deque_deep_clone(const deque_t *src, deque_t **deque_out);
 ccol_status_t deque_copy(deque_t *dest, const deque_t *src);
 ccol_status_t deque_deep_copy(deque_t *dest, const deque_t *src);
 
 // Cleanup
 ccol_status_t deque_clear(deque_t *deque);
 ccol_status_t deque_destroy(deque_t *deque);
-voccol_status_tid deque_free(deque_t **deque_ptr);
+ccol_status_t deque_free(deque_t **deque_ptr);
 
 // Print / Debug
 ccol_status_t deque_print(const deque_t *deque);
