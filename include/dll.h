@@ -105,10 +105,13 @@ ccol_status_t dll_swap_nodes(dll_t *dll, dll_node_t *x, dll_node_t *y);
 ccol_status_t dll_reverse(dll_t *dll);
 
 // Copy / Clone
-ccol_status_t dll_clone(const dll_t *src, dll_t **dll_out);
+ccol_status_t dll_clone(const dll_t *src, dll_t **dll_out); // Alias for deep clone
 ccol_status_t dll_deep_clone(const dll_t *src, dll_t **dll_out);
-ccol_status_t dll_copy(dll_t *dest, const dll_t *src);
+ccol_status_t dll_shallow_clone(const dll_t *src, dll_t **dll_out);
+
+ccol_status_t dll_copy(dll_t *dest, const dll_t *src); // Alias for deep copy
 ccol_status_t dll_deep_copy(dll_t *dest, const dll_t *src);
+ccol_status_t dll_shallow_copy(dll_t *dest, const dll_t *src);
 
 // Cleanup
 ccol_status_t dll_clear(dll_t *dll);

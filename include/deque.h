@@ -78,7 +78,7 @@ bool deque_contains_node(const deque_t *deque, const dll_node_t *node);
 
 // Indexing
 ccol_status_t deque_safe_index_of(const deque_t *deque, void *data, size_t *out_index);
-size_t deque_index_of(const deque_t *deque, void *data, void *ctx);
+size_t deque_index_of(const deque_t *deque, void *data);
 
 // Utilities
 ccol_status_t deque_set(deque_t *deque, size_t index, void *data);
@@ -91,8 +91,11 @@ ccol_status_t deque_reverse(deque_t *deque);
 // Copy / Clone
 ccol_status_t deque_clone(const deque_t *src, deque_t **deque_out);
 ccol_status_t deque_deep_clone(const deque_t *src, deque_t **deque_out);
+ccol_status_t deque_shallow_clone(const deque_t *src, deque_t **deque_out);
+
 ccol_status_t deque_copy(deque_t *dest, const deque_t *src);
 ccol_status_t deque_deep_copy(deque_t *dest, const deque_t *src);
+ccol_status_t deque_shallow_copy(deque_t *dest, const deque_t *src);
 
 // Cleanup
 ccol_status_t deque_clear(deque_t *deque);

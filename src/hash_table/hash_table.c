@@ -319,10 +319,14 @@ ccol_status_t hash_table_resize(hash_table_t *hash_table, int new_num_buckets) {
 
 // Copy / Clone
 ccol_status_t hash_table_clone(const hash_table_t *src, hash_table_t **hash_table_out) {
+    return hash_table_deep_clone(src, hash_table_out);
+}
+
+ccol_status_t hash_table_deep_clone(const hash_table_t *src, hash_table_t **hash_table_out) {
     CCOL_CHECK_INIT(src);
     if (!hash_table_out) return CCOL_STATUS_INVALID_ARG;
     if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
-    
+
     ccol_status_t status = hash_table_create(
         src->num_buckets,
         src->key_size,
@@ -352,18 +356,58 @@ ccol_status_t hash_table_clone(const hash_table_t *src, hash_table_t **hash_tabl
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t hash_table_deep_clone(const hash_table_t *src, hash_table_t **hash_table_out) {
+ccol_status_t hash_table_shallow_clone(const hash_table_t *src, hash_table_t **hash_table_out) {
     CCOL_CHECK_INIT(src);
     if (!hash_table_out) return CCOL_STATUS_INVALID_ARG;
 
-    return hash_table_clone(src, hash_table_out);
+    *hash_table_out = NULL;
+
+    ccol_status_t status = hash_table_create(
+        src->num_buckets,
+        src->key_size,
+        src->hasher.policy,
+        src->hasher,
+        src->copier,
+        src->freer,
+        src->printer,
+        src->comparator,
+        hash_table_out
+    );
+    if (status != CCOL_STATUS_OK) return status;
+
+    for (size_t i = 0; i < src->num_buckets; i++) {
+        if (!src->buckets[i]) continue;
+
+        dll_t *bucket_clone = NULL;
+        status = dll_shallow_clone(src->buckets[i], &bucket_clone);
+        if (status != CCOL_STATUS_OK) {
+            hash_table_destroy(*hash_table_out);
+            *hash_table_out = NULL;
+            return status;
+        }
+
+        (*hash_table_out)->buckets[i] = bucket_clone;
+    }
+
+    (*hash_table_out)->size = 0;
+    for (size_t i = 0; i < src->num_buckets; i++) {
+        if ((*hash_table_out)->buckets[i]) {
+            (*hash_table_out)->size += (*hash_table_out)->buckets[i]->size;
+        }
+    }
+
+    return CCOL_STATUS_OK;
 }
 
-ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src) {
-    CCOL_CHECK_INIT(dest);
+ccol_status_t hash_table_copy(hash_table_t *dest, const hash_table_t *src) {
+    return hash_table_deep_copy(dest, src);
+}
+
+ccol_status_t hash_table_deep_copy(hash_table_t *dest, const hash_table_t *src) {
+	CCOL_CHECK_INIT(dest);
     CCOL_CHECK_INIT(src);
     if (dest == src) return CCOL_STATUS_OK;
-    
+
     if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
 
     dest->hasher = src->hasher;
@@ -371,6 +415,17 @@ ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src) {
     dest->freer = src->freer;
     dest->printer = src->printer;
     dest->comparator = src->comparator;
+
+    if (src->size == 0) {
+        for (size_t i = 0; i < dest->num_buckets; i++) {
+            if (dest->buckets[i]) {
+                dll_destroy(dest->buckets[i]);
+                dest->buckets[i] = NULL;
+            }
+        }
+        dest->size = 0;
+        return CCOL_STATUS_OK;
+    }
 
     ccol_status_t status;
     for (size_t i = 0; i < src->num_buckets; i++) {
@@ -431,8 +486,52 @@ ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src) {
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t hash_table_deep_copy(hash_table_t *dest, hash_table_t *src) {
-	return hash_table_copy(dest, src);
+ccol_status_t hash_table_shallow_copy(hash_table_t *dest, const hash_table_t *src) {
+    CCOL_CHECK_INIT(dest);
+    CCOL_CHECK_INIT(src);
+    if (dest == src) return CCOL_STATUS_OK;
+
+    dest->hasher = src->hasher;
+    dest->copier = src->copier;
+    dest->freer = src->freer;
+    dest->printer = src->printer;
+    dest->comparator = src->comparator;
+
+    ccol_status_t status;
+    for (size_t i = 0; i < dest->num_buckets; i++) {
+        if (dest->buckets[i]) {
+            dll_node_t *node = dest->buckets[i]->head;
+            for (size_t j = 0; j < dest->buckets[i]->size; j++) {
+                dll_node_t *next = node->next;
+                free(node);
+                node=next;
+            }
+            free(dest->buckets[i]);
+            dest->buckets[i] = NULL;
+        }
+    }
+
+    for (size_t i = 0; i < dest->num_buckets; i++) {
+        if (!src->buckets[i]) continue;
+
+        dll_t *bucket_clone = NULL;
+        status = dll_shallow_clone(src->buckets[i], &bucket_clone);
+        if (status != CCOL_STATUS_OK) {
+            hash_table_destroy(dest);
+            return status;
+        }
+
+        dest->buckets[i] = bucket_clone;
+    }
+
+    dest->size = 0;
+    for (size_t i = 0; i < dest->num_buckets; i++) {
+        if (dest->buckets[i]) {
+            dest->size += dest->buckets[i]->size;
+        }
+    }
+
+    return CCOL_STATUS_OK;
 }
 
 // Cleanup

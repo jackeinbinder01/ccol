@@ -108,8 +108,11 @@ ccol_status_t vector_resize(vector_t *vec, size_t new_size, void *default_value)
 // Copy / Clone
 ccol_status_t vector_clone(const vector_t *src, vector_t **vec_out);
 ccol_status_t vector_deep_clone(const vector_t *src, vector_t **vec_out);
+ccol_status_t vector_shallow_clone(const vector_t *src, vector_t **vec_out);
+
 ccol_status_t vector_copy(vector_t *dest, const vector_t *src);
 ccol_status_t vector_deep_copy(vector_t *dest, const vector_t *src);
+ccol_status_t vector_shallow_copy(vector_t *dest, const vector_t *src);
 
 // Cleanup
 ccol_status_t vector_clear(vector_t *vec);

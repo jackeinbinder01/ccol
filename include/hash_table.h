@@ -86,8 +86,11 @@ ccol_status_t hash_table_resize(hash_table_t *hash_table, int new_num_buckets);
 // Copy / Clone
 ccol_status_t hash_table_clone(const hash_table_t *src, hash_table_t **hash_table_out);
 ccol_status_t hash_table_deep_clone(const hash_table_t *src, hash_table_t **hash_table_out);
-ccol_status_t hash_table_copy(hash_table_t *dest, hash_table_t *src);
-ccol_status_t hash_table_deep_copy(hash_table_t *dest, hash_table_t *src);
+ccol_status_t hash_table_shallow_clone(const hash_table_t *src, hash_table_t **hash_table_out);
+
+ccol_status_t hash_table_copy(hash_table_t *dest, const hash_table_t *src);
+ccol_status_t hash_table_deep_copy(hash_table_t *dest, const hash_table_t *src);
+ccol_status_t hash_table_shallow_copy(hash_table_t *dest, const hash_table_t *src);
 
 // Cleanup
 ccol_status_t hash_table_clear_bucket(hash_table_t *hash_table, int bucket_index);

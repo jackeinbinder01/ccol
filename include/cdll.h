@@ -99,8 +99,11 @@ ccol_status_t cdll_reverse(cdll_t *cdll);
 // Copy / Clone
 ccol_status_t cdll_clone(const cdll_t *src, cdll_t **cdll_out);
 ccol_status_t cdll_deep_clone(const cdll_t *src, cdll_t **cdll_out);
+ccol_status_t cdll_shallow_clone(const cdll_t *src, cdll_t **cdll_out);
+
 ccol_status_t cdll_copy(cdll_t *dest, const cdll_t *src);
 ccol_status_t cdll_deep_copy(cdll_t *dest, const cdll_t *src);
+ccol_status_t cdll_shallow_copy(cdll_t *dest, const cdll_t *src);
 
 // Cleanup
 ccol_status_t cdll_clear(cdll_t *cdll);

@@ -452,7 +452,11 @@ ccol_status_t vector_resize(vector_t *vec, size_t new_size, void *default_value)
 
 // Copy / Clone
 ccol_status_t vector_clone(const vector_t *src, vector_t **vec_out) {
-	CCOL_CHECK_INIT(src);
+    return vector_deep_clone(src, vec_out);
+}
+
+ccol_status_t vector_deep_clone(const vector_t *src, vector_t **vec_out) {
+    CCOL_CHECK_INIT(src);
     if (!vec_out) return CCOL_STATUS_INVALID_ARG;
     if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
 
@@ -491,17 +495,38 @@ ccol_status_t vector_clone(const vector_t *src, vector_t **vec_out) {
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t vector_deep_clone(const vector_t *src, vector_t **vec_out) {
+ccol_status_t vector_shallow_clone(const vector_t *src, vector_t **vec_out) {
     CCOL_CHECK_INIT(src);
-    if (!*vec_out) return CCOL_STATUS_INVALID_ARG;
+    if (!vec_out) return CCOL_STATUS_INVALID_ARG;
 
-    return vector_clone(src, vec_out);
+    *vec_out = NULL;
+
+    vector_t *clone = calloc(1, sizeof(vector_t));
+    if (!clone) return CCOL_STATUS_ALLOC;
+
+    clone->data = src->data;
+    clone->size = src->size;
+    clone->capacity = src->capacity;
+    clone->element_size = src->element_size;
+    clone->copier = src->copier;
+    clone->freer = src->freer;
+    clone->printer = src->printer;
+    clone->comparator = src->comparator;
+    clone->is_initialized = true;
+
+    *vec_out = clone;
+    return CCOL_STATUS_OK;
 }
 
 ccol_status_t vector_copy(vector_t *dest, const vector_t *src) {
+    return vector_deep_copy(dest, src);
+}
+
+ccol_status_t vector_deep_copy(vector_t *dest, const vector_t *src) {
     CCOL_CHECK_INIT(dest);
     CCOL_CHECK_INIT(src);
     if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
+    if (dest == src) return CCOL_STATUS_OK;
 
     dest->copier = src->copier;
     dest->freer = src->freer;
@@ -536,8 +561,27 @@ ccol_status_t vector_copy(vector_t *dest, const vector_t *src) {
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t vector_deep_copy(vector_t *dest, const vector_t *src) {
-    return vector_copy(dest, src);
+ccol_status_t vector_shallow_copy(vector_t *dest, const vector_t *src) {
+    CCOL_CHECK_INIT(dest);
+    CCOL_CHECK_INIT(src);
+    if (dest == src) return CCOL_STATUS_OK;
+
+    if (dest->data) {
+        free(dest->data);
+        dest->data = NULL;
+    }
+
+    dest->data = src->data;
+    dest->size = src->size;
+    dest->capacity = src->capacity;
+    dest->element_size = src->element_size;
+    dest->copier = src->copier;
+    dest->freer = src->freer;
+    dest->printer = src->printer;
+    dest->comparator = src->comparator;
+    dest->is_initialized = true;
+
+    return CCOL_STATUS_OK;
 }
 
 // Cleanup

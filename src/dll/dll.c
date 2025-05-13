@@ -452,6 +452,10 @@ ccol_status_t dll_reverse(dll_t *dll) {
 
 // Copy / Clone
 ccol_status_t dll_clone(const dll_t *src, dll_t **dll_out) {
+    return dll_deep_clone(src, dll_out);
+}
+
+ccol_status_t dll_deep_clone(const dll_t *src, dll_t **dll_out) {
     CCOL_CHECK_INIT(src);
     if (!dll_out) return CCOL_STATUS_INVALID_ARG;
     if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
@@ -483,17 +487,57 @@ ccol_status_t dll_clone(const dll_t *src, dll_t **dll_out) {
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t dll_deep_clone(const dll_t *src, dll_t **dll_out) {
+ccol_status_t dll_shallow_clone(const dll_t *src, dll_t **dll_out) {
     CCOL_CHECK_INIT(src);
     if (!dll_out) return CCOL_STATUS_INVALID_ARG;
 
-    return dll_clone(src, dll_out);
+    *dll_out = NULL;
+
+    dll_t *clone = calloc(1, sizeof(dll_t));
+    if (!clone) return CCOL_STATUS_ALLOC;
+
+    ccol_status_t status = dll_init(
+        clone,
+        src->copier,
+        src->freer,
+        src->printer,
+        src->comparator
+    );
+    if (status != CCOL_STATUS_OK) {
+        free(clone);
+        return status;
+    }
+
+    dll_node_t *curr = src->head;
+    for (size_t i = 0; i < src->size; i++) {
+        status = dll_push_back(clone, curr->data);
+        if (status != CCOL_STATUS_OK) {
+            dll_node_t *node = clone->head;
+            for (size_t j = 0; j < clone->size; j++) {
+                dll_node_t *next = node->next;
+                free(node);
+                node = next;
+            }
+            free(clone);
+            *dll_out = NULL;
+            return status;
+        }
+        curr = curr->next;
+    }
+
+    *dll_out = clone;
+    return CCOL_STATUS_OK;
 }
 
 ccol_status_t dll_copy(dll_t *dest, const dll_t *src) {
+    return dll_deep_copy(dest, src);
+}
+
+ccol_status_t dll_deep_copy(dll_t *dest, const dll_t *src) {
     CCOL_CHECK_INIT(dest);
     CCOL_CHECK_INIT(src);
     if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
+    if (dest == src) return CCOL_STATUS_OK;
 
     ccol_status_t status = dll_clear(dest);
     if (status != CCOL_STATUS_OK) return status;
@@ -514,7 +558,7 @@ ccol_status_t dll_copy(dll_t *dest, const dll_t *src) {
         status = dll_push_back(dest, data_copy);
         if (status != CCOL_STATUS_OK) {
             if (src->freer.func && data_copy) src->freer.func(data_copy, src->freer.ctx);
-        	ccol_status_t clear_status = dll_clear(dest);
+            ccol_status_t clear_status = dll_clear(dest);
             return clear_status != CCOL_STATUS_OK ? clear_status: status;
         }
         curr = curr->next;
@@ -523,8 +567,43 @@ ccol_status_t dll_copy(dll_t *dest, const dll_t *src) {
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t dll_deep_copy(dll_t *dest, const dll_t *src) {
-    return dll_copy(dest, src);
+ccol_status_t dll_shallow_copy(dll_t *dest, const dll_t *src) {
+    CCOL_CHECK_INIT(dest);
+    CCOL_CHECK_INIT(src);
+    if (dest == src) return CCOL_STATUS_OK;
+
+    dest->copier = src->copier;
+    dest->freer = src->freer;
+    dest->printer = src->printer;
+    dest->comparator = src->comparator;
+
+    dll_node_t *node = dest->head;
+    for (size_t i = 0; i < dest->size; i++) {
+        dll_node_t *next = node->next;
+        free(node);
+        node = next;
+    }
+    dest->head = dest->tail = NULL;
+    dest->size = 0;
+
+    dll_node_t *curr = src->head;
+    for (size_t i = 0; i < src->size; i++) {
+        ccol_status_t status = dll_push_back(dest, curr->data);
+        if (status != CCOL_STATUS_OK) {
+            dll_node_t *node = dest->head;
+            for (size_t j = 0; j < dest->size; j++) {
+                dll_node_t *next = node->next;
+                free(node);
+                node = next;
+            }
+            dest->head = dest->tail = NULL;
+            dest->size = 0;
+            return status;
+        }
+        curr = curr->next;
+    }
+
+    return CCOL_STATUS_OK;
 }
 
 // Cleanup

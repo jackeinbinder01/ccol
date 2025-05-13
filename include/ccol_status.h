@@ -36,7 +36,7 @@ typedef enum {
     CCOL_STATUS_COMPARATOR_FUNC,
     CCOL_STATUS_COMPARATOR_CTX,
     CCOL_STATUS_KEY_SIZE,
-
+    CCOL_STATUS_NOT_IMPLEMENTED,
 } ccol_status_t;
 
 const char *ccol_strstatus(ccol_status_t status);

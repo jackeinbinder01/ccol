@@ -36,6 +36,7 @@ const char *ccol_strstatus(ccol_status_t status) {
         case CCOL_STATUS_COMPARATOR_FUNC: return "Comparator function not provided";
         case CCOL_STATUS_COMPARATOR_CTX:  return "Comparator context not provided";
         case CCOL_STATUS_KEY_SIZE:        return "Unsupported key size";
+        case CCOL_STATUS_NOT_IMPLEMENTED: return "Function has not yet been implemented";
         default:                          return "Unknown error";
     }
 }
