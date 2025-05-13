@@ -13,8 +13,8 @@
 #include "vector.h"
 #include "vector_internal.h"
 
-void vector_uninit(vector_t *vec) {
-    if (!vec || !vec->is_initialized) return;
+ccol_status_t vector_uninit(vector_t *vec) {
+    CCOL_CHECK_INIT(vec);
 
     free(vec->data);
     vec->data = NULL;
@@ -26,5 +26,7 @@ void vector_uninit(vector_t *vec) {
     vec->comparator = (comparator_t){0};
 
     vec->is_initialized = false;
+
+    return CCOL_STATUS_OK;
 }
 
