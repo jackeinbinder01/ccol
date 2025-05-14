@@ -197,15 +197,10 @@ ccol_status_t queue_clear(queue_t *queue) {
 
 ccol_status_t queue_destroy(queue_t *queue) {
     CCOL_CHECK_INIT(queue);
-
-    ccol_status_t status = deque_destroy(queue->deque);
+    ccol_status_t status = deque_clear(queue->deque);
     if (status != CCOL_STATUS_OK) return status;
 
-    free(queue->deque);
-    queue->deque = NULL;
-
-    queue->is_initialized = false;
-    return CCOL_STATUS_OK;
+    return queue_uninit(queue);
 }
 
 ccol_status_t queue_free(queue_t **queue_ptr) {

@@ -197,16 +197,12 @@ ccol_status_t stack_clear(stack_t *stack) {
 
 ccol_status_t stack_destroy(stack_t *stack) {
     CCOL_CHECK_INIT(stack);
-
-    ccol_status_t status = deque_destroy(stack->deque);
+    ccol_status_t status = deque_clear(stack->deque);
     if (status != CCOL_STATUS_OK) return status;
 
-    free(stack->deque);
-    stack->deque = NULL;
-
-    stack->is_initialized = false;
-    return CCOL_STATUS_OK;
+    return stack_uninit(stack);
 }
+
 ccol_status_t stack_free(stack_t **stack_ptr) {
     if (!stack_ptr || !*stack_ptr || !(*stack_ptr)->is_initialized) return CCOL_STATUS_INVALID_ARG;
 

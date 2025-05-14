@@ -344,11 +344,7 @@ ccol_status_t deque_destroy(deque_t *deque) {
     ccol_status_t status = cdll_destroy(deque->list);
     if (status != CCOL_STATUS_OK) return status;
 
-    free(deque->list);
-    deque->list = NULL;
-
-    deque->is_initialized = false;
-    return CCOL_STATUS_OK;
+    return deque_uninit(deque);
 }
 
 ccol_status_t deque_free(deque_t **deque_ptr) {
