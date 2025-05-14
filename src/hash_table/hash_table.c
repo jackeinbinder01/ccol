@@ -46,6 +46,7 @@ ccol_status_t hash_table_init(
 }
 
 ccol_status_t hash_table_create(
+    hash_table_t **hash_table_out,
     size_t num_buckets,
     size_t key_size,
     hash_policy_t policy,
@@ -53,14 +54,16 @@ ccol_status_t hash_table_create(
     copy_t copier,
     free_t freer,
     print_t printer,
-    comparator_t comparator,
-    hash_table_t **hash_table_out
+    comparator_t comparator
 ) {
     if (!hash_table_out || num_buckets < 1 || key_size < 1) return CCOL_STATUS_INVALID_ARG;
 	if (!comparator.func) return CCOL_STATUS_COMPARATOR_FUNC;
     if (!hasher.func) return CCOL_STATUS_HASH_FUNC;
 
+    *hash_table_out = NULL;
+
     return hash_table_create_internal(
+        hash_table_out,
     	num_buckets,
        	key_size,
         policy,
@@ -69,8 +72,7 @@ ccol_status_t hash_table_create(
         copier,
         freer,
         printer,
-        comparator,
-        hash_table_out
+        comparator
    	);
 }
 
@@ -328,6 +330,7 @@ ccol_status_t hash_table_deep_clone(const hash_table_t *src, hash_table_t **hash
     if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
 
     ccol_status_t status = hash_table_create(
+        hash_table_out,
         src->num_buckets,
         src->key_size,
         src->hasher.policy,
@@ -335,8 +338,7 @@ ccol_status_t hash_table_deep_clone(const hash_table_t *src, hash_table_t **hash
         src->copier,
         src->freer,
         src->printer,
-        src->comparator,
-        hash_table_out
+        src->comparator
     );
     if (status != CCOL_STATUS_OK) return status;
 
@@ -363,6 +365,7 @@ ccol_status_t hash_table_shallow_clone(const hash_table_t *src, hash_table_t **h
     *hash_table_out = NULL;
 
     ccol_status_t status = hash_table_create(
+        hash_table_out,
         src->num_buckets,
         src->key_size,
         src->hasher.policy,
@@ -370,8 +373,7 @@ ccol_status_t hash_table_shallow_clone(const hash_table_t *src, hash_table_t **h
         src->copier,
         src->freer,
         src->printer,
-        src->comparator,
-        hash_table_out
+        src->comparator
     );
     if (status != CCOL_STATUS_OK) return status;
 

@@ -18,7 +18,7 @@
 #include "deque.h"
 
 typedef struct queue_t {
-    deque_t deque;
+    deque_t *deque;
     bool is_initialized;
 } queue_t;
 

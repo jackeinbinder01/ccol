@@ -18,7 +18,7 @@
 #include "deque.h"
 
 typedef struct stack_t {
-    deque_t deque;
+    deque_t *deque;
     bool is_initialized;
 } stack_t;
 

@@ -16,7 +16,7 @@
 ccol_status_t deque_uninit(deque_t *deque) {
     CCOL_CHECK_INIT(deque);
 
-    cdll_uninit(&deque->list);
+    cdll_uninit(deque->list);
     deque->is_initialized = false;
 
     return CCOL_STATUS_OK;

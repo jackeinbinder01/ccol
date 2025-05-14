@@ -50,6 +50,8 @@ ccol_status_t cdll_create(
 ) {
     if (!cdll_out) return CCOL_STATUS_INVALID_ARG;
 
+    *cdll_out = NULL;
+
     cdll_t *cdll = calloc(1, sizeof(cdll_t));
     if (!cdll) return CCOL_STATUS_ALLOC;
 

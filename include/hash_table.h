@@ -46,6 +46,7 @@ ccol_status_t hash_table_init(
 );
 
 ccol_status_t hash_table_create(
+    hash_table_t **hash_table_out,
     size_t num_buckets,
     size_t key_size,
     hash_policy_t policy,
@@ -54,7 +55,6 @@ ccol_status_t hash_table_create(
     free_t freer,
     print_t printer,
     comparator_t comparator,
-    hash_table_t **hash_table_out
 );
 
 // Insertion

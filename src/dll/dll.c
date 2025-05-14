@@ -51,6 +51,8 @@ ccol_status_t dll_create(
 ) {
     if (!dll_out) return CCOL_STATUS_INVALID_ARG;
 
+    *dll_out = NULL;
+
     dll_t *dll = calloc(1, sizeof(dll_t));
     if (!dll) return CCOL_STATUS_ALLOC;
 

@@ -19,7 +19,7 @@
 #include "cdll.h"
 
 typedef struct deque_t {
-    cdll_t list;
+    cdll_t *list;
     bool is_initialized;
 } deque_t;
 

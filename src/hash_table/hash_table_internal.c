@@ -24,6 +24,7 @@
 void auto_resize(hash_table_t *hash_table);
 
 ccol_status_t hash_table_create_internal(
+    hash_table_t **hash_table_out,
     int num_buckets,
     size_t key_size,
     hash_policy_t policy,
@@ -32,11 +33,12 @@ ccol_status_t hash_table_create_internal(
     copy_t copier,
     free_t freer,
     print_t printer,
-    comparator_t comparator,
-    hash_table_t **hash_table_out
+    comparator_t comparator
 ) {
     if (!hash_func || !hash_table_out || num_buckets < 1 || key_size < 1) return CCOL_STATUS_INVALID_ARG;
     if (!comparator.func) return CCOL_STATUS_COMPARATOR_FUNC;
+
+    *hash_table_out = NULL;
 
     hash_table_t *hash_table = calloc(1, sizeof(hash_table_t));
     if (!hash_table) return CCOL_STATUS_ALLOC;

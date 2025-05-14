@@ -15,7 +15,7 @@
 ccol_status_t queue_uninit(queue_t *queue) {
     CCOL_CHECK_INIT(queue);
 
-    deque_uninit(&queue->deque);
+    deque_uninit(queue->deque);
     queue->is_initialized = false;
 
     return CCOL_STATUS_OK;

@@ -66,6 +66,8 @@ ccol_status_t vector_create(
 ) {
     if (!vec_out) return CCOL_STATUS_INVALID_ARG;
 
+    *vec_out = NULL;
+
     vector_t *vec = calloc(1, sizeof(vector_t));
     if (!vec) return CCOL_STATUS_ALLOC;
 

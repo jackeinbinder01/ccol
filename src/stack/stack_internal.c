@@ -15,7 +15,7 @@
 ccol_status_t stack_uninit(stack_t *stack) {
     CCOL_CHECK_INIT(stack);
 
-    deque_uninit(&stack->deque);
+    deque_uninit(stack->deque);
     stack->is_initialized = false;
 
     return CCOL_STATUS_OK;
