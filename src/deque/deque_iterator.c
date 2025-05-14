@@ -1,5 +1,5 @@
 /*
-* ccol/deque_iterator.c
+ * ccol/deque_iterator.c
  *
  * Iterator functions for deque
  *

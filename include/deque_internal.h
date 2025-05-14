@@ -10,9 +10,6 @@
 #ifndef DEQUE_INTERNAL_H
 #define DEQUE_INTERNAL_H
 
-#include "dll.h"
-#include "dll_internal.h"
-#include "cdll.h"
 #include "deque.h"
 
 ccol_status_t deque_uninit(deque_t *deque);

@@ -7,20 +7,9 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
-#ifndef STACK_H
-#define STACK_H
-
-#include <stddef.h>
-#include <stdbool.h>
-
-#include "ccol_constants.h"
+#include "stack.h"
+#include "ccol_macros.h"
 #include "ccol_status.h"
-#include "deque.h"
-
-typedef struct stack_t {
-    deque_t deque;
-    bool is_initialized;
-} stack_t;
 
 // Create / Initialize
 ccol_status_t stack_init(
@@ -68,5 +57,3 @@ ccol_status_t stack_free(stack_t **stack_ptr);
 
 // Print / Debug
 ccol_status_t stack_print(const stack_t *stack);
-
-#endif // STACK_H

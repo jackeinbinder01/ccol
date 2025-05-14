@@ -1,5 +1,5 @@
 /*
-* ccol/deque_internal.c
+ * ccol/deque_internal.c
  *
  * Internal helpers for deque
  *
@@ -7,15 +7,11 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
-#include <stdbool.h>
-
-#include "dll.h"
-#include "dll_internal.h"
 #include "cdll.h"
 #include "cdll_internal.h"
 #include "deque.h"
-#include "ccol_status.h"
 #include "ccol_macros.h"
+#include "ccol_status.h"
 
 ccol_status_t deque_uninit(deque_t *deque) {
     CCOL_CHECK_INIT(deque);

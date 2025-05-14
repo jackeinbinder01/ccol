@@ -12,6 +12,7 @@
 
 #include "vector.h"
 #include "vector_internal.h"
+#include "ccol_macros.h"
 
 ccol_status_t vector_uninit(vector_t *vec) {
     CCOL_CHECK_INIT(vec);

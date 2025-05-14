@@ -19,20 +19,25 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="vector drafted">
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="copy/clone refactored">
+      <change afterPath="$PROJECT_DIR$/include/queue_internal.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/queue_iterator.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/stack_internal.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/include/stack_iterator.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/queue/queue.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/queue/queue_internal.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/queue/queue_iterator.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stack/stack.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stack/stack_internal.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stack/stack_iterator.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/ccol_status.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ccol_status.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/cdll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/cdll.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/deque.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/deque.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/dll.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/dll.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/vector.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/vector.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/cdll/cdll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/cdll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/deque/deque.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/dll/dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/dll.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/shared/ccol_status.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/shared/ccol_status.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vector/vector.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector/vector.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/deque_internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/deque_internal.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/queue.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/queue.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/stack.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/stack.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/vector_internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/vector_internal.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deque/deque_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque_internal.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deque/deque_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque_iterator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vector/vector_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector/vector_internal.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -162,14 +167,6 @@
       <workItem from="1746845310964" duration="307000" />
       <workItem from="1746847260537" duration="1331000" />
       <workItem from="1747076797627" duration="5798000" />
-    </task>
-    <task id="LOCAL-00003" summary="initial push">
-      <option name="closed" value="true" />
-      <created>1743367269247</created>
-      <option name="number" value="00003" />
-      <option name="presentableId" value="LOCAL-00003" />
-      <option name="project" value="LOCAL" />
-      <updated>1743367269247</updated>
     </task>
     <task id="LOCAL-00004" summary="iter updated">
       <option name="closed" value="true" />
@@ -555,14 +552,21 @@
       <option name="project" value="LOCAL" />
       <updated>1747165417297</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="copy/clone refactored">
+      <option name="closed" value="true" />
+      <created>1747172278200</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1747172278200</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="APIs updated" />
     <MESSAGE value="dir structure updated" />
     <MESSAGE value="dll implementation" />
     <MESSAGE value="cdll implementation draft" />
@@ -587,7 +591,8 @@
     <MESSAGE value="vector refactor" />
     <MESSAGE value="deque refactored" />
     <MESSAGE value="vector drafted" />
-    <option name="LAST_COMMIT_MESSAGE" value="vector drafted" />
+    <MESSAGE value="copy/clone refactored" />
+    <option name="LAST_COMMIT_MESSAGE" value="copy/clone refactored" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

@@ -7,20 +7,9 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
-#ifndef QUEUE_H
-#define QUEUE_H
-
-#include <stddef.h>
-#include <stdbool.h>
-
-#include "ccol_constants.h"
+#include "queue.h"
+#include "ccol_macros.h"
 #include "ccol_status.h"
-#include "deque.h"
-
-typedef struct queue_t {
-    deque_t deque;
-    bool is_initialized;
-} queue_t;
 
 // Create / Initialize
 ccol_status_t queue_init(
@@ -68,5 +57,3 @@ ccol_status_t queue_free(queue_t **queue_ptr);
 
 // Print / Debug
 ccol_status_t queue_print(const queue_t *queue);
-
-#endif // QUEUE_H
