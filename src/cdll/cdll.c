@@ -175,6 +175,8 @@ ccol_status_t cdll_pop_front(cdll_t *cdll, void **data_out) {
     if (!cdll->head) return CCOL_STATUS_EMPTY;
     if (!data_out) return CCOL_STATUS_INVALID_ARG;
 
+    *data_out = NULL;
+
     dll_node_t *head = cdll->head;
     *data_out = head->data;
 
@@ -185,6 +187,8 @@ ccol_status_t cdll_pop_middle(cdll_t *cdll, void **data_out) {
     CCOL_CHECK_INIT(cdll);
     if (cdll->size == 0) return CCOL_STATUS_EMPTY;
     if (!data_out) return CCOL_STATUS_INVALID_ARG;
+
+    *data_out = NULL;
 
     if (cdll->size == 1) return cdll_pop(cdll, data_out);
 
@@ -199,6 +203,8 @@ ccol_status_t cdll_pop_back(cdll_t *cdll, void **data_out) {
     CCOL_CHECK_INIT(cdll);
     if (!cdll->tail) return CCOL_STATUS_EMPTY;
     if (!data_out) return CCOL_STATUS_INVALID_ARG;
+
+    *data_out = NULL;
 
     dll_node_t *tail = cdll->tail;
     *data_out = tail->data;
@@ -241,6 +247,8 @@ ccol_status_t cdll_get(const cdll_t *cdll, size_t index, void **data_out){
     if (!data_out) return CCOL_STATUS_INVALID_ARG;
     if (cdll->size == 0) return CCOL_STATUS_EMPTY;
     if (index > cdll->size - 1) return CCOL_STATUS_OUT_OF_BOUNDS;
+
+    *data_out = NULL;
 
     dll_node_t *target;
     if (index < cdll->size / 2) {
@@ -285,6 +293,8 @@ ccol_status_t cdll_peek_middle(const cdll_t *cdll, void **data_out) {
     CCOL_CHECK_INIT(cdll);
     if (!data_out) return CCOL_STATUS_INVALID_ARG;
     if (cdll->size == 0) return CCOL_STATUS_EMPTY;
+
+    *data_out = NULL;
 
     const dll_node_t *head = cdll->head;
     dll_node_t *middle = dll_get_middle_node(head, cdll->size);

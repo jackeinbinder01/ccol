@@ -167,6 +167,8 @@ ccol_status_t dll_pop_front(dll_t *dll, void **data_out) {
     if (!dll->head) return CCOL_STATUS_EMPTY;
     if (!data_out) return CCOL_STATUS_INVALID_ARG;
 
+
+
     dll_node_t *head = dll->head;
     *data_out = head->data;
 
@@ -193,6 +195,8 @@ ccol_status_t dll_pop_back(dll_t *dll, void **data_out) {
     CCOL_CHECK_INIT(dll);
     if (!dll->tail) return CCOL_STATUS_EMPTY;
     if (!data_out) return CCOL_STATUS_INVALID_ARG;
+
+    *data_out = NULL;
 
     dll_node_t *tail = dll->tail;
     *data_out = tail->data;
@@ -231,6 +235,8 @@ ccol_status_t dll_get(const dll_t *dll, size_t index, void **data_out){
     if (!data_out) return CCOL_STATUS_INVALID_ARG;
     if (dll->size == 0) return CCOL_STATUS_EMPTY;
     if (index > dll->size - 1) return CCOL_STATUS_OUT_OF_BOUNDS;
+
+    *data_out = NULL;
 
     dll_node_t *target;
     if (index < dll->size / 2) {
@@ -275,6 +281,8 @@ ccol_status_t dll_peek_middle(const dll_t *dll, void **data_out) {
     CCOL_CHECK_INIT(dll);
     if (!data_out) return CCOL_STATUS_INVALID_ARG;
     if (dll->size == 0) return CCOL_STATUS_EMPTY;
+
+    *data_out = NULL;
 
     const dll_node_t *head = dll->head;
     dll_node_t *middle = dll_get_middle_node(head, dll->size);
