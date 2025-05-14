@@ -6,17 +6,17 @@
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
  */
+#include "deque.h"
 
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include <stdio.h>
 
-#include "dll_internal.h"
+#include "deque_internal.h"
 #include "cdll.h"
 #include "cdll_internal.h"
-#include "deque.h"
-#include "deque_internal.h"
+#include "dll_internal.h"
 #include "ccol_status.h"
 #include "ccol_macros.h"
 #include "ccol_constants.h"
