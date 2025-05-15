@@ -18,13 +18,32 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="stack / queue draft">
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="update">
+      <change afterPath="$PROJECT_DIR$/test/Makefile" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test_cdll.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test_deque.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test_dll.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test_hash_table.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test_queue.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test_stack.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/test/test_vector.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unity/unity.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unity/unity.h" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unity/unity_internals.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/deque/deque_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/deque_internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/queue/queue.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue/queue.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/queue/queue_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue/queue_internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stack/stack.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/stack/stack.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stack/stack_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/stack/stack_internal.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/checklist.md" beforeDir="false" afterPath="$PROJECT_DIR$/checklist.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ccol_constants.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ccol_constants.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/hash.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/hash_table_internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table_internal.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/iterator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/iterator.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/copy.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/copy.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_cdll.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_deque.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_dll.c" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_hash_table.c" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,35 +103,35 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;ASKED_SHARE_PROJECT_CONFIGURATION_FILES&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.RadMigrateCodeStyle&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.readMode.enableVisualFormatting&quot;: &quot;true&quot;,
-    &quot;cf.first.check.clang-format&quot;: &quot;false&quot;,
-    &quot;cidr.known.project.marker&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;F:/Documents/ccol&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;reference.settingsdialog.IDE.editor.colors.Console Font&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "RunOnceActivity.RadMigrateCodeStyle": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.cidr.known.project.marker": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.readMode.enableVisualFormatting": "true",
+    "cf.first.check.clang-format": "false",
+    "cidr.known.project.marker": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "/Users/jackeinbinder/Documents/ccol/unity",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "settings.editor.selected.configurable": "reference.settingsdialog.IDE.editor.colors.Console Font",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/unity" />
       <recent name="F:\Documents\ccol\tests\data_structures" />
       <recent name="F:\Documents\ccol\src\data_structures" />
       <recent name="F:\Documents\ccol\include\data_structures" />
       <recent name="F:\Documents\ccol\tests" />
-      <recent name="F:\Documents\ccol\src" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="F:\Documents\ccol\src\hash_table" />
@@ -154,14 +173,6 @@
       <workItem from="1746845310964" duration="307000" />
       <workItem from="1746847260537" duration="1331000" />
       <workItem from="1747076797627" duration="5798000" />
-    </task>
-    <task id="LOCAL-00007" summary="dll implementation">
-      <option name="closed" value="true" />
-      <created>1744050676888</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1744050676888</updated>
     </task>
     <task id="LOCAL-00008" summary="dll implementation">
       <option name="closed" value="true" />
@@ -547,14 +558,21 @@
       <option name="project" value="LOCAL" />
       <updated>1747194085049</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="update">
+      <option name="closed" value="true" />
+      <created>1747196486744</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1747196486745</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="cdll implementation draft" />
     <MESSAGE value="cdll/dll v1.0" />
     <MESSAGE value="cdll/dll good for now" />
     <MESSAGE value="dll updated" />
@@ -579,7 +597,8 @@
     <MESSAGE value="copy/clone refactored" />
     <MESSAGE value="stack/queue WIP" />
     <MESSAGE value="stack / queue draft" />
-    <option name="LAST_COMMIT_MESSAGE" value="stack / queue draft" />
+    <MESSAGE value="update" />
+    <option name="LAST_COMMIT_MESSAGE" value="update" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

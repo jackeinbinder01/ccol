@@ -72,6 +72,17 @@ ccol_status_t hash_table_create_internal(
     return CCOL_STATUS_OK;
 }
 
+ccol_status_t hash_table_get_entry(const hash_table_t *hash_table, const void *key, hash_entry_t **entry_out) {
+    CCOL_CHECK_INIT(hash_table);
+
+    dll_node_t *node = NULL;
+    ccol_status_t status = hash_table_get_node(hash_table, key, &node);
+    if (status != CCOL_STATUS_OK) return status;
+    *entry_out = (hash_entry_t *)node->data;
+
+    return CCOL_STATUS_OK;
+}
+
 void hash_table_uninit(hash_table_t *hash_table) {
     if (!hash_table || !hash_table->is_initialized) return;
 

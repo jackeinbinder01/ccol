@@ -9,10 +9,10 @@ A modular, context aware C collections library.
 - [x] `vector_t` — dynamic array with capacity management
 - [x] `dll_t` — doubly linked list (with context-aware function pointers)
 - [x] `cdll_t` — circular doubly linked list (backbone for deque)
-- [ ] `hash_table_t` — generic key-value store with policy-based hashing
-- [ ] `deque_t` — double-ended queue using `cdll_t`
-- [ ] `queue_t` — FIFO queue adapter
-- [ ] `stack_t` — LIFO stack adapter
+- [x] `hash_table_t` — generic key-value store with policy-based hashing
+- [x] `deque_t` — double-ended queue using `cdll_t`
+- [x] `queue_t` — FIFO queue adapter
+- [x] `stack_t` — LIFO stack adapter
 
 ---
 

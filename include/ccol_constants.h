@@ -20,7 +20,6 @@
 #define HASH_KEY_STRING 0
 
 // Function types
-typedef int (*comparator_func_t)(const void *a, const void *b, void *ctx);
 typedef void *(*copy_func_t)(const void *, void *);
 typedef void (*free_func_t)(void *, void *);
 typedef void (*print_func_t)(const void *, void *);

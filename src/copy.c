@@ -26,5 +26,6 @@ void *copy_uint64(const void *data, void *ctx);
 void *copy_str(const void *data, void *ctx); // Deep copy of null-terminated string
 
 void *copy_identity(const void *data, void *ctx) {
+    (void)ctx;
     return (void *)data;
 }

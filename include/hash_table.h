@@ -15,7 +15,6 @@
 
 #include "dll.h"
 #include "hash.h"
-#include "hash_table_internal.h"
 #include "hash_table_iterator.h"
 #include "comparator.h"
 
@@ -54,7 +53,7 @@ ccol_status_t hash_table_create(
     copy_t copier,
     free_t freer,
     print_t printer,
-    comparator_t comparator,
+    comparator_t comparator
 );
 
 // Insertion
@@ -66,7 +65,6 @@ ccol_status_t hash_table_remove(hash_table_t *hash_table, void *key);
 // Access
 ccol_status_t hash_table_get_node(const hash_table_t *hash_table, const void *key, dll_node_t **node_out);
 ccol_status_t hash_table_get(const hash_table_t *hash_table, const void *key, void **data_out);
-ccol_status_t hash_table_get_entry(const hash_table_t *hash_table, const void *key, hash_entry_t **entry_out);
 ccol_status_t hash_table_get_all_keys(const hash_table_t *hash_table, void ***keys_out, size_t *key_count);
 
 // Attributes

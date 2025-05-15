@@ -31,6 +31,7 @@ typedef struct {
 } hash_t;
 
 static inline hash_t hash_create(hash_func_t func, void *ctx, hash_policy_t policy) {
+    (void)policy;
     return (hash_t){ .func = func, .ctx = ctx };
 }
 

@@ -10,7 +10,7 @@
 #ifndef ITERATOR_H
 #define ITERATOR_H
 
-#include <stdbool>
+#include <stdbool.h>
 
 typedef struct iterator_t {
     void *container;
