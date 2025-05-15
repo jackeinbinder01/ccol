@@ -18,33 +18,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="update">
-      <change afterPath="$PROJECT_DIR$/test/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/test_cdll.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/test_deque.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/test_dll.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/test_hash_table.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/test_queue.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/test_stack.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/test_vector.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/unity/unity.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/unity/unity.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/unity/unity_internals.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/checklist.md" beforeDir="false" afterPath="$PROJECT_DIR$/checklist.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/ccol_constants.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ccol_constants.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash_table.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/hash_table_internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/hash_table_internal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/include/iterator.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/iterator.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/copy.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/copy.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/hash_table_internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_cdll.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_deque.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_dll.c" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_hash_table.c" beforeDir="false" />
-    </list>
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="test_dll WIP" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -173,14 +147,6 @@
       <workItem from="1746845310964" duration="307000" />
       <workItem from="1746847260537" duration="1331000" />
       <workItem from="1747076797627" duration="5798000" />
-    </task>
-    <task id="LOCAL-00008" summary="dll implementation">
-      <option name="closed" value="true" />
-      <created>1744050882464</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1744050882464</updated>
     </task>
     <task id="LOCAL-00009" summary="cdll implementation draft">
       <option name="closed" value="true" />
@@ -566,14 +532,21 @@
       <option name="project" value="LOCAL" />
       <updated>1747196486745</updated>
     </task>
-    <option name="localTasksCounter" value="57" />
+    <task id="LOCAL-00057" summary="test_dll WIP">
+      <option name="closed" value="true" />
+      <created>1747283987767</created>
+      <option name="number" value="00057" />
+      <option name="presentableId" value="LOCAL-00057" />
+      <option name="project" value="LOCAL" />
+      <updated>1747283987767</updated>
+    </task>
+    <option name="localTasksCounter" value="58" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="cdll/dll v1.0" />
     <MESSAGE value="cdll/dll good for now" />
     <MESSAGE value="dll updated" />
     <MESSAGE value="deque draft" />
@@ -598,7 +571,8 @@
     <MESSAGE value="stack/queue WIP" />
     <MESSAGE value="stack / queue draft" />
     <MESSAGE value="update" />
-    <option name="LAST_COMMIT_MESSAGE" value="update" />
+    <MESSAGE value="test_dll WIP" />
+    <option name="LAST_COMMIT_MESSAGE" value="test_dll WIP" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
