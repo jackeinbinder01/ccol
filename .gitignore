@@ -1,0 +1,24 @@
+# === Build artifacts ===
+*.o
+*.out
+*.exe
+*.a
+*.so
+*.dll
+
+# === WIP files ===
+src/wip/
+src/**/wip_*.c
+src/**/wip_*.h
+
+# === VSCode, CLion, Neovim, etc. ===
+.vscode/
+.idea/
+*.swp
+*.swo
+*.bak
+*.tmp
+tags
+
+# === Mac/Linux OS files ===
+.DS_Store

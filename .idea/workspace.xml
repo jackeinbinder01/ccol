@@ -19,9 +19,7 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="test makefile revised">
-      <change beforePath="$PROJECT_DIR$/benchmarks/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/Makefile" afterDir="false" />
-    </list>
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="namespace refactor completed" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -151,15 +149,7 @@
       <workItem from="1746847260537" duration="1331000" />
       <workItem from="1747076797627" duration="5798000" />
       <workItem from="1747366370209" duration="3659000" />
-      <workItem from="1747417549814" duration="4074000" />
-    </task>
-    <task id="LOCAL-00011" summary="cdll implementation draft">
-      <option name="closed" value="true" />
-      <created>1744061861122</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1744061861122</updated>
+      <workItem from="1747417549814" duration="4973000" />
     </task>
     <task id="LOCAL-00012" summary="cdll/dll v1.0">
       <option name="closed" value="true" />
@@ -545,14 +535,21 @@
       <option name="project" value="LOCAL" />
       <updated>1747421350976</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="namespace refactor completed">
+      <option name="closed" value="true" />
+      <created>1747421837524</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1747421837525</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="deque draft" />
     <MESSAGE value="deque staging" />
     <MESSAGE value="simple hash funcs" />
     <MESSAGE value="hash table staging" />
@@ -577,7 +574,8 @@
     <MESSAGE value="test_dll WIP" />
     <MESSAGE value="major refactor" />
     <MESSAGE value="test makefile revised" />
-    <option name="LAST_COMMIT_MESSAGE" value="test makefile revised" />
+    <MESSAGE value="namespace refactor completed" />
+    <option name="LAST_COMMIT_MESSAGE" value="namespace refactor completed" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
