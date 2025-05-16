@@ -1,5 +1,5 @@
 /*
- * tests/test_ccol_dll.c
+ * tests/test_dll.c
  *
  * Doubly-linked list (dll) dll unit tests.
  *
@@ -13,7 +13,8 @@
 #include "unity.h"
 #include "ccol/ccol_dll.h"
 #include "ccol/ccol_dll_iterator.h"
-#include "src/dll/internal.h"
+#include "internal.h"
+#include "internal_dll_cdll.h"
 
 void setUp(void) {}
 void tearDown(void) {}
@@ -34,7 +35,7 @@ void test_ccol_dll_create_stack(void) {
     TEST_ASSERT_NULL(list.head);
     TEST_ASSERT_NULL(list.tail);
 
-    ccol_dll_uninit(&list);
+    ccol__dll_uninit(&list);
 }
 
 void test_ccol_dll_create_heap(void) {

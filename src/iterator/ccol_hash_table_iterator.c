@@ -7,8 +7,8 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
-#include "ccol/ccol_hash_table.h"
 #include "ccol/ccol_iterator.h"
+#include "ccol/ccol_hash_table_iterator.h"
 
 // Iterator
 ccol_iterator_t *ccol_hash_table_iterator_create(const ccol_hash_table_t *hash_table);

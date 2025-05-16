@@ -37,13 +37,13 @@ uint32_t ccol__hash_simple_uint64(const void *key, void *ctx) {
 
 uint32_t ccol__hash_simple_str(const void *key, void *ctx) {
     (void)ctx;
-    const char *str = *(const char **)key;
+    const char *str = (const char *)key;
     if (!str) return 0;
-    uint32_t ccol__hash = 5381;
+    uint32_t hash = 5381;
     int c;
 
     while ((c = *str++)) {
-      hash = (hash << 5) + hash + c;
+        hash = (hash << 5) + hash + c;
     }
 
     return hash;

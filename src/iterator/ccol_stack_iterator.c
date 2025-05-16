@@ -18,14 +18,14 @@
 static bool ccol_stack_has_next(ccol_iterator_t *iter) {
     if (!iter || !iter->state) return false;
     ccol_stack_iterator_state_t *state = iter->state;
-    return state->step < state->stack->deque.list.size;
+    return state->step < state->stack->deque->list->size;
 }
 
 static void *ccol_stack_next(ccol_iterator_t *iter) {
     if (!iter || !iter->state) return NULL;
     ccol_stack_iterator_state_t *state = iter->state;
 
-    if (!state->current || state->step >= state->stack->deque.list.size) return NULL;
+    if (!state->current || state->step >= state->stack->deque->list->size) return NULL;
 
     void *data = state->current->data;
     state->current = state->current->prev;
@@ -54,7 +54,7 @@ ccol_iterator_t *ccol_stack_iterator_create(const ccol_stack_t *stack) {
     }
 
     state->stack = stack;
-    state->current = stack->deque.list.tail;
+    state->current = stack->deque->list->tail;
 
     iter->container = (void *)stack;
     iter->state = state;

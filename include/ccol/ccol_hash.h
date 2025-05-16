@@ -15,6 +15,11 @@
 
 #include "ccol_status.h"
 
+typedef struct ccol_hash_entry {
+    void *key;
+    void *value;
+} ccol_hash_entry_t;
+
 typedef enum ccol_hash_policy {
     CCOL_HASH_SIMPLE = 1,
     CCOL_HASH_ROBUST = 2,

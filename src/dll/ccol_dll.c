@@ -17,7 +17,8 @@
 #include "ccol/ccol_macros.h"
 #include "ccol/ccol_constants.h"
 
-#include "../dll/internal.h"
+#include "internal.h"
+#include "internal_dll_cdll.h"
 
 // Create / Initialize
 ccol_status_t ccol_dll_init(
@@ -95,7 +96,7 @@ ccol_status_t ccol_dll_push_middle(ccol_dll_t *dll, void *data) {
     if (dll->size == 0) return ccol_dll_push_back(dll, data);
 
     const ccol_dll_node_t *head = dll->head;
-    ccol_dll_node_t *middle = ccol__dll_get_middle_node(head, dll->size);
+    ccol_dll_node_t *middle = ccol__dll_node_get_middle(head, dll->size);
     return ccol_dll_insert_after(dll, middle, data);
 }
 
@@ -183,7 +184,7 @@ ccol_status_t ccol_dll_pop_middle(ccol_dll_t *dll, void **data_out) {
     }
 
     const ccol_dll_node_t *head = dll->head;
-    ccol_dll_node_t *middle = ccol__dll_get_middle_node(head, dll->size);
+    ccol_dll_node_t *middle = ccol__dll_node_get_middle(head, dll->size);
     *data_out = middle->data;
 
     return ccol_dll_remove_node(dll, middle);
@@ -258,7 +259,7 @@ ccol_status_t ccol_dll_get_node(const ccol_dll_t *dll, size_t index, ccol_dll_no
     if (!node_out) return CCOL_STATUS_INVALID_ARG;
     if (index > dll->size - 1) return CCOL_STATUS_OUT_OF_BOUNDS;
 
-    return ccol__dll_get_node_bounded(dll->head, dll->tail, dll->size, index, node_out);
+    return ccol__dll_node_get_bounded(dll->head, dll->tail, dll->size, index, node_out);
 }
 
 ccol_status_t ccol_dll_peek(const ccol_dll_t *dll, void **data_out) {
@@ -283,7 +284,7 @@ ccol_status_t ccol_dll_peek_middle(const ccol_dll_t *dll, void **data_out) {
     *data_out = NULL;
 
     const ccol_dll_node_t *head = dll->head;
-    ccol_dll_node_t *middle = ccol__dll_get_middle_node(head, dll->size);
+    ccol_dll_node_t *middle = ccol__dll_node_get_middle(head, dll->size);
     *data_out = middle->data;
 
     return CCOL_STATUS_OK;
@@ -299,23 +300,23 @@ ccol_status_t ccol_dll_peek_back(const ccol_dll_t *dll, void **data_out) {
     return CCOL_STATUS_OK;
 }
 
-ccol_dll_node_t *dll_search(const ccol_dll_t *dll, const void *data) {
+ccol_dll_node_t *ccol_dll_search(const ccol_dll_t *dll, const void *data) {
     if (!dll || !dll->is_initialized || !dll->comparator.func || dll->size == 0 || !data) return NULL;
     return ccol__dll_search_bounded(dll, dll->head, dll->size, data);
 }
 
 // Attributes
-bool dll_is_empty(const ccol_dll_t *dll) {
+bool ccol_dll_is_empty(const ccol_dll_t *dll) {
     return (!dll || !dll->is_initialized || dll->size == 0);
 }
 
-size_t dll_size(const ccol_dll_t *dll) {
+size_t ccol_dll_size(const ccol_dll_t *dll) {
     if (!dll || !dll->is_initialized) return 0;
     return dll->size;
 }
 
-bool dll_contains(const ccol_dll_t *dll, const void *data) {
-    return dll_search(dll, data) != NULL;
+bool ccol_dll_contains(const ccol_dll_t *dll, const void *data) {
+    return ccol_dll_search(dll, data) != NULL;
 }
 
 bool ccol_dll_contains_node(const ccol_dll_t *dll, const ccol_dll_node_t *node) {

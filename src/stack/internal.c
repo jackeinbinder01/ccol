@@ -7,11 +7,13 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
+#include <stdlib.h>
+
 #include "ccol/ccol_macros.h"
 #include "ccol/ccol_status.h"
 
-#include "../stack/internal.h"
-#include "../deque/internal.h"
+#include "deque/internal.h"
+#include "internal.h"
 
 ccol_status_t ccol__stack_uninit(ccol_stack_t *stack) {
     CCOL_CHECK_INIT(stack);

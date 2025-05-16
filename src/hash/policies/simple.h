@@ -10,6 +10,8 @@
 #ifndef CCOL_HASH_SIMPLE_H
 #define CCOL_HASH_SIMPLE_H
 
+#include <stdint.h>
+
 uint32_t ccol__hash_simple_uint8(const void *key, void *ctx);
 uint32_t ccol__hash_simple_uint16(const void *key, void *ctx);
 uint32_t ccol__hash_simple_uint32(const void *key, void *ctx);

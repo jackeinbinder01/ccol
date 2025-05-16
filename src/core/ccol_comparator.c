@@ -17,8 +17,7 @@
 #include <stdint.h>
 
 #include "ccol/ccol_comparator.h"
-
-#include "../hash_table/internal.h"
+#include "ccol/ccol_hash.h"
 
 int ccol_cmp_int8(const void *a, const void *b, void *ctx) {
 	(void)ctx;

@@ -12,6 +12,6 @@
 
 #include "ccol/ccol_queue.h"
 
-ccol_status_t queue__uninit(ccol_queue_t *vec);
+ccol_status_t ccol__queue_uninit(ccol_queue_t *vec);
 
 #endif  // CCOL_QUEUE_INTERNAL_H

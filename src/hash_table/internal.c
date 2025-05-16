@@ -13,12 +13,12 @@
 #include <stdio.h>
 
 #include "ccol/ccol_hash.h"
+#include "ccol/ccol_hash_table.h"
 #include "ccol/ccol_constants.h"
+#include "ccol/ccol_macros.h"
 #include "ccol/ccol_status.h"
 
-#include "policies/simple.h"
-#include "policies/robust.h"
-#include "policies/secure.h"
+#include "internal.h"
 
 void ccol__auto_resize(ccol_hash_table_t *hash_table);
 
@@ -42,7 +42,7 @@ ccol_status_t ccol__hash_table_create_internal(
     ccol_hash_table_t *hash_table = calloc(1, sizeof(ccol_hash_table_t));
     if (!hash_table) return CCOL_STATUS_ALLOC;
 
-    hash_t hasher = ccol_hash_create(hash_func, hash_ctx, policy);
+    ccol_hash_t hasher = ccol_hash_create(hash_func, hash_ctx, policy);
 
     ccol_status_t status = ccol_hash_table_init(
         hash_table,
@@ -57,7 +57,7 @@ ccol_status_t ccol__hash_table_create_internal(
         return status;
     }
 
-    hash_table->buckets = calloc(num_buckets, sizeof(dll_t *));
+    hash_table->buckets = calloc(num_buckets, sizeof(ccol_dll_t *));
     if (!hash_table->buckets) {
         free(hash_table);
         return CCOL_STATUS_ALLOC;
@@ -71,19 +71,31 @@ ccol_status_t ccol__hash_table_create_internal(
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t ccol__hash_table_get_entry(const ccol_hash_table_t *hash_table, const void *key, hash_entry_t **entry_out) {
+ccol_status_t ccol__hash_table_get_entry(
+    const ccol_hash_table_t *hash_table,
+    const void *key,
+    ccol_hash_entry_t **entry_out
+) {
     CCOL_CHECK_INIT(hash_table);
 
     ccol_dll_node_t *node = NULL;
     ccol_status_t status = ccol_hash_table_get_node(hash_table, key, &node);
     if (status != CCOL_STATUS_OK) return status;
-    *entry_out = (hash_entry_t *)node->data;
+    *entry_out = (ccol_hash_entry_t *)node->data;
 
     return CCOL_STATUS_OK;
 }
 
 void ccol__hash_table_uninit(ccol_hash_table_t *hash_table) {
     if (!hash_table || !hash_table->is_initialized) return;
+
+    for (int i = 0; i < hash_table->num_buckets; i++) {
+        if (hash_table->buckets[i]) {
+            ccol_dll_clear(hash_table->buckets[i]);
+            free(hash_table->buckets[i]);
+        }
+    }
+    free(hash_table->buckets);
 
     hash_table->buckets = NULL;
 

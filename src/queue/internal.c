@@ -7,11 +7,13 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
+#include <stdlib.h>
+
 #include "ccol/ccol_macros.h"
 #include "ccol/ccol_status.h"
 
 #include "internal.h"
-#include "../deque/internal.h"
+#include "deque/internal.h"
 
 ccol_status_t ccol__queue_uninit(ccol_queue_t *queue) {
     CCOL_CHECK_INIT(queue);

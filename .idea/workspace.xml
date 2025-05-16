@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="BackendCodeEditorMiscSettings">
-    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
-    <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
-    <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppFormatterOtherPage" type="string" />
     <option name="/Default/RiderDebugger/RiderRestoreDecompile/RestoreDecompileSetting/@EntryValue" value="false" type="bool" />
+    <option name="/Default/Housekeeping/GlobalSettingsUpgraded/IsUpgraded/@EntryValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexedValue" value="true" type="bool" />
+    <option name="/Default/Housekeeping/OptionsDialog/SelectedPageId/@EntryValue" value="CppFormatterOtherPage" type="string" />
+    <option name="/Default/Housekeeping/FeatureSuggestion/FeatureSuggestionManager/DisabledSuggesters/=SwitchToGoToActionSuggester/@EntryIndexRemoved" />
   </component>
   <component name="CMakeProjectFlavorService">
     <option name="flavorId" value="CMakePlainProjectFlavor" />
@@ -19,34 +20,40 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="major refactor">
+      <change afterPath="$PROJECT_DIR$/src/shared/internal_dll_cdll.c" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/shared/internal_dll_cdll.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/bench_dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/bench_dll.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ccol/ccol_hash.h" beforeDir="false" afterPath="$PROJECT_DIR$/include/ccol/ccol_hash.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cdll/ccol_cdll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/ccol_cdll.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/cdll/internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/core/ccol_status.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ccol_status.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cdll/internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/internal.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/ccol_comparator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/ccol_comparator.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/deque/ccol_deque.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/ccol_deque.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/deque/internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/internal.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dll/ccol_dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/ccol_dll.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dll/internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/internal.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/dll/internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/internal.h" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hash/ccol_hash.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash/ccol_hash.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hash/policies/simple.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash/policies/simple.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hash_table/hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/ccol_hash_table.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash/policies/simple.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash/policies/simple.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_table/ccol_hash_table.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/ccol_hash_table.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/hash_table/internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iterator/cdll_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/ccol_cdll_iterator.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iterator/deque_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/ccol_deque_iterator.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iterator/dll_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/ccol_dll_iterator.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iterator/hash_table_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/ccol_hash_table_iterator.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iterator/queue_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/ccol_queue_iterator.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iterator/stack_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/ccol_stack_iterator.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/iterator/vector_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/ccol_vector_iterator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_table/internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/internal.h" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iterator/ccol_cdll_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/ccol_cdll_iterator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iterator/ccol_deque_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/ccol_deque_iterator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iterator/ccol_hash_table_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/ccol_hash_table_iterator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iterator/ccol_queue_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/ccol_queue_iterator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iterator/ccol_stack_iterator.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/ccol_stack_iterator.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/queue/ccol_queue.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue/ccol_queue.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/queue/internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue/internal.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/queue/internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue/internal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/queue/queue.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue/ccol_queue.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stack/ccol_stack.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/stack/ccol_stack.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stack/internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/stack/internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stack/internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/stack/internal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stack/stack.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/stack/ccol_stack.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vector/ccol_vector.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector/ccol_vector.c" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/vector/internal.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector/internal.c" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vector/internal.h" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector/internal.h" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/vector/vector.c" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector/ccol_vector.c" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Makefile" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Makefile" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/test_dll.c" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_dll.c" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -177,6 +184,7 @@
       <workItem from="1746847260537" duration="1331000" />
       <workItem from="1747076797627" duration="5798000" />
       <workItem from="1747366370209" duration="3659000" />
+      <workItem from="1747417549814" duration="3731000" />
     </task>
     <task id="LOCAL-00010" summary="cdll implementation draft">
       <option name="closed" value="true" />

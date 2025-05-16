@@ -17,12 +17,12 @@
 
 #include "ccol/ccol_vector.h"
 #include "ccol/ccol_vector_iterator.h"
-#include "../vector/internal.h"
-
 #include "ccol/ccol_comparator.h"
 #include "ccol/ccol_status.h"
 #include "ccol/ccol_constants.h"
 #include "ccol/ccol_macros.h"
+
+#include "vector/internal.h"
 
 // Create / Initialize
 ccol_status_t ccol_ccol_vector_init(

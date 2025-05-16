@@ -13,7 +13,7 @@
 #include "ccol/ccol_vector.h"
 #include "ccol/ccol_macros.h"
 
-#include "../vector/internal.h"
+#include "vector/internal.h"
 
 ccol_status_t ccol__vector_uninit(ccol_vector_t *vec) {
     CCOL_CHECK_INIT(vec);

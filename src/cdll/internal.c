@@ -14,6 +14,7 @@
 #include "ccol/ccol_macros.h"
 
 #include "internal.h"
+#include "internal_dll_cdll.h"
 
 ccol_status_t ccol__cdll_uninit(ccol_cdll_t *cdll) {
     CCOL_CHECK_INIT(cdll);
@@ -71,7 +72,7 @@ ccol_status_t ccol__cdll_clone_rollback (ccol_cdll_t *dest) {
 void ccol__cdll_dispose_node(ccol_cdll_t *cdll, ccol_dll_node_t *node) {
     if (!node) return;
     if (cdll->freer.func && node->data) cdll->freer.func(node->data, cdll->freer.ctx);
-    ccol__dll_free_node(node);
+    ccol__dll_node_free(node);
 }
 
 ccol_dll_node_t *ccol__cdll_search_bounded(

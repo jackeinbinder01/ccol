@@ -11,9 +11,9 @@
 #include "ccol/ccol_constants.h"
 #include "ccol/ccol_status.h"
 
-#include "policies/simple.h"
-#include "policies/robust.h"
-#include "policies/secure.h"
+#include "simple.h"
+#include "robust.h"
+#include "secure.h"
 
 static ccol_status_t ccol_resolve_hash_func(
     size_t key_size,
@@ -26,7 +26,7 @@ static ccol_status_t ccol_resolve_hash_func(
     }
     if (policy < CCOL_HASH_SIMPLE || policy > CCOL_HASH_SECURE) return CCOL_STATUS_HASH_POLICY;
 
-    if (key_size == HASH_KEY_STRING) {
+    if (key_size == CCOL_HASH_KEY_STRING) {
         switch(policy) {
             case CCOL_HASH_SIMPLE: *hash_func_out = ccol__hash_simple_str; return CCOL_STATUS_OK;
             case CCOL_HASH_ROBUST: *hash_func_out = ccol__hash_robust_str; return CCOL_STATUS_OK;

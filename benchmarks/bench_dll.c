@@ -1,5 +1,5 @@
 /*
- * ccol/benchmarks/bench_ccol_dll.c
+ * ccol/benchmarks/bench_dll.c
  *
  * Doubly-linked list (dll) benchmark.
  *

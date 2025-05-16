@@ -13,17 +13,14 @@
 #include <stdio.h>
 
 #include "ccol/ccol_deque.h"
-#include "ccol/ccol_ccol_status.h"
-#include "ccol/ccol_ccol_macros.h"
-#include "ccol/ccol_ccol_constants.h"
+#include "ccol/ccol_status.h"
+#include "ccol/ccol_macros.h"
+#include "ccol/ccol_constants.h"
 
 #include "internal.h"
 
 #include "ccol/ccol_cdll.h"
-#include "../cdll/internal.h"
-
 #include "ccol/ccol_dll.h"
-#include "../dll/internal.h"
 
 // Create / Initialize
 ccol_status_t ccol_deque_init(
@@ -140,7 +137,7 @@ ccol_status_t ccol_deque_get(const ccol_deque_t *deque, size_t index, void **dat
 
 ccol_status_t ccol_deque_get_node(const ccol_deque_t *deque, size_t index, ccol_dll_node_t **node_out) {
     CCOL_CHECK_INIT(deque);
-    return ccol_dll_get_node(deque->list, index, node_out);
+    return ccol_cdll_get_node(deque->list, index, node_out);
 }
 
 ccol_status_t ccol_deque_peek(const ccol_deque_t *deque, void **data_out) {

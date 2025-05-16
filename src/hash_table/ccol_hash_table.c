@@ -14,12 +14,11 @@
 
 #include "ccol/ccol_hash.h"
 #include "ccol/ccol_hash_table.h"
+#include "ccol/ccol_dll.h"
 #include "ccol/ccol_comparator.h"
 #include "ccol/ccol_status.h"
 #include "ccol/ccol_constants.h"
 #include "ccol/ccol_macros.h"
-
-#include "../dll/ccol_dll.h"
 
 #include "internal.h"
 
@@ -265,7 +264,7 @@ ccol_status_t ccol_hash_table_resize(ccol_hash_table_t *hash_table, int new_num_
 	ccol_dll_t **new_buckets = calloc(new_num_buckets, sizeof(ccol_dll_t *));
 	if (!new_buckets) return CCOL_STATUS_ALLOC;
 
-    hash_func_t hash_func = hash_table->hasher.func;
+    ccol_hash_func_t hash_func = hash_table->hasher.func;
     void *ctx = hash_table->hasher.ctx;
 	for (size_t i = 0; i < hash_table->num_buckets; i++) {
 		ccol_dll_t *bucket = hash_table->buckets[i];

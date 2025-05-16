@@ -13,8 +13,6 @@
 #include "ccol/ccol_cdll.h"
 #include "ccol/ccol_dll.h"
 
-#include "../dll/internal.h"
-
 ccol_status_t ccol__cdll_uninit(ccol_cdll_t *cdll);
 ccol_status_t ccol__cdll_clone_into(const ccol_cdll_t *src, ccol_cdll_t *dest);
 ccol_status_t ccol__cdll_deep_clone_into(const ccol_cdll_t *src, ccol_cdll_t *dest);

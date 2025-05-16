@@ -16,7 +16,8 @@
 #include "ccol/ccol_macros.h"
 #include "ccol/ccol_status.h"
 
-#include "../cdll/internal.h"
+#include "cdll/internal.h"
+#include "internal.h"
 
 // Create / Initialize
 ccol_status_t ccol_queue_init(
@@ -28,7 +29,7 @@ ccol_status_t ccol_queue_init(
 ) {
     if (!queue) return CCOL_STATUS_INVALID_ARG;
 
-    queue->deque = malloc(sizeof(deque_t));
+    queue->deque = malloc(sizeof(ccol_deque_t));
     if (!queue->deque) return CCOL_STATUS_ALLOC;
 
     ccol_status_t status = ccol_deque_init(queue->deque, copier, freer, printer, comparator);
@@ -135,7 +136,7 @@ ccol_status_t ccol_queue_shallow_clone(const ccol_queue_t *src, ccol_queue_t **q
     ccol_queue_t *clone = calloc(1, sizeof(ccol_queue_t));
     if (!clone) return CCOL_STATUS_ALLOC;
 
-    deque_t *deque_clone = NULL;
+    ccol_deque_t *deque_clone = NULL;
     ccol_status_t status = ccol_deque_shallow_clone(src->deque, &deque_clone);
     if (status != CCOL_STATUS_OK) {
         free(clone);

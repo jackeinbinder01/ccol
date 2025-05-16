@@ -59,7 +59,7 @@ ccol_iterator_t *ccol_cdll_iterator_create(const ccol_cdll_t *cdll) {
     iter->container = (void *)cdll;
     iter->state = state;
     iter->has_next = ccol_cdll_has_next;
-    iter->next = ccol_dll_next;
+    iter->next = ccol_cdll_next;
     iter->destroy = ccol_cdll_iterator_destroy;
 
     return iter;

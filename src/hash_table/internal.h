@@ -12,13 +12,9 @@
 
 #include <stddef.h>
 
-#include "ccol/ccol_status.h"
 #include "ccol/ccol_hash.h"
-
-typedef struct ccol_hash_entry {
-	void *key;
-    void *value;
-} ccol_hash_entry_t;
+#include "ccol/ccol_hash_table.h"
+#include "ccol/ccol_status.h"
 
 ccol_status_t ccol__hash_table_create_internal(
     ccol_hash_table_t **hash_table_out,
