@@ -29,7 +29,7 @@ The following data structures are in active development:
 - Binary Search Tree
 - Circular Buffer (ring buffer)
 - Min/max Heap
-- Single-linked List
+- Singly-linked List
 - Map
 - Priority queue
 - Reb-black Tree
