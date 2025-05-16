@@ -11,10 +11,12 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "dll.h"
-#include "dll_internal.h"
-#include "ccol_status.h"
-#include "ccol_macros.h"
+#include "ccol/ccol_dll.h"
+#include "ccol/ccol_status.h"
+#include "ccol/ccol_macros.h"
+
+#include "internal.h"
+
 
 // dll & cdll
 ccol_dll_node_t *ccol__dll_get_middle_node(const ccol_dll_node_t *head, size_t size) {

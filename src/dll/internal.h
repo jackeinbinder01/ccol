@@ -10,7 +10,7 @@
 #ifndef CCOL_DLL_INTERNAL_H
 #define CCOL_DLL_INTERNAL_H
 
-#include "ccol_dll.h"
+#include "ccol/ccol_dll.h"
 
 // dll & cdll
 ccol_dll_node_t *ccol__dll_get_middle_node(const ccol_dll_node_t *head, size_t size);
