@@ -1,5 +1,6 @@
 CC = gcc
-CFLAGS = -std=c99 -Wall -Wextra -O2 -I../include -I../benchmarks/utils
+CFLAGS = -std=c99 -Wall -Wextra -O2
+CPPFLAGS = -I../include -I../src -I../benchmarks/utils -I../src/dll -I../src/iterator -I../src/shared
 LDFLAGS =
 
 # Enable cross platform (Unix, Linux, Windows) build
@@ -15,7 +16,10 @@ STATUS_SRC = ../src/core/ccol_status.c
 COMMON_SRC = $(ATTR_SRC) $(UTIL_SRC) $(STATUS_SRC)
 
 # Container source files
-DLL_SRC = ../src/dll/ccol_dll.c ../src/dll/internal.c ../src/iterator/ccol_dll_iterator.c
+DLL_SRC = ../src/dll/ccol_dll.c 				\
+		  ../src/dll/internal.c 				\
+		  ../src/shared/internal_dll_cdll.c 	\
+		  ../src/iterator/ccol_dll_iterator.c	\
 
 # Benchmark source files
 BENCH_DLL_SRC = bench_dll.c $(DLL_SRC) $(COMMON_SRC)
@@ -27,7 +31,7 @@ BENCH_TARGETS = bench_dll
 all: $(BENCH_TARGETS)
 
 bench_dll: $(BENCH_DLL_SRC)
-	$(CC) $(CFLAGS) -o $@ $^ $(LDFLAGS)
+	$(CC) $(CFLAGS) $(CPPFLAGS) -o $@ $^ $(LDFLAGS)
 
 bench: $(BENCH_TARGETS)
 	@echo "Running bench_dll..."
