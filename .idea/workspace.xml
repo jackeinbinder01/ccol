@@ -19,7 +19,22 @@
     </configurations>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="namespace refactor completed" />
+    <list default="true" id="c816f6df-81a5-4781-bf64-0a5fb0cd8ae6" name="Changes" comment="gitignore">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/benchmarks/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/benchmarks/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/include/ccol/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/include/ccol/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/cdll/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/cdll/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/core/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/core/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/deque/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/deque/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dll/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/dll/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hash_table/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/hash_table/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/iterator/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/iterator/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/queue/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/queue/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stack/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/stack/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/vector/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/src/vector/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/tests/README.md" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -149,15 +164,7 @@
       <workItem from="1746847260537" duration="1331000" />
       <workItem from="1747076797627" duration="5798000" />
       <workItem from="1747366370209" duration="3659000" />
-      <workItem from="1747417549814" duration="4973000" />
-    </task>
-    <task id="LOCAL-00012" summary="cdll/dll v1.0">
-      <option name="closed" value="true" />
-      <created>1744073364621</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1744073364621</updated>
+      <workItem from="1747417549814" duration="7414000" />
     </task>
     <task id="LOCAL-00013" summary="cdll/dll good for now">
       <option name="closed" value="true" />
@@ -543,14 +550,21 @@
       <option name="project" value="LOCAL" />
       <updated>1747421837525</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="gitignore">
+      <option name="closed" value="true" />
+      <created>1747423732088</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1747423732088</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="deque staging" />
     <MESSAGE value="simple hash funcs" />
     <MESSAGE value="hash table staging" />
     <MESSAGE value="ctx refactor" />
@@ -575,7 +589,8 @@
     <MESSAGE value="major refactor" />
     <MESSAGE value="test makefile revised" />
     <MESSAGE value="namespace refactor completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="namespace refactor completed" />
+    <MESSAGE value="gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="gitignore" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />
