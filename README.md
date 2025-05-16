@@ -23,14 +23,14 @@ make -C benchmarks  # build benchmarks
 
 The following data structures are in active development:
 
-- AVL Tree
+- AVL tree
 - Bitmap
 - Bitset
-- Binary Search Tree
+- Binary search tree
 - Circular Buffer (ring buffer)
-- Min/max Heap
-- Singly-linked List
+- Min/max heap
+- Singly-linked list
 - Map
 - Priority queue
-- Reb-black Tree
+- Reb-black tree
 - Set
