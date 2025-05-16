@@ -1,7 +1,7 @@
 /*
  * ccol/src/dll/internal.c
  *
- * Internal helpers for dll
+ * Internal helpers for dll (shared with cdll).
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
@@ -30,13 +30,6 @@ ccol_dll_node_t *ccol__dll_get_middle_node(const ccol_dll_node_t *head, size_t s
     }
 
     return (ccol_dll_node_t *)slow;
-}
-
-void ccol__dll_dispose_node(ccol_dll_node_t *node) {
-    if (!node) return;
-
-    node->data = node->next = node->prev = NULL;
-    free(node);
 }
 
 void ccol__dll_dispose_node(ccol_dll_t *dll, ccol_dll_node_t *node) {
@@ -95,14 +88,19 @@ ccol_status_t ccol__dll_uninit(ccol_dll_t *dll) {
     dll->head = dll->tail = NULL;
     dll->size = 0;
 
-    dll->copier = (copy_t){0};
-    dll->freer = (free_t){0};
-    dll->printer = (print_t){0};
-    dll->comparator = (comparator_t){0};
+    dll->copier = (ccol_copy_t){0};
+    dll->freer = (ccol_free_t){0};
+    dll->printer = (ccol_print_t){0};
+    dll->comparator = (ccol_comparator_t){0};
 
     dll->is_initialized = false;
 
     return CCOL_STATUS_OK;
+}
+
+ccol_status_t ccol__dll_clone_rollback(ccol_dll_t *dest) {
+    CCOL_CHECK_INIT(dest);
+    return ccol_dll_clear(dest);
 }
 
 ccol_status_t ccol__dll_clone_into(const ccol_dll_t *src, ccol_dll_t *dest) {
@@ -124,7 +122,7 @@ ccol_status_t ccol__dll_clone_into(const ccol_dll_t *src, ccol_dll_t *dest) {
         void *data_copy = src->copier.func ? src->copier.func(curr->data, src->copier.ctx) : curr->data;
         status = ccol_dll_push_back(dest, data_copy);
         if (status != CCOL_STATUS_OK) {
-            ccol_status_t rollback_status = dll_clone_rollback(dest);
+            ccol_status_t rollback_status = ccol__dll_clone_rollback(dest);
             return rollback_status != CCOL_STATUS_OK ? rollback_status : status;
         }
         curr = curr->next;
@@ -134,10 +132,5 @@ ccol_status_t ccol__dll_clone_into(const ccol_dll_t *src, ccol_dll_t *dest) {
 }
 
 ccol_status_t ccol__dll_deep_clone_into(const ccol_dll_t *src, ccol_dll_t *dest) {
-    return dll_clone_into(src, dest);
-}
-
-ccol_status_t ccol__dll_clone_rollback(ccol_dll_t *dest) {
-    CCOL_CHECK_INIT(dest);
-    return dll_clear(dest);
+    return ccol__dll_clone_into(src, dest);
 }

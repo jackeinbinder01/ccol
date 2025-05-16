@@ -1,7 +1,7 @@
 /*
- * ccol/stack_iterator.h
+ * ccol/src/iterator/ccol_stack_iterator.c
  *
- * Iterator functions for stack
+ * Iterator implementation for stack (LIFO).
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
@@ -10,20 +10,20 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "stack.h"
-#include "stack_iterator.h"
-#include "iterator.h"
+#include "ccol/ccol_stack.h"
+#include "ccol/ccol_stack_iterator.h"
+#include "ccol/ccol_iterator.h"
 
 // Private
-static bool stack_has_next(iterator_t *iter) {
+static bool ccol_stack_has_next(ccol_iterator_t *iter) {
     if (!iter || !iter->state) return false;
-    stack_iterator_state_t *state = iter->state;
+    ccol_stack_iterator_state_t *state = iter->state;
     return state->step < state->stack->deque.list.size;
 }
 
-static void *stack_next(iterator_t *iter) {
+static void *ccol_stack_next(ccol_iterator_t *iter) {
     if (!iter || !iter->state) return NULL;
-    stack_iterator_state_t *state = iter->state;
+    ccol_stack_iterator_state_t *state = iter->state;
 
     if (!state->current || state->step >= state->stack->deque.list.size) return NULL;
 
@@ -33,7 +33,7 @@ static void *stack_next(iterator_t *iter) {
     return data;
 }
 
-static void stack_iterator_destroy(iterator_t *iter) {
+static void ccol_stack_iterator_destroy(ccol_iterator_t *iter) {
     if (iter) {
         free(iter->state);
         free(iter);
@@ -41,13 +41,13 @@ static void stack_iterator_destroy(iterator_t *iter) {
 }
 
 // Create
-iterator_t *stack_iterator_create(const stack_t *stack) {
+ccol_iterator_t *ccol_stack_iterator_create(const ccol_stack_t *stack) {
     if (!stack || !stack->is_initialized) return NULL;
 
-    stack_iterator_state_t *state = calloc(1, sizeof(stack_iterator_state_t));
+    ccol_stack_iterator_state_t *state = calloc(1, sizeof(ccol_stack_iterator_state_t));
     if (!state) return NULL;
 
-    iterator_t *iter = calloc(1, sizeof(iterator_t));
+    ccol_iterator_t *iter = calloc(1, sizeof(ccol_iterator_t));
     if (!iter) {
         free(state);
         return NULL;
@@ -58,9 +58,9 @@ iterator_t *stack_iterator_create(const stack_t *stack) {
 
     iter->container = (void *)stack;
     iter->state = state;
-    iter->has_next = stack_has_next;
-    iter->next = stack_next;
-    iter->destroy = stack_iterator_destroy;
+    iter->has_next = ccol_stack_has_next;
+    iter->next = ccol_stack_next;
+    iter->destroy = ccol_stack_iterator_destroy;
 
     return iter;
 }

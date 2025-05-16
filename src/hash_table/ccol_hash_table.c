@@ -130,7 +130,11 @@ ccol_status_t ccol_hash_table_remove(ccol_hash_table_t *hash_table, void *key) {
 }
 
 // Access
-ccol_status_t ccol_hash_table_get_node(const ccol_hash_table_t *hash_table, const void *key, ccol_dll_node_t **node_out) {
+ccol_status_t ccol_hash_table_get_node(
+    const ccol_hash_table_t *hash_table,
+    const void *key,
+    ccol_dll_node_t **node_out
+) {
     CCOL_CHECK_INIT(hash_table);
 
     size_t hash_key = hash_table->hasher.func(key, hash_table->hasher.ctx) % hash_table->num_buckets;
@@ -149,7 +153,7 @@ ccol_status_t ccol_hash_table_get(const ccol_hash_table_t *hash_table, const voi
     CCOL_CHECK_INIT(hash_table);
 
     ccol_dll_node_t *node = NULL;
-    ccol_status_t status = hash_table_get_node(hash_table, key, &node);
+    ccol_status_t status = ccol_hash_table_get_node(hash_table, key, &node);
     if (status != CCOL_STATUS_OK) return status;
     ccol_hash_entry_t *entry = (ccol_hash_entry_t *)node->data;
     *data_out = entry->value;
@@ -189,45 +193,45 @@ ccol_status_t ccol_hash_table_get_all_keys(const ccol_hash_table_t *hash_table, 
 }
 
 // Attributes
-bool hash_table_is_empty(const ccol_hash_table_t *hash_table) {
+bool ccol_hash_table_is_empty(const ccol_hash_table_t *hash_table) {
     return (!hash_table || !hash_table->is_initialized || hash_table->size == 0);
 }
 
-size_t hash_table_size(const ccol_hash_table_t *hash_table) {
+size_t ccol_hash_table_size(const ccol_hash_table_t *hash_table) {
     if (!hash_table || !hash_table->is_initialized) return 0;
     return hash_table->size;
 }
 
-size_t hash_table_num_buckets(const ccol_hash_table_t *hash_table) {
+size_t ccol_hash_table_num_buckets(const ccol_hash_table_t *hash_table) {
     if (!hash_table || !hash_table->is_initialized) return 0;
     return hash_table->num_buckets;
 }
 
-bool hash_table_contains_key(const ccol_hash_table_t *hash_table, const void *key) {
+bool ccol_hash_table_contains_key(const ccol_hash_table_t *hash_table, const void *key) {
     if (!hash_table || !hash_table->is_initialized) return 0;
 
     size_t hash_key = hash_table->hasher.func(key, hash_table->hasher.ctx) % hash_table->num_buckets;
     ccol_dll_t *bucket = hash_table->buckets[hash_key];
     if (!bucket) return false;
 
-    return dll_contains(bucket, key);
+    return ccol_dll_contains(bucket, key);
 }
 
-bool hash_table_contains(const ccol_hash_table_t *hash_table, const void *key) {
-    return hash_table_contains_key(hash_table, key);
+bool ccol_hash_table_contains(const ccol_hash_table_t *hash_table, const void *key) {
+    return ccol_hash_table_contains_key(hash_table, key);
 }
 
-bool hash_table_contains_value(const ccol_hash_table_t *hash_table, void *key, void *value) {
+bool ccol_hash_table_contains_value(const ccol_hash_table_t *hash_table, void *key, void *value) {
     if (!hash_table || !hash_table->is_initialized) return 0;
 
     size_t hash_key = hash_table->hasher.func(key, hash_table->hasher.ctx) % hash_table->num_buckets;
     ccol_dll_t *bucket = hash_table->buckets[hash_key];
     if (!bucket) return false;
 
-    return dll_contains(bucket, value);
+    return ccol_dll_contains(bucket, value);
 }
 
-double hash_table_load_factor(const ccol_hash_table_t *hash_table) {
+double ccol_hash_table_load_factor(const ccol_hash_table_t *hash_table) {
 	if (!hash_table || !hash_table->is_initialized || hash_table->num_buckets == 0) return 0;
     return (double) hash_table->size / (double) hash_table->num_buckets;
 }
@@ -283,13 +287,13 @@ ccol_status_t ccol_hash_table_resize(ccol_hash_table_t *hash_table, int new_num_
                 if (status != CCOL_STATUS_OK) return status;
             }
 
-            dll_push_back(new_buckets[new_index], entry);
+            ccol_dll_push_back(new_buckets[new_index], entry);
             node = node->next;
         }
    }
    for (size_t i = 0; i < hash_table->num_buckets; i++) {
        if (hash_table->buckets[i]) {
-           dll_destroy(hash_table->buckets[i]);
+           ccol_dll_destroy(hash_table->buckets[i]);
            free(hash_table->buckets[i]);
            hash_table->buckets[i] = NULL;
        }
@@ -310,16 +314,12 @@ ccol_status_t ccol_hash_table_resize(ccol_hash_table_t *hash_table, int new_num_
 }
 
 // Copy / Clone
-ccol_status_t ccol_hash_table_clone(const ccol_hash_table_t *src, ccol_hash_table_t **hash_table_out) {
-    return hash_table_deep_clone(src, hash_table_out);
-}
-
 ccol_status_t ccol_hash_table_deep_clone(const ccol_hash_table_t *src, ccol_hash_table_t **hash_table_out) {
     CCOL_CHECK_INIT(src);
     if (!hash_table_out) return CCOL_STATUS_INVALID_ARG;
     if (!src->copier.func) return CCOL_STATUS_COPY_FUNC;
 
-    ccol_status_t status = hash_table_create(
+    ccol_status_t status = ccol_hash_table_create(
         hash_table_out,
         src->num_buckets,
         src->key_size,
@@ -339,7 +339,7 @@ ccol_status_t ccol_hash_table_deep_clone(const ccol_hash_table_t *src, ccol_hash
 
         status = ccol_dll_clone(src->buckets[i], &((*hash_table_out)->buckets[i]));
         if (status != CCOL_STATUS_OK) {
-            hash_table_destroy(*hash_table_out);
+            ccol_hash_table_destroy(*hash_table_out);
             return status;
 
         }
@@ -348,13 +348,17 @@ ccol_status_t ccol_hash_table_deep_clone(const ccol_hash_table_t *src, ccol_hash
     return CCOL_STATUS_OK;
 }
 
+ccol_status_t ccol_hash_table_clone(const ccol_hash_table_t *src, ccol_hash_table_t **hash_table_out) {
+    return ccol_hash_table_deep_clone(src, hash_table_out);
+}
+
 ccol_status_t ccol_hash_table_shallow_clone(const ccol_hash_table_t *src, ccol_hash_table_t **hash_table_out) {
     CCOL_CHECK_INIT(src);
     if (!hash_table_out) return CCOL_STATUS_INVALID_ARG;
 
     *hash_table_out = NULL;
 
-    ccol_status_t status = hash_table_create(
+    ccol_status_t status = ccol_hash_table_create(
         hash_table_out,
         src->num_buckets,
         src->key_size,
@@ -373,7 +377,7 @@ ccol_status_t ccol_hash_table_shallow_clone(const ccol_hash_table_t *src, ccol_h
         ccol_dll_t *bucket_clone = NULL;
         status = ccol_dll_shallow_clone(src->buckets[i], &bucket_clone);
         if (status != CCOL_STATUS_OK) {
-            hash_table_destroy(*hash_table_out);
+            ccol_hash_table_destroy(*hash_table_out);
             *hash_table_out = NULL;
             return status;
         }
@@ -389,10 +393,6 @@ ccol_status_t ccol_hash_table_shallow_clone(const ccol_hash_table_t *src, ccol_h
     }
 
     return CCOL_STATUS_OK;
-}
-
-ccol_status_t ccol_hash_table_copy(ccol_hash_table_t *dest, const ccol_hash_table_t *src) {
-    return hash_table_deep_copy(dest, src);
 }
 
 ccol_status_t ccol_hash_table_deep_copy(ccol_hash_table_t *dest, const ccol_hash_table_t *src) {
@@ -411,7 +411,7 @@ ccol_status_t ccol_hash_table_deep_copy(ccol_hash_table_t *dest, const ccol_hash
     if (src->size == 0) {
         for (size_t i = 0; i < dest->num_buckets; i++) {
             if (dest->buckets[i]) {
-                dll_destroy(dest->buckets[i]);
+                ccol_dll_destroy(dest->buckets[i]);
                 dest->buckets[i] = NULL;
             }
         }
@@ -434,14 +434,14 @@ ccol_status_t ccol_hash_table_deep_copy(ccol_hash_table_t *dest, const ccol_hash
         	);
 
             if (status != CCOL_STATUS_OK) {
-                hash_table_destroy(dest);
+                ccol_hash_table_destroy(dest);
                 return status;
             }
 
             status = ccol_dll_copy(dest_bucket, src->buckets[i]);
             if (status != CCOL_STATUS_OK) {
-                dll_destroy(dest_bucket);
-                hash_table_destroy(dest);
+                ccol_dll_destroy(dest_bucket);
+                ccol_hash_table_destroy(dest);
                 return status;
             }
 
@@ -449,13 +449,13 @@ ccol_status_t ccol_hash_table_deep_copy(ccol_hash_table_t *dest, const ccol_hash
         } else {
             status = ccol_dll_clear(dest->buckets[i]);
             if (status != CCOL_STATUS_OK) {
-                hash_table_destroy(dest);
+                ccol_hash_table_destroy(dest);
                 return status;
             }
 
             status = ccol_dll_copy(dest->buckets[i], src->buckets[i]);
             if (status != CCOL_STATUS_OK) {
-                hash_table_destroy(dest);
+                ccol_hash_table_destroy(dest);
                 return status;
             }
         }
@@ -464,7 +464,7 @@ ccol_status_t ccol_hash_table_deep_copy(ccol_hash_table_t *dest, const ccol_hash
     // Clear remaining dest buckets
     for (size_t i = src->num_buckets; i < dest->num_buckets; i++) {
         if (dest->buckets[i]) {
-            dll_destroy(dest->buckets[i]);
+            ccol_dll_destroy(dest->buckets[i]);
             dest->buckets[i] = NULL;
         }
     }
@@ -476,6 +476,10 @@ ccol_status_t ccol_hash_table_deep_copy(ccol_hash_table_t *dest, const ccol_hash
     }
 
     return CCOL_STATUS_OK;
+}
+
+ccol_status_t ccol_hash_table_copy(ccol_hash_table_t *dest, const ccol_hash_table_t *src) {
+    return ccol_hash_table_deep_copy(dest, src);
 }
 
 ccol_status_t ccol_hash_table_shallow_copy(ccol_hash_table_t *dest, const ccol_hash_table_t *src) {
@@ -509,7 +513,7 @@ ccol_status_t ccol_hash_table_shallow_copy(ccol_hash_table_t *dest, const ccol_h
         ccol_dll_t *bucket_clone = NULL;
         status = ccol_dll_shallow_clone(src->buckets[i], &bucket_clone);
         if (status != CCOL_STATUS_OK) {
-            hash_table_destroy(dest);
+            ccol_hash_table_destroy(dest);
             return status;
         }
 
@@ -535,7 +539,7 @@ ccol_status_t ccol_hash_table_clear_bucket(ccol_hash_table_t *hash_table, int bu
     ccol_dll_t *bucket = hash_table->buckets[bucket_index];
     if (!bucket) return CCOL_STATUS_NOT_FOUND;
 
-    hash_table->size -= dll_size(bucket);
+    hash_table->size -= ccol_dll_size(bucket);
 
     ccol_status_t status = ccol_dll_clear(bucket);
     return status;
@@ -546,7 +550,7 @@ ccol_status_t ccol_hash_table_clear(ccol_hash_table_t *hash_table) {
 
     ccol_status_t final_status = CCOL_STATUS_OK;
     for (size_t i = 0; i < hash_table->num_buckets; i++) {
-        ccol_status_t bucket_status = hash_table_clear_bucket(hash_table, i);
+        ccol_status_t bucket_status = ccol_hash_table_clear_bucket(hash_table, i);
         if (bucket_status != CCOL_STATUS_OK && final_status == CCOL_STATUS_OK) final_status = bucket_status;
     }
 
@@ -556,7 +560,7 @@ ccol_status_t ccol_hash_table_clear(ccol_hash_table_t *hash_table) {
 ccol_status_t ccol_hash_table_destroy(ccol_hash_table_t *hash_table) {
     CCOL_CHECK_INIT(hash_table);
 
-    ccol_status_t status = hash_table_clear(hash_table);
+    ccol_status_t status = ccol_hash_table_clear(hash_table);
     ccol__hash_table_uninit(hash_table);
 
     return status;
@@ -565,7 +569,7 @@ ccol_status_t ccol_hash_table_destroy(ccol_hash_table_t *hash_table) {
 ccol_status_t ccol_hash_table_free(ccol_hash_table_t **hash_table_ptr) {
 	if (!hash_table_ptr || !*hash_table_ptr || !(*hash_table_ptr)->is_initialized) return CCOL_STATUS_INVALID_ARG;
 
-    ccol_status_t status = hash_table_destroy(*hash_table_ptr);
+    ccol_status_t status = ccol_hash_table_destroy(*hash_table_ptr);
     free(*hash_table_ptr);
     *hash_table_ptr = NULL;
 

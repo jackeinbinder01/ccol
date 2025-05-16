@@ -7,7 +7,6 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
-
 #include <stddef.h>
 #include <stdlib.h>
 #include <stdbool.h>

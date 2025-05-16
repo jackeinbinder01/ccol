@@ -1,20 +1,17 @@
 /*
- * ccol/queue_internal.h
+ * ccol/src/queue/internal.h
  *
+ * Internal helper functions for queue (FIFO).
  *
- * Created by Jack:
- *
- * Copyright (C) 2025 Jack
- *
- *
- * 
+ * Created by Jack Einbinder
+ * Copyright (C) 2025 Jack Einbinder
  */
 
-#ifndef QUEUE_INTERNAL_H
-#define QUEUE_INTERNAL_H
+#ifndef CCOL_QUEUE_INTERNAL_H
+#define CCOL_QUEUE_INTERNAL_H
 
-#include "queue.h"
+#include "ccol/ccol_queue.h"
 
-ccol_status_t queue_uninit(queue_t *vec);
+ccol_status_t queue__uninit(ccol_queue_t *vec);
 
-#endif //QUEUE_INTERNAL_H
+#endif  // CCOL_QUEUE_INTERNAL_H

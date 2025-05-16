@@ -7,7 +7,7 @@
  * Copyright (C) 2025 Jack Einbinder
  */
 
-#include "ccol_status.h"
+#include "ccol/ccol_status.h"
 
 const char *ccol_strstatus(ccol_status_t status) {
     switch (status) {

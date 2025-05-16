@@ -1,7 +1,7 @@
 /*
- * * ccol/src/cdll/ccol_cdll.c
+ * ccol/src/cdll/ccol_cdll.c
  *
- * Circular doubly-linked list
+ * Circular doubly-linked list implementation (cdll).
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder

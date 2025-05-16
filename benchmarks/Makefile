@@ -8,14 +8,14 @@ ifeq ($(OS),Windows_NT)
 endif
 RM ?= rm -f
 
-# Shared source files
-ATTR_SRC = ../src/shared/copy.c ../src/shared/free.c ../src/shared/print.c ../src/shared/comparator.c
-UTIL_SRC = ../src/shared/swap.c
-STATUS_SRC = ../src/shared/ccol_status.c
+# Core source files
+ATTR_SRC = ../src/core/ccol_copy.c ../src/core/ccol_free.c ../src/core/ccol_print.c ../src/core/ccol_comparator.c
+UTIL_SRC = ../src/core/ccol_swap.c
+STATUS_SRC = ../src/core/ccol_status.c
 COMMON_SRC = $(ATTR_SRC) $(UTIL_SRC) $(STATUS_SRC)
 
 # Container source files
-DLL_SRC = ../src/dll/dll.c ../src/dll/dll_internal.c ../src/dll/dll_iterator.c
+DLL_SRC = ../src/dll/ccol_dll.c ../src/dll/internal.c ../src/iterator/ccol_dll_iterator.c
 
 # Benchmark source files
 BENCH_DLL_SRC = bench_dll.c $(DLL_SRC) $(COMMON_SRC)

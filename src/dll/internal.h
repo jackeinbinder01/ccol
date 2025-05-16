@@ -1,7 +1,7 @@
 /*
  * ccol/src/dll/internal.h
  *
- * Internal helpers for dll (shared with cdll)
+ * Internal helpers for dll (shared with cdll).
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder

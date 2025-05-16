@@ -16,7 +16,6 @@
 #include "ccol/ccol_cdll.h"
 #include "../cdll/internal.h"
 
-
 ccol_status_t ccol__deque_uninit(ccol_deque_t *deque) {
     CCOL_CHECK_INIT(deque);
 

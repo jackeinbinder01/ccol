@@ -1,18 +1,18 @@
 /*
- * ccol/vector_internal.h
+ * ccol/src/vector/internal.h
  *
- *
+ * Internal helper functions for dynamic array (vector).
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
  */
 
-#ifndef VECTOR_INTERNAL_H
-#define VECTOR_INTERNAL_H
+#ifndef CCOL_VECTOR_INTERNAL_H
+#define CCOL_VECTOR_INTERNAL_H
 
-#include "vector.h"
+#include "ccol/ccol_vector.h"
 
-ccol_status_t vector_uninit(vector_t *vec);
+ccol_status_t ccol__vector_uninit(ccol_vector_t *vec);
 
-#endif //VECTOR_INTERNAL_H
+#endif  //CCOL_VECTOR_INTERNAL_H
 

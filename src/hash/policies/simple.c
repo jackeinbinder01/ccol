@@ -54,4 +54,3 @@ uint32_t ccol__hash_simple_ptr(const void *key, void *ctx) {
     const uintptr_t ptr = (uintptr_t)key;
     return (uint32_t)(ptr ^ (ptr >> 32));
 }
-

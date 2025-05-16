@@ -1,7 +1,7 @@
 /*
- * ccol/test_dll.c
+ * tests/test_ccol_dll.c
  *
- * dll unit tests
+ * Doubly-linked list (dll) dll unit tests.
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
@@ -11,16 +11,22 @@
 #include <stdio.h>
 
 #include "unity.h"
-#include "dll.h"
-#include "dll_internal.h"
-#include "dll_iterator.h"
+#include "ccol/ccol_dll.h"
+#include "ccol/ccol_dll_iterator.h"
+#include "src/dll/internal.h"
 
 void setUp(void) {}
 void tearDown(void) {}
 
-void test_dll_create_stack(void) {
-    dll_t list;
-    ccol_status_t status = dll_init(&list, (copy_t){0}, (free_t){0}, (print_t){0}, (comparator_t){0});
+void test_ccol_dll_create_stack(void) {
+    ccol_dll_t list;
+    ccol_status_t status = ccol_dll_init(
+        &list,
+        (ccol_copy_t){0},
+        (ccol_free_t){0},
+        (ccol_print_t){0},
+        (ccol_comparator_t){0}
+    );
 
     TEST_ASSERT_EQUAL(CCOL_STATUS_OK, status);
     TEST_ASSERT_TRUE(list.is_initialized);
@@ -28,12 +34,18 @@ void test_dll_create_stack(void) {
     TEST_ASSERT_NULL(list.head);
     TEST_ASSERT_NULL(list.tail);
 
-    dll_uninit(&list);
+    ccol_dll_uninit(&list);
 }
 
-void test_dll_create_heap(void) {
-    dll_t *list = NULL;
-    ccol_status_t status = dll_create(&list, (copy_t){0}, (free_t){0}, (print_t){0}, (comparator_t){0});
+void test_ccol_dll_create_heap(void) {
+    ccol_dll_t *list = NULL;
+    ccol_status_t status = ccol_dll_create(
+        &list,
+        (ccol_copy_t){0},
+        (ccol_free_t){0},
+        (ccol_print_t){0},
+        (ccol_comparator_t){0}
+    );
 
     TEST_ASSERT_EQUAL(CCOL_STATUS_OK, status);
     TEST_ASSERT_TRUE(list->is_initialized);
@@ -41,16 +53,15 @@ void test_dll_create_heap(void) {
     TEST_ASSERT_NULL(list->head);
     TEST_ASSERT_NULL(list->tail);
 
-    dll_destroy(list);
+    ccol_dll_destroy(list);
 }
 
 int main(void) {
     UNITY_BEGIN();
 
     // Run tests
-    RUN_TEST(test_dll_create_stack);
-    RUN_TEST(test_dll_create_heap);
-
+    RUN_TEST(test_ccol_dll_create_stack);
+    RUN_TEST(test_ccol_dll_create_heap);
 
     return UNITY_END();
 }

@@ -82,7 +82,7 @@ ccol_status_t ccol__hash_table_get_entry(const ccol_hash_table_t *hash_table, co
     return CCOL_STATUS_OK;
 }
 
-void ccol__hash_table_unini(ccol_hash_table_t *hash_table) {
+void ccol__hash_table_uninit(ccol_hash_table_t *hash_table) {
     if (!hash_table || !hash_table->is_initialized) return;
 
     hash_table->buckets = NULL;
@@ -91,11 +91,11 @@ void ccol__hash_table_unini(ccol_hash_table_t *hash_table) {
     hash_table->size = 0;
     hash_table->key_size = 0;
 
-    hash_table->hasher = (hash_t){0};
-    hash_table->copier = (copy_t){0};
-    hash_table->freer = (free_t){0};
-    hash_table->printer = (print_t){0};
-    hash_table->comparator = (comparator_t){0};
+    hash_table->hasher = (ccol_hash_t){0};
+    hash_table->copier = (ccol_copy_t){0};
+    hash_table->freer = (ccol_free_t){0};
+    hash_table->printer = (ccol_print_t){0};
+    hash_table->comparator = (ccol_comparator_t){0};
 
     hash_table->is_initialized = false;
 }

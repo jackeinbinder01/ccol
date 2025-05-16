@@ -1,7 +1,7 @@
 /*
- * ccol/cdll_iterator.c
+ * ccol/src/iterator/ccol_cdll_iterator.c
  *
- * Iterator functions for cdll
+ * Iterator implementation for circular doubly-linked list (cdll).
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
@@ -10,20 +10,20 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "cdll.h"
-#include "cdll_iterator.h"
-#include "iterator.h"
+#include "ccol/ccol_cdll.h"
+#include "ccol/ccol_cdll_iterator.h"
+#include "ccol/ccol_iterator.h"
 
 // Private
-static bool cdll_has_next(iterator_t *iter) {
+static bool ccol_cdll_has_next(ccol_iterator_t *iter) {
     if (!iter || !iter->state) return false;
-    cdll_iterator_state_t *state = iter->state;
+    ccol_cdll_iterator_state_t *state = iter->state;
     return state->step < state->cdll->size;
 }
 
-static void *cdll_next(iterator_t *iter) {
+static void *ccol_cdll_next(ccol_iterator_t *iter) {
     if (!iter || !iter->state) return NULL;
-    cdll_iterator_state_t *state = iter->state;
+    ccol_cdll_iterator_state_t *state = iter->state;
 
     if (!state->current || state->step >= state->cdll->size) return NULL;
 
@@ -33,7 +33,7 @@ static void *cdll_next(iterator_t *iter) {
     return data;
 }
 
-static void cdll_iterator_destroy(iterator_t *iter) {
+static void ccol_cdll_iterator_destroy(ccol_iterator_t *iter) {
     if (iter) {
         free(iter->state);
         free(iter);
@@ -41,13 +41,13 @@ static void cdll_iterator_destroy(iterator_t *iter) {
 }
 
 // Create
-iterator_t *cdll_iterator_create(const cdll_t *cdll) {
+ccol_iterator_t *ccol_cdll_iterator_create(const ccol_cdll_t *cdll) {
     if (!cdll || !cdll->is_initialized) return NULL;
 
-    cdll_iterator_state_t *state = calloc(1, sizeof(cdll_iterator_state_t));
+    ccol_cdll_iterator_state_t *state = calloc(1, sizeof(ccol_cdll_iterator_state_t));
     if (!state) return NULL;
 
-    iterator_t *iter = calloc(1, sizeof(iterator_t));
+    ccol_iterator_t *iter = calloc(1, sizeof(ccol_iterator_t));
     if (!iter) {
         free(state);
         return NULL;
@@ -58,9 +58,9 @@ iterator_t *cdll_iterator_create(const cdll_t *cdll) {
 
     iter->container = (void *)cdll;
     iter->state = state;
-    iter->has_next = cdll_has_next;
-    iter->next = cdll_next;
-    iter->destroy = cdll_iterator_destroy;
+    iter->has_next = ccol_cdll_has_next;
+    iter->next = ccol_dll_next;
+    iter->destroy = ccol_cdll_iterator_destroy;
 
     return iter;
 }

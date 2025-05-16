@@ -15,7 +15,11 @@
 #include "policies/robust.h"
 #include "policies/secure.h"
 
-static ccol_status_t ccol_resolve_hash_func(size_t key_size, ccol_hash_policy_t policy, ccol_hash_func_t *hash_func_out) {
+static ccol_status_t ccol_resolve_hash_func(
+    size_t key_size,
+    ccol_hash_policy_t policy,
+    ccol_hash_func_t *hash_func_out
+) {
     if (policy == CCOL_HASH_CUSTOM) {
         *hash_func_out = NULL;
         return CCOL_STATUS_OK;
@@ -80,7 +84,11 @@ static ccol_status_t ccol_resolve_hash_func(size_t key_size, ccol_hash_policy_t 
     return CCOL_STATUS_KEY_SIZE;
 }
 
-ccol_status_t ccol_hash_create_from_policy(size_t key_size, ccol_hash_policy_t policy, void *ctx, hash_t *hasher_out) {
+ccol_status_t ccol_hash_create_from_policy(
+    size_t key_size,
+    ccol_hash_policy_t policy,
+    void *ctx,
+    ccol_hash_t *hasher_out) {
     if (!hasher_out) return CCOL_STATUS_INVALID_ARG;
     if (policy == CCOL_HASH_CUSTOM) return CCOL_STATUS_HASH_POLICY;
 

@@ -1,7 +1,7 @@
 /*
- * ccol/deque_iterator.c
+ * ccol/src/iterator/ccol_deque_iterator.c
  *
- * Iterator functions for deque
+ * Iterator implementation for double-ended queue (deque).
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
@@ -10,20 +10,20 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "deque.h"
-#include "deque_iterator.h"
-#include "iterator.h"
+#include "ccol/ccol_deque.h"
+#include "ccol/ccol_deque_iterator.h"
+#include "ccol/ccol_iterator.h"
 
 // Private
-static bool deque_has_next(iterator_t *iter) {
+static bool ccol_deque_has_next(ccol_iterator_t *iter) {
     if (!iter || !iter->state) return false;
-    deque_iterator_state_t *state = iter->state;
+    ccol_deque_iterator_state_t *state = iter->state;
     return state->step < state->deque->list.size;
 }
 
-static void *deque_next(iterator_t *iter) {
+static void *ccol_deque_next(ccol_iterator_t *iter) {
     if (!iter || !iter->state) return NULL;
-    deque_iterator_state_t *state = iter->state;
+    ccol_deque_iterator_state_t *state = iter->state;
 
     if (!state->current || state->step >= state->deque->list.size) return NULL;
 
@@ -33,7 +33,7 @@ static void *deque_next(iterator_t *iter) {
     return data;
 }
 
-static void deque_iterator_destroy(iterator_t *iter) {
+static void ccol_deque_iterator_destroy(ccol_iterator_t *iter) {
     if (iter) {
         free(iter->state);
         free(iter);
@@ -41,13 +41,13 @@ static void deque_iterator_destroy(iterator_t *iter) {
 }
 
 // Create
-iterator_t *deque_iterator_create(const deque_t *deque) {
+ccol_iterator_t *ccol_deque_iterator_create(const ccol_deque_t *deque) {
     if (!deque || !deque->is_initialized) return NULL;
 
-    deque_iterator_state_t *state = calloc(1, sizeof(deque_iterator_state_t));
+    ccol_deque_iterator_state_t *state = calloc(1, sizeof(ccol_deque_iterator_state_t));
     if (!state) return NULL;
 
-    iterator_t *iter = calloc(1, sizeof(iterator_t));
+    ccol_iterator_t *iter = calloc(1, sizeof(ccol_iterator_t));
     if (!iter) {
         free(state);
         return NULL;
@@ -58,9 +58,9 @@ iterator_t *deque_iterator_create(const deque_t *deque) {
 
     iter->container = (void *)deque;
     iter->state = state;
-    iter->has_next = deque_has_next;
-    iter->next = deque_next;
-    iter->destroy = deque_iterator_destroy;
+    iter->has_next = ccol_deque_has_next;
+    iter->next = ccol_deque_next;
+    iter->destroy = ccol_deque_iterator_destroy;
 
     return iter;
 }

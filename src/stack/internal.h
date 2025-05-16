@@ -1,16 +1,17 @@
 /*
- * ccol/stack_internal.h
+ * ccol/src/stack/internal.h
  *
+ * Internal helper functions for stack (LIFO).
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
  */
 
-#ifndef STACK_INTERNAL_H
-#define STACK_INTERNAL_H
+#ifndef CCOL_STACK_INTERNAL_H
+#define CCOL_STACK_INTERNAL_H
 
-#include "stack.h"
+#include "ccol/ccol_stack.h"
 
-ccol_status_t stack_uninit(stack_t *stack);
+ccol_status_t ccol__stack_uninit(ccol_stack_t *stack);
 
-#endif //STACK_INTERNAL_H
+#endif  // CCOL_STACK_INTERNAL_H

@@ -1,7 +1,7 @@
 /*
- * * ccol/src/cdll/internal.c
+ * ccol/src/cdll/internal.c
  *
- * Internal helper functions for circular doubly-linked list (cdll).
+ * Internal helper function implementations for circular doubly-linked list (cdll).
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
