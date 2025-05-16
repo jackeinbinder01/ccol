@@ -16,11 +16,21 @@
 #include "ccol_status.h"
 
 typedef enum ccol_hash_policy {
-    HASH_SIMPLE = 1,
-    HASH_ROBUST = 2,
-    HASH_SECURE = 3,
-    HASH_CUSTOM = 4,
+    CCOL_HASH_SIMPLE = 1,
+    CCOL_HASH_ROBUST = 2,
+    CCOL_HASH_SECURE = 3,
+    CCOL_HASH_CUSTOM = 4
 } ccol_hash_policy_t;
+
+static inline const char * ccol_hash_policy_to_string(ccol_hash_policy_t policy) {
+    switch (policy) {
+        case CCOL_HASH_SIMPLE:    return "CCOL_HASH_SIMPLE";
+        case CCOL_HASH_ROBUST:    return "CCOL_HASH_ROBUST";
+        case CCOL_HASH_SECURE:    return "CCOL_HASH_SECURE";
+        case CCOL_HASH_CUSTOM:    return "CCOL_HASH_CUSTOM";
+        default:                  return "INVALID";
+    }
+}
 
 typedef uint32_t (*ccol_hash_func_t)(const void *key, void *ctx);
 
@@ -41,19 +51,6 @@ ccol_status_t ccol_hash_create_from_policy(
     void *ctx,
     ccol_hash_t *hasher_out
 );
-
-uint32_t ccol_hash_int8(const void *key, void *ctx);
-uint32_t ccol_hash_int16(const void *key, void *ctx);
-uint32_t ccol_hash_int32(const void *key, void *ctx);
-uint32_t ccol_hash_int64(const void *key, void *ctx);
-
-uint32_t ccol_hash_uint8(const void *key, void *ctx);
-uint32_t ccol_hash_uint16(const void *key, void *ctx);
-uint32_t ccol_hash_uint32(const void *key, void *ctx);
-uint32_t ccol_hash_uint64(const void *key, void *ctx);
-
-uint32_t ccol_hash_str(const void *key, void *ctx);
-uint32_t ccol_hash_ptr(const void *key, void *ctx);
 
 const char *ccol_hash_policy_to_str(ccol_hash_policy_t policy);
 

@@ -1,40 +1,45 @@
 /*
- * ccol/hash_table_internal.h
+ * ccol/src/hash_table/internal.h
  *
- *
+ * Hash table internal functions.
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
  */
 
-#ifndef HASH_TABLE_INTERNAL_H
-#define HASH_TABLE_INTERNAL_H
+#ifndef CCOL_HASH_TABLE_INTERNAL_H
+#define CCOL_HASH_TABLE_INTERNAL_H
 
 #include <stddef.h>
-#include "hash.h"
-#include "hash_table_iterator.h"
-#include "comparator.h"
 
-typedef struct hash_entry_t {
+#include "ccol/ccol_status.h"
+#include "ccol/ccol_hash.h"
+
+typedef struct ccol_hash_entry {
 	void *key;
     void *value;
-} hash_entry_t;
+} ccol_hash_entry_t;
 
-ccol_status_t hash_table_create_internal(
-    hash_table_t **hash_table_out,
+ccol_status_t ccol__hash_table_create_internal(
+    ccol_hash_table_t **hash_table_out,
     int num_buckets,
     size_t key_size,
-    hash_policy_t policy,
-    hash_func_t hash_func,
+    ccol_hash_policy_t policy,
+    ccol_hash_func_t hash_func,
     void *hash_ctx,
-    copy_t copier,
-    free_t freer,
-    print_t printer,
-    comparator_t comparator
+    ccol_copy_t copier,
+    ccol_free_t freer,
+    ccol_print_t printer,
+    ccol_comparator_t comparator
 );
 
-ccol_status_t resolve_hash_func(size_t key_size, hash_policy_t policy, hash_func_t *hash_func_out);
-ccol_status_t hash_table_get_entry(const hash_table_t *hash_table, const void *key, hash_entry_t **entry_out);
-void hash_table_uninit(hash_table_t *hash_table);
+ccol_status_t ccol__resolve_hash_func(size_t key_size, ccol_hash_policy_t policy, ccol_hash_func_t *hash_func_out);
+ccol_status_t ccol__hash_table_get_entry(
+    const ccol_hash_table_t *hash_table,
+    const void *key,
+    ccol_hash_entry_t **entry_out
+);
 
-#endif // HASH_TABLE_INTERNAL_H
+void ccol__hash_table_uninit(ccol_hash_table_t *hash_table);
+
+#endif  // CCOL_HASH_TABLE_INTERNAL_H

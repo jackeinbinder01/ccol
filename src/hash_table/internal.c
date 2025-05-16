@@ -1,7 +1,7 @@
 /*
- * ccol/hash_table_internal.c
+ * ccol/src/hash_table/internal.c
  *
- * Hash table internal functions
+ * Hash table internal function implementations.
  *
  * Created by Jack Einbinder
  * Copyright (C) 2025 Jack Einbinder
@@ -12,40 +12,39 @@
 #include <stdbool.h>
 #include <stdio.h>
 
-#include "hash_table_internal.h"
-#include "hash.h"
-#include "hash_simple.h"
-#include "hash_robust.h"
-#include "hash_secure.h"
-#include "hash_table.h"
-#include "ccol_constants.h"
-#include "ccol_status.h"
+#include "ccol/ccol_hash.h"
+#include "ccol/ccol_constants.h"
+#include "ccol/ccol_status.h"
 
-void auto_resize(hash_table_t *hash_table);
+#include "policies/simple.h"
+#include "policies/robust.h"
+#include "policies/secure.h"
 
-ccol_status_t hash_table_create_internal(
-    hash_table_t **hash_table_out,
+void ccol__auto_resize(ccol_hash_table_t *hash_table);
+
+ccol_status_t ccol__hash_table_create_internal(
+    ccol_hash_table_t **hash_table_out,
     int num_buckets,
     size_t key_size,
-    hash_policy_t policy,
-    hash_func_t hash_func,
+    ccol_hash_policy_t policy,
+    ccol_hash_func_t hash_func,
     void *hash_ctx,
-    copy_t copier,
-    free_t freer,
-    print_t printer,
-    comparator_t comparator
+    ccol_copy_t copier,
+    ccol_free_t freer,
+    ccol_print_t printer,
+    ccol_comparator_t comparator
 ) {
     if (!hash_func || !hash_table_out || num_buckets < 1 || key_size < 1) return CCOL_STATUS_INVALID_ARG;
     if (!comparator.func) return CCOL_STATUS_COMPARATOR_FUNC;
 
     *hash_table_out = NULL;
 
-    hash_table_t *hash_table = calloc(1, sizeof(hash_table_t));
+    ccol_hash_table_t *hash_table = calloc(1, sizeof(ccol_hash_table_t));
     if (!hash_table) return CCOL_STATUS_ALLOC;
 
-    hash_t hasher = hash_create(hash_func, hash_ctx, policy);
+    hash_t hasher = ccol_hash_create(hash_func, hash_ctx, policy);
 
-    ccol_status_t status = hash_table_init(
+    ccol_status_t status = ccol_hash_table_init(
         hash_table,
         hasher,
         copier,
@@ -72,18 +71,18 @@ ccol_status_t hash_table_create_internal(
     return CCOL_STATUS_OK;
 }
 
-ccol_status_t hash_table_get_entry(const hash_table_t *hash_table, const void *key, hash_entry_t **entry_out) {
+ccol_status_t ccol__hash_table_get_entry(const ccol_hash_table_t *hash_table, const void *key, hash_entry_t **entry_out) {
     CCOL_CHECK_INIT(hash_table);
 
-    dll_node_t *node = NULL;
-    ccol_status_t status = hash_table_get_node(hash_table, key, &node);
+    ccol_dll_node_t *node = NULL;
+    ccol_status_t status = ccol_hash_table_get_node(hash_table, key, &node);
     if (status != CCOL_STATUS_OK) return status;
     *entry_out = (hash_entry_t *)node->data;
 
     return CCOL_STATUS_OK;
 }
 
-void hash_table_uninit(hash_table_t *hash_table) {
+void ccol__hash_table_unini(ccol_hash_table_t *hash_table) {
     if (!hash_table || !hash_table->is_initialized) return;
 
     hash_table->buckets = NULL;
