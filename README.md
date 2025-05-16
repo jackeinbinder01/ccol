@@ -1,4 +1,4 @@
-# CCOL – C Collections Library
+# C Collections Library (`ccol`)
 
 A modern collections library for C.
 
