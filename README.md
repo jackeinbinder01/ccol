@@ -27,7 +27,7 @@ The following data structures are in active development:
 - Bitmap
 - Bitset
 - Binary search tree
-- Circular Buffer (ring buffer)
+- Circular buffer (ring buffer)
 - Min/max heap
 - Singly-linked list
 - Map
