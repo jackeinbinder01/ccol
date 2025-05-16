@@ -202,10 +202,6 @@ size_t hash_table_num_buckets(const hash_table_t *hash_table) {
     return hash_table->num_buckets;
 }
 
-bool hash_table_contains(const hash_table_t *hash_table, const void *key) {
-    return hash_table_contains_key(hash_table, key);
-}
-
 bool hash_table_contains_key(const hash_table_t *hash_table, const void *key) {
     if (!hash_table || !hash_table->is_initialized) return 0;
 
@@ -214,6 +210,10 @@ bool hash_table_contains_key(const hash_table_t *hash_table, const void *key) {
     if (!bucket) return false;
 
     return dll_contains(bucket, key);
+}
+
+bool hash_table_contains(const hash_table_t *hash_table, const void *key) {
+    return hash_table_contains_key(hash_table, key);
 }
 
 bool hash_table_contains_value(const hash_table_t *hash_table, void *key, void *value) {
